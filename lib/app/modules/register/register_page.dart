@@ -43,27 +43,42 @@ class _RegisterPageState extends State<RegisterPage> {
           Image.asset(
             'assets/images/logo_black.png',
           ),
+          const SizedBox(
+            height: 50,
+          ),
           Obx(
             () => Row(
               children: [
                 const SizedBox(
                   width: 10,
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.4,
-                  child: Text(
-                    'S\'inscrire',
-                    style: _isRegisterPage.value ? activeStyle : inactiveStyle,
+                  child: GestureDetector(
+                    onTap: () {
+                      _controller.jumpToPage(0);
+                    },
+                    child: Text(
+                      'S\'inscrire',
+                      style:
+                          _isRegisterPage.value ? activeStyle : inactiveStyle,
+                    ),
                   ),
                 ),
                 const SizedBox(
                   width: 10,
                 ),
-                Container(
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.4,
-                  child: Text(
-                    'Se connecter',
-                    style: _isRegisterPage.value ? inactiveStyle : activeStyle,
+                  child: GestureDetector(
+                    onTap: () {
+                      _controller.jumpToPage(1);
+                    },
+                    child: Text(
+                      'Se connecter',
+                      style:
+                          _isRegisterPage.value ? inactiveStyle : activeStyle,
+                    ),
                   ),
                 ),
               ],
