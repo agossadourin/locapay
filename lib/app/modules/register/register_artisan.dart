@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locapay/app/modules/register/controllers/account_type_controller.dart';
 import 'package:locapay/app/widgets/action_button.dart';
 import 'package:locapay/app/widgets/my_form_field.dart';
 
-import 'package:locapay/app/widgets/my_dropdown_form_field.dart';
+import '../../widgets/my_dropdown_form_field.dart';
+import 'controllers/account_type_controller.dart';
 
-class RegisterWidget extends StatefulWidget {
-  const RegisterWidget({super.key});
+class RegisterArtisanWidget extends StatefulWidget {
+  const RegisterArtisanWidget({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _RegisterWidgetState createState() => _RegisterWidgetState();
+  _RegisterArtisanWidgetState createState() => _RegisterArtisanWidgetState();
 }
 
-class _RegisterWidgetState extends State<RegisterWidget> {
+class _RegisterArtisanWidgetState extends State<RegisterArtisanWidget> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController? firstNameController = TextEditingController();
   final TextEditingController? lastNameController = TextEditingController();
@@ -22,6 +22,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   final TextEditingController? npiController = TextEditingController();
   final TextEditingController? phoneController = TextEditingController();
   final TextEditingController? emailController = TextEditingController();
+  final TextEditingController? activitySectorController =
+      TextEditingController();
+  final TextEditingController? interventionTownController =
+      TextEditingController();
   final TextEditingController? passwordController = TextEditingController();
   final TextEditingController? confirmPasswordController =
       TextEditingController();
@@ -38,7 +42,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   const SizedBox(height: 20),
-                  const Text('Compte locataire',
+                  const Text('Compte Propriétaire',
                       style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 24,
@@ -134,6 +138,35 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                         }
                         return null;
                       }),
+                  const SizedBox(height: 15),
+                  Container(
+                    width: 100,
+                    height: 1,
+                    color: const Color.fromRGBO(0, 0, 0, 0.25),
+                  ),
+                  const SizedBox(height: 15),
+                  //MyDropDownFormField(),
+                  MyDropdownFormField(
+                    leftIcon: 'assets/icons/activity_sector.png',
+                    rightIcon: 'assets/icons/arrow_down.png',
+                    hintText: 'Secteur d\'activité',
+                    items: const ['Mécanique', 'Plomberie', 'Electricité'],
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    onChanged: (String? value) {
+                      print('Selected: $value');
+                    },
+                  ),
+                  const SizedBox(height: 15),
+                  MyDropdownFormField(
+                    leftIcon: 'assets/icons/intervention_city.png',
+                    rightIcon: 'assets/icons/arrow_down.png',
+                    hintText: 'Ville d\'intervention',
+                    items: const ['Cotonou', 'Parakou', 'Bohicon'],
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    onChanged: (String? value) {
+                      print('Selected: $value');
+                    },
+                  ),
                   const SizedBox(height: 15),
                   Container(
                     width: 100,

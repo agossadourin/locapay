@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locapay/app/modules/register/controllers/account_type_controller.dart';
 import 'package:locapay/app/widgets/action_button.dart';
 import 'package:locapay/app/widgets/my_form_field.dart';
 
-import 'package:locapay/app/widgets/my_dropdown_form_field.dart';
+import '../../widgets/my_dropdown_form_field.dart';
+import 'controllers/account_type_controller.dart';
 
-class RegisterWidget extends StatefulWidget {
-  const RegisterWidget({super.key});
+class RegisterProprioWidget extends StatefulWidget {
+  const RegisterProprioWidget({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _RegisterWidgetState createState() => _RegisterWidgetState();
+  _RegisterProprioWidgetState createState() => _RegisterProprioWidgetState();
 }
 
-class _RegisterWidgetState extends State<RegisterWidget> {
+class _RegisterProprioWidgetState extends State<RegisterProprioWidget> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController? firstNameController = TextEditingController();
   final TextEditingController? lastNameController = TextEditingController();
@@ -38,7 +38,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   const SizedBox(height: 20),
-                  const Text('Compte locataire',
+                  const Text('Compte Propriétaire',
                       style: TextStyle(
                         fontFamily: 'Inter',
                         fontSize: 24,

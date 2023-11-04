@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/modules/principal/welcome/welcome_page.dart';
 
 class Principal extends StatelessWidget {
   const Principal({super.key});
@@ -12,7 +13,7 @@ class Principal extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage(
                     "assets/images/welcome_bg_img.png"), // replace with your image path
@@ -20,40 +21,55 @@ class Principal extends StatelessWidget {
               ),
             ),
           ),
-          AppBar(
-            title: const Text(
-              'Bienvenue',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontFamily: 'Inter',
-                fontSize: 15,
-                fontStyle: FontStyle.normal,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFF313131),
-              ),
+          SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                AppBar(
+                  title: const Text(
+                    'Bienvenue',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 15,
+                      fontStyle: FontStyle.normal,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF313131),
+                    ),
+                  ),
+                  centerTitle: true,
+                  backgroundColor:
+                      Colors.transparent, // make AppBar background transparent
+                  elevation: 0,
+                  actions: [
+                    IconButton(
+                      onPressed: () {},
+                      icon: const Icon(Icons.notifications),
+                    )
+                  ],
+                  //menu hamburger with notification button at the right and title centered
+                  leading: Builder(
+                    builder: (BuildContext context) {
+                      return IconButton(
+                        icon: const Icon(Icons.menu),
+                        onPressed: () {
+                          Scaffold.of(context).openDrawer();
+                        },
+                      );
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.85,
+                  child: const Center(
+                    child: SingleChildScrollView(
+                      child: WelcomePage(),
+                    ),
+                  ),
+                )
+              ],
             ),
-            centerTitle: true,
-            backgroundColor:
-                Colors.transparent, // make AppBar background transparent
-            elevation: 0,
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.notifications),
-              )
-            ],
-            //menu hamburger with notification button at the right and title centered
-            leading: Builder(
-              builder: (BuildContext context) {
-                return IconButton(
-                  icon: const Icon(Icons.menu),
-                  onPressed: () {
-                    Scaffold.of(context).openDrawer();
-                  },
-                );
-              },
-            ),
-          ),
+          )
         ],
       ),
     );
