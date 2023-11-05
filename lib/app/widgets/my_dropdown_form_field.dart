@@ -8,6 +8,7 @@ class MyDropdownFormField extends StatelessWidget {
   final double? width;
   final String? leftIcon;
   final String? rightIcon;
+  final bool? hasSepBar;
 
   const MyDropdownFormField({
     super.key,
@@ -16,6 +17,7 @@ class MyDropdownFormField extends StatelessWidget {
     required this.onChanged,
     required this.width,
     required this.rightIcon,
+    required this.hasSepBar,
     this.leftIcon,
   });
 
@@ -51,6 +53,16 @@ class MyDropdownFormField extends StatelessWidget {
                 ),
               ),
             ),
+          if (hasSepBar!)
+            Positioned(
+              left: 3.5.hp,
+              top: 1.125.hp,
+              child: Container(
+                width: 1,
+                height: 3.0.hp,
+                color: const Color.fromRGBO(0, 0, 0, 0.25),
+              ),
+            ),
           SizedBox(
             height: 5.5.hp,
             width: width,
@@ -60,8 +72,8 @@ class MyDropdownFormField extends StatelessWidget {
                   hintText: hintText,
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
-                  contentPadding:
-                      const EdgeInsets.only(left: 30, bottom: 5, right: 15),
+                  contentPadding: EdgeInsets.only(
+                      left: hasSepBar! ? 40 : 30, bottom: 5, right: 15),
                   hintStyle: TextStyle(
                       color: const Color.fromRGBO(0, 0, 0, 0.25),
                       fontFamily: 'Imprima',

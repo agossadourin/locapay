@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Get.off(() => const OnboardingScreen());
       await prefs.setBool('first_time', false);
     } else {
-      Get.off(() => const OnboardingScreen());
+      Get.off(() => const RegisterPage());
     }
   }
 

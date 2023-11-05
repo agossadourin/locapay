@@ -12,6 +12,7 @@ class MyFormField extends StatelessWidget {
   final String? leftIcon;
   final String? rightIcon;
   final bool? obscureText;
+  final bool? hasSepBar;
   const MyFormField(
       {Key? key,
       required this.controller,
@@ -22,7 +23,8 @@ class MyFormField extends StatelessWidget {
       this.leftIcon,
       this.rightIcon,
       this.obscureText,
-      this.onTap})
+      this.onTap,
+      required this.hasSepBar})
       : super(key: key);
 
   @override
@@ -57,6 +59,17 @@ class MyFormField extends StatelessWidget {
                 ),
               ),
             ),
+          // mini vertical bar
+          if (hasSepBar!)
+            Positioned(
+              left: 3.5.hp,
+              top: 1.125.hp,
+              child: Container(
+                width: 1,
+                height: 3.0.hp,
+                color: const Color.fromRGBO(0, 0, 0, 0.25),
+              ),
+            ),
           TextFormField(
             controller: controller,
             keyboardType: testInputType,
@@ -64,7 +77,8 @@ class MyFormField extends StatelessWidget {
             validator: validator,
             decoration: InputDecoration(
                 border: InputBorder.none,
-                contentPadding: const EdgeInsets.only(left: 30, bottom: 5),
+                contentPadding:
+                    EdgeInsets.only(left: hasSepBar! ? 40 : 30, bottom: 5),
                 hintText: hintText,
                 hintStyle: TextStyle(
                     color: const Color.fromRGBO(0, 0, 0, 0.25),

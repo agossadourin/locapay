@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:locapay/app/modules/principal/controllers/principal_controller.dart';
 import 'package:locapay/app/modules/register/controllers/account_type_controller.dart';
 import 'package:locapay/app/modules/splash_screen/splash_screen.dart';
 
@@ -10,6 +11,7 @@ void main() async {
   await GetStorage.init();
   await Get.putAsync(() => StorageService().init());
   Get.put(AccountTypeController());
+  Get.put(PrincipalController());
   runApp(const MyApp());
 }
 

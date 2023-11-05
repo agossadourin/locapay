@@ -37,6 +37,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       testInputType: TextInputType.text,
                       hintText: 'email',
                       width: MediaQuery.of(context).size.width * 0.9,
+                      hasSepBar: false,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Please enter your email';
@@ -49,6 +50,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       testInputType: TextInputType.text,
                       hintText: 'Mot de passe',
                       width: MediaQuery.of(context).size.width * 0.9,
+                      hasSepBar: false,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Please enter your password';

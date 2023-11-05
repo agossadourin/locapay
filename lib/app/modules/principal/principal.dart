@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/modules/principal/search_location/my_locations.dart';
+import 'package:locapay/app/modules/principal/search_location/search_location.dart';
 import 'package:locapay/app/modules/principal/welcome/welcome_page.dart';
+import 'package:locapay/app/modules/principal/widgets/custom_drawer.dart';
+
+import 'controllers/principal_controller.dart';
 
 class Principal extends StatelessWidget {
   const Principal({super.key});
@@ -9,7 +14,7 @@ class Principal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       //add background image
-
+      drawer: CustomDrawer(),
       body: Stack(
         children: [
           Container(
@@ -53,6 +58,7 @@ class Principal extends StatelessWidget {
                       return IconButton(
                         icon: const Icon(Icons.menu),
                         onPressed: () {
+                          //open CustomDrawer
                           Scaffold.of(context).openDrawer();
                         },
                       );
@@ -61,12 +67,15 @@ class Principal extends StatelessWidget {
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.85,
-                  child: const Center(
-                    child: SingleChildScrollView(
-                      child: WelcomePage(),
-                    ),
-                  ),
-                )
+                  child: SingleChildScrollView(
+                      child: Obx(
+                    () => Get.find<PrincipalController>().currentPage.value == 0
+                        ? const WelcomePage()
+                        : Get.find<PrincipalController>().currentPage.value == 1
+                            ? const MyLocations()
+                            : const Text('contrats'),
+                  )),
+                ),
               ],
             ),
           )

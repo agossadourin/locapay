@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/modules/principal/principal.dart';
 import 'package:locapay/app/modules/register/controllers/account_type_controller.dart';
 import 'package:locapay/app/widgets/action_button.dart';
 import 'package:locapay/app/widgets/my_form_field.dart';
@@ -60,6 +61,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                               testInputType: TextInputType.text,
                               hintText: 'Nom',
                               width: MediaQuery.of(context).size.width * 0.45,
+                              hasSepBar: false,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'Entrez votre nom';
@@ -74,6 +76,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                               testInputType: TextInputType.text,
                               hintText: 'Prénom.s',
                               width: MediaQuery.of(context).size.width * 0.45,
+                              hasSepBar: false,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'Entrez votre prénom';
@@ -88,6 +91,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                               testInputType: TextInputType.text,
                               hintText: 'Sexe',
                               width: MediaQuery.of(context).size.width * 0.45,
+                              hasSepBar: false,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'Entrez votre sexe';
@@ -98,6 +102,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             leftIcon: 'assets/icons/Gender.png',
                             rightIcon: 'assets/icons/arrow_down.png',
                             hintText: 'Sexe',
+                            hasSepBar: false,
                             items: const ['M', 'F', 'NB'],
                             width: MediaQuery.of(context).size.width * 0.45,
                             onChanged: (String? value) {
@@ -115,6 +120,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       testInputType: TextInputType.text,
                       hintText: 'Téléphone',
                       width: MediaQuery.of(context).size.width * 0.9,
+                      hasSepBar: false,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Please enter your phone';
@@ -128,6 +134,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       testInputType: TextInputType.text,
                       hintText: 'NPI',
                       width: MediaQuery.of(context).size.width * 0.9,
+                      hasSepBar: false,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Please enter your NPI';
@@ -171,6 +178,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                         testInputType: TextInputType.text,
                         hintText: 'Mot de passe',
                         width: MediaQuery.of(context).size.width * 0.9,
+                        hasSepBar: false,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Please enter your password';
@@ -209,6 +217,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                         testInputType: TextInputType.visiblePassword,
                         hintText: 'Confirmer le mot de...',
                         width: MediaQuery.of(context).size.width * 0.9,
+                        hasSepBar: false,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Please enter your password';
@@ -241,10 +250,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       action: 'Créer', // Pass a string instead of a function
                       onPressed: () {
                         // Add an onPressed parameter to handle the button press
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                          // TODO: Implement registration logic
-                        }
+                        // if (_formKey.currentState!.validate()) {
+                        //   _formKey.currentState!.save();
+                        //   // TODO: Implement registration logic
+                        // }
+                        Get.to(() => const Principal());
                       },
                     ),
                   ),

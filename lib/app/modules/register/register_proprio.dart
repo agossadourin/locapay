@@ -60,6 +60,7 @@ class _RegisterProprioWidgetState extends State<RegisterProprioWidget> {
                               testInputType: TextInputType.text,
                               hintText: 'Nom',
                               width: MediaQuery.of(context).size.width * 0.45,
+                              hasSepBar: false,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'Entrez votre nom';
@@ -74,6 +75,7 @@ class _RegisterProprioWidgetState extends State<RegisterProprioWidget> {
                               testInputType: TextInputType.text,
                               hintText: 'Prénom.s',
                               width: MediaQuery.of(context).size.width * 0.45,
+                              hasSepBar: false,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'Entrez votre prénom';
@@ -88,6 +90,7 @@ class _RegisterProprioWidgetState extends State<RegisterProprioWidget> {
                               testInputType: TextInputType.text,
                               hintText: 'Sexe',
                               width: MediaQuery.of(context).size.width * 0.45,
+                              hasSepBar: false,
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'Entrez votre sexe';
@@ -98,6 +101,7 @@ class _RegisterProprioWidgetState extends State<RegisterProprioWidget> {
                             leftIcon: 'assets/icons/Gender.png',
                             rightIcon: 'assets/icons/arrow_down.png',
                             hintText: 'Sexe',
+                            hasSepBar: false,
                             items: const ['M', 'F', 'NB'],
                             width: MediaQuery.of(context).size.width * 0.45,
                             onChanged: (String? value) {
@@ -115,6 +119,7 @@ class _RegisterProprioWidgetState extends State<RegisterProprioWidget> {
                       testInputType: TextInputType.text,
                       hintText: 'Téléphone',
                       width: MediaQuery.of(context).size.width * 0.9,
+                      hasSepBar: false,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Please enter your phone';
@@ -128,6 +133,7 @@ class _RegisterProprioWidgetState extends State<RegisterProprioWidget> {
                       testInputType: TextInputType.text,
                       hintText: 'NPI',
                       width: MediaQuery.of(context).size.width * 0.9,
+                      hasSepBar: false,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Please enter your NPI';
@@ -171,6 +177,7 @@ class _RegisterProprioWidgetState extends State<RegisterProprioWidget> {
                         testInputType: TextInputType.text,
                         hintText: 'Mot de passe',
                         width: MediaQuery.of(context).size.width * 0.9,
+                        hasSepBar: false,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Please enter your password';
@@ -209,6 +216,7 @@ class _RegisterProprioWidgetState extends State<RegisterProprioWidget> {
                         testInputType: TextInputType.visiblePassword,
                         hintText: 'Confirmer le mot de...',
                         width: MediaQuery.of(context).size.width * 0.9,
+                        hasSepBar: false,
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Please enter your password';

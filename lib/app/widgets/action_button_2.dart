@@ -19,7 +19,7 @@ class ActionButton2 extends StatelessWidget {
     return Container(
       //button container
       height: 5.0.hp,
-      width: 70.0.wp,
+      width: 75.0.wp,
       margin: const EdgeInsets.only(top: 10, bottom: 10),
       decoration: BoxDecoration(
         color: Colors.white,
