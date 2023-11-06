@@ -78,7 +78,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               emailController!.text, passwordController!.text);
                           print(ans);
                           // TODO: Implement registration logic
-                          Get.to(Principal());
+                          Get.to(const Principal());
                         }
                       },
                     ),

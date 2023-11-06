@@ -7,7 +7,10 @@ import 'package:locapay/app/widgets/my_dropdown_form_field.dart';
 import 'package:locapay/app/widgets/my_form_field.dart';
 
 class SearchLocation extends StatefulWidget {
+  const SearchLocation({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _SearchLocationState createState() => _SearchLocationState();
 }
 

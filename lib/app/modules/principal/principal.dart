@@ -15,7 +15,7 @@ class Principal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       //add background image
-      drawer: CustomDrawer(),
+      drawer: const CustomDrawer(),
       body: Stack(
         children: [
           Container(

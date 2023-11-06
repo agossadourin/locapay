@@ -134,7 +134,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                           .selectedIndex
                                           .value ==
                                       0
-                              ? RegisterWidget()
+                              ? const RegisterWidget()
                               : Get.find<AccountTypeController>()
                                           .isAccountTypeChosen
                                           .value &&

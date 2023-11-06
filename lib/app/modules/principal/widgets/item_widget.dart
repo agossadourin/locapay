@@ -51,12 +51,12 @@ class ItemWidget extends StatelessWidget {
           Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 21.27),
-            child: Row(
+            child: const Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
+                SizedBox(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -73,7 +73,7 @@ class ItemWidget extends StatelessWidget {
                           height: 0,
                         ),
                       ),
-                      const SizedBox(height: 5.32),
+                      SizedBox(height: 5.32),
                       Text(
                         'ADJIBI',
                         textAlign: TextAlign.center,
@@ -88,8 +88,8 @@ class ItemWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(width: 5.32),
-                Container(
+                SizedBox(width: 5.32),
+                SizedBox(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -106,7 +106,7 @@ class ItemWidget extends StatelessWidget {
                           height: 0,
                         ),
                       ),
-                      const SizedBox(height: 5.32),
+                      SizedBox(height: 5.32),
                       Text(
                         '4.8/5',
                         textAlign: TextAlign.center,
@@ -127,7 +127,7 @@ class ItemWidget extends StatelessWidget {
           const SizedBox(height: 10.63),
           Container(
             width: double.infinity,
-            decoration: ShapeDecoration(
+            decoration: const ShapeDecoration(
               shape: RoundedRectangleBorder(
                 side: BorderSide(
                   width: 0.32,
@@ -137,7 +137,7 @@ class ItemWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10.63),
-          Container(
+          const SizedBox(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,

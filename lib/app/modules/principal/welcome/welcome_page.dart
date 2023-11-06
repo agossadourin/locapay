@@ -31,7 +31,7 @@ class WelcomePage extends StatelessWidget {
             ActionButton2(
               action: 'Rechercher une location',
               onPressed: () {
-                Get.to(() => SearchLocation());
+                Get.to(() => const SearchLocation());
               },
             ),
             const SizedBox(

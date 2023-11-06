@@ -30,7 +30,7 @@ class MyDropdownFormField extends StatelessWidget {
       padding: const EdgeInsets.only(left: 15, bottom: 5),
       decoration: BoxDecoration(
         border: Border.all(
-          color: Color.fromRGBO(0, 0, 0, 0.25),
+          color: const Color.fromRGBO(0, 0, 0, 0.25),
           width: 1.0,
         ),
         color: Colors.white,
