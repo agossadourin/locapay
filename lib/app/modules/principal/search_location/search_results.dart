@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/modules/principal/widgets/filter_button.dart';
+import 'package:locapay/app/widgets/action_button.dart';
+
+import '../widgets/item_widget.dart';
 
 class SearchResults extends StatelessWidget {
   const SearchResults({super.key});
@@ -230,6 +234,22 @@ class SearchResults extends StatelessWidget {
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.025,
                       ),
+                      //row scrollable list
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.35,
+                        child: ListView.builder(
+                          padding: EdgeInsets.only(
+                              left: MediaQuery.of(context).size.width * 0.2),
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 5,
+                          itemBuilder: (BuildContext context, int index) {
+                            return const ItemWidget();
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.025,
+                      ),
                       Container(
                         width: MediaQuery.of(context).size.width * 0.25,
                         decoration: ShapeDecoration(
@@ -242,8 +262,27 @@ class SearchResults extends StatelessWidget {
                           ),
                         ),
                       ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.025,
+                      ),
+                      const FilterButton(
+                          text: 'Afficher à partir du moins cher',
+                          icon: 'assets/icons/sort_min.png'),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.width * 0.025,
+                      ),
+                      const FilterButton(
+                          text: 'Afficher à partir du mieux noté',
+                          icon: 'assets/icons/sort_min.png'),
 
-                      // now result item
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.025,
+                      ),
+                      ActionButton(
+                          action: "Revoir les critères de recherche",
+                          onPressed: () {
+                            Get.back();
+                          })
                     ],
                   )),
                 ),

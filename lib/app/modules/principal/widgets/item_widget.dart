@@ -7,7 +7,8 @@ class ItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 233.96,
-      height: 264.48,
+      //height: MediaQuery.of(context).size.height,
+      margin: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.1),
       padding: const EdgeInsets.all(10.63),
       clipBehavior: Clip.antiAlias,
       decoration: ShapeDecoration(
@@ -19,7 +20,7 @@ class ItemWidget extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(15.95),
         ),
-        shadows: [
+        shadows: const [
           BoxShadow(
             color: Color(0x0C000000),
             blurRadius: 10.63,
@@ -37,8 +38,8 @@ class ItemWidget extends StatelessWidget {
             width: 212.69,
             height: 141.99,
             decoration: ShapeDecoration(
-              image: DecorationImage(
-                image: NetworkImage("https://via.placeholder.com/213x142"),
+              image: const DecorationImage(
+                image: AssetImage("assets/images/house.png"),
                 fit: BoxFit.fill,
               ),
               shape: RoundedRectangleBorder(
