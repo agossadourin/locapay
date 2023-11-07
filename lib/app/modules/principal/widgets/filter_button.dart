@@ -8,7 +8,7 @@ class FilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 217.73,
+      width: MediaQuery.of(context).size.width * 0.7,
       height: 25,
       padding: const EdgeInsets.all(5),
       decoration: const BoxDecoration(
@@ -27,10 +27,10 @@ class FilterButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text(
-            'Afficher à partir du moins cher',
+          Text(
+            text!,
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.black,
               fontSize: 11.59,
               fontFamily: 'Inter',

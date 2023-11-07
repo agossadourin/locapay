@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/data/services/api/api.dart';
 import 'package:locapay/app/modules/principal/principal.dart';
 import 'package:locapay/app/modules/register/controllers/account_type_controller.dart';
+import 'package:locapay/app/modules/register/widgets/add_profile_photo.dart';
 import 'package:locapay/app/widgets/action_button.dart';
 import 'package:locapay/app/widgets/my_form_field.dart';
 
 import 'package:locapay/app/widgets/my_dropdown_form_field.dart';
+
+import 'controllers/file_controller.dart';
 
 class RegisterWidget extends StatefulWidget {
   const RegisterWidget({super.key});
@@ -26,6 +30,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   final TextEditingController? passwordController = TextEditingController();
   final TextEditingController? confirmPasswordController =
       TextEditingController();
+
+  AuthService authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -49,67 +55,61 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       )),
                   Row(
                     children: [
-                      Image.asset('assets/images/add_photo.png',
-                          width: MediaQuery.of(context).size.width * 0.23),
-                      const SizedBox(height: 3),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          MyFormField(
-                              leftIcon: 'assets/icons/user.png',
-                              controller: firstNameController,
-                              testInputType: TextInputType.text,
-                              hintText: 'Nom',
-                              width: MediaQuery.of(context).size.width * 0.45,
-                              hasSepBar: false,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Entrez votre nom';
-                                }
-                                return null;
-                              }),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.51),
-                          MyFormField(
-                              leftIcon: 'assets/icons/user.png',
-                              controller: lastNameController,
-                              testInputType: TextInputType.text,
-                              hintText: 'Prénom.s',
-                              width: MediaQuery.of(context).size.width * 0.45,
-                              hasSepBar: false,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Entrez votre prénom';
-                                }
-                                return null;
-                              }),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.51),
-                          MyFormField(
+                      const AddProfilePhoto(),
+                      // Image.asset('assets/images/add_photo.png',
+                      //     width: MediaQuery.of(context).size.width * 0.23),
+                      const SizedBox(height: 1),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            MyFormField(
+                                leftIcon: 'assets/icons/user.png',
+                                controller: firstNameController,
+                                testInputType: TextInputType.text,
+                                hintText: 'Nom',
+                                width: MediaQuery.of(context).size.width * 0.45,
+                                hasSepBar: false,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Entrez votre nom';
+                                  }
+                                  return null;
+                                }),
+                            SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.width * 0.51),
+                            MyFormField(
+                                leftIcon: 'assets/icons/user.png',
+                                controller: lastNameController,
+                                testInputType: TextInputType.text,
+                                hintText: 'Prénom.s',
+                                width: MediaQuery.of(context).size.width * 0.45,
+                                hasSepBar: false,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Entrez votre prénom';
+                                  }
+                                  return null;
+                                }),
+                            SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.width * 0.51),
+                            MyDropdownFormField(
                               leftIcon: 'assets/icons/Gender.png',
-                              controller: sexController,
-                              testInputType: TextInputType.text,
+                              rightIcon: 'assets/icons/arrow_down.png',
                               hintText: 'Sexe',
-                              width: MediaQuery.of(context).size.width * 0.45,
                               hasSepBar: false,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Entrez votre sexe';
-                                }
-                                return null;
-                              }),
-                          MyDropdownFormField(
-                            leftIcon: 'assets/icons/Gender.png',
-                            rightIcon: 'assets/icons/arrow_down.png',
-                            hintText: 'Sexe',
-                            hasSepBar: false,
-                            items: const ['M', 'F', 'NB'],
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            onChanged: (String? value) {
-                              print('Selected: $value');
-                            },
-                          ),
-                        ],
+                              items: const ['M', 'F', 'NB'],
+                              width: MediaQuery.of(context).size.width * 0.45,
+                              onChanged: (String? value) {
+                                print('Selected: $value');
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -248,12 +248,15 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     child: ActionButton(
                       action: 'Créer', // Pass a string instead of a function
-                      onPressed: () {
+                      onPressed: () async {
                         // Add an onPressed parameter to handle the button press
                         // if (_formKey.currentState!.validate()) {
                         //   _formKey.currentState!.save();
                         //   // TODO: Implement registration logic
                         // }
+                        await authService.register(
+                          Get.find<FileController>().tempFilePath.value,
+                        );
                         Get.to(() => const Principal());
                       },
                     ),

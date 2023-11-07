@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/controllers/principal_controller.dart';
 import 'package:locapay/app/modules/principal/widgets/drawer_element.dart';
 
+import '../../register/controllers/file_controller.dart';
+
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
 
@@ -57,8 +59,9 @@ class CustomDrawer extends StatelessWidget {
                           height: 35,
                           clipBehavior: Clip.antiAlias,
                           decoration: ShapeDecoration(
-                            image: const DecorationImage(
-                              image: AssetImage("assets/images/o.png"),
+                            image: DecorationImage(
+                              image: FileImage(
+                                  Get.find<FileController>().file.value!),
                               fit: BoxFit.fill,
                             ),
                             shape: RoundedRectangleBorder(

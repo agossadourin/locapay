@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:locapay/app/modules/principal/controllers/principal_controller.dart';
 import 'package:locapay/app/modules/register/controllers/account_type_controller.dart';
+import 'package:locapay/app/modules/register/controllers/file_controller.dart';
 import 'package:locapay/app/modules/splash_screen/splash_screen.dart';
 
 import 'app/data/services/storage/storage_services.dart';
@@ -12,6 +13,7 @@ void main() async {
   await Get.putAsync(() => StorageService().init());
   Get.put(AccountTypeController());
   Get.put(PrincipalController());
+  Get.put(FileController());
   runApp(const MyApp());
 }
 
@@ -24,7 +26,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF00DBB7),
+        ),
         useMaterial3: true,
       ),
       home: const SplashScreen(),

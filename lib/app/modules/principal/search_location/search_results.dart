@@ -39,8 +39,9 @@ class SearchResults extends StatelessWidget {
                     ),
                   ),
                   centerTitle: true,
+                  // green with opacity of 0.5
                   backgroundColor:
-                      Colors.transparent, // make AppBar background transparent
+                      const Color(0xFF00DBB7), // green with opacity of 0.5
                   elevation: 0,
                   actions: [
                     IconButton(
@@ -273,7 +274,7 @@ class SearchResults extends StatelessWidget {
                       ),
                       const FilterButton(
                           text: 'Afficher à partir du mieux noté',
-                          icon: 'assets/icons/sort_min.png'),
+                          icon: 'assets/icons/sort_max.png'),
 
                       SizedBox(
                         height: MediaQuery.of(context).size.height * 0.025,
