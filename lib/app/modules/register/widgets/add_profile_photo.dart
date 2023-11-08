@@ -31,10 +31,9 @@ class _AddProfilePhotoState extends State<AddProfilePhoto> {
         return tempFile.writeAsBytes(data);
       });
 
-      setState(() {
-        Get.find<FileController>().file.value = tempFile;
-        Get.find<FileController>().tempFilePath.value = tempFile.path;
-      });
+      Get.find<FileController>().file.value = tempFile;
+      Get.find<FileController>().tempFilePath.value = tempFile.path;
+      Get.find<FileController>().isUploaded.value = true;
     }
   }
 
@@ -69,27 +68,28 @@ class _AddProfilePhotoState extends State<AddProfilePhoto> {
         );
       },
       child: Container(
-        width: 100,
-        height: 100,
-        decoration: BoxDecoration(
-          color: Colors.grey[200],
-          borderRadius: BorderRadius.circular(50),
-        ),
-        child: Get.find<FileController>().file.value != null
-            ? ClipRRect(
-                borderRadius: BorderRadius.circular(50),
-                child: Image.file(
-                  Get.find<FileController>().file.value!,
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.cover,
-                ),
-              )
-            : const Icon(
-                Icons.camera_alt,
-                color: Colors.grey,
-              ),
-      ),
+          width: 100,
+          height: 100,
+          decoration: BoxDecoration(
+            color: Colors.grey[200],
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child: Obx(
+            () => Get.find<FileController>().file.value != null
+                ? ClipRRect(
+                    borderRadius: BorderRadius.circular(50),
+                    child: Image.file(
+                      Get.find<FileController>().file.value!,
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  )
+                : const Icon(
+                    Icons.camera_alt,
+                    color: Colors.grey,
+                  ),
+          )),
     );
   }
 }

@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/data/services/api/api.dart';
@@ -9,6 +12,8 @@ import 'package:locapay/app/widgets/my_form_field.dart';
 
 import 'package:locapay/app/widgets/my_dropdown_form_field.dart';
 
+import '../../data/models/user.dart';
+import '../principal/controllers/user_controller.dart';
 import 'controllers/file_controller.dart';
 
 class RegisterWidget extends StatefulWidget {
@@ -30,6 +35,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   final TextEditingController? passwordController = TextEditingController();
   final TextEditingController? confirmPasswordController =
       TextEditingController();
+
+  String sexe = '';
+  final loginInProgress = ValueNotifier<bool>(false);
 
   AuthService authService = AuthService();
 
@@ -102,10 +110,18 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                               rightIcon: 'assets/icons/arrow_down.png',
                               hintText: 'Sexe',
                               hasSepBar: false,
-                              items: const ['M', 'F', 'NB'],
+                              items: const ['M', 'F'],
                               width: MediaQuery.of(context).size.width * 0.45,
                               onChanged: (String? value) {
-                                print('Selected: $value');
+                                if (value == 'M') {
+                                  setState(() {
+                                    sexe = '1';
+                                  });
+                                } else {
+                                  setState(() {
+                                    sexe = '2';
+                                  });
+                                }
                               },
                             ),
                           ],
@@ -124,6 +140,20 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Please enter your phone';
+                        }
+                        return null;
+                      }),
+                  const SizedBox(height: 15),
+                  MyFormField(
+                      leftIcon: 'assets/icons/phone.png',
+                      controller: emailController,
+                      testInputType: TextInputType.text,
+                      hintText: 'Email',
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      hasSepBar: false,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter your email';
                         }
                         return null;
                       }),
@@ -250,17 +280,67 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                       action: 'Créer', // Pass a string instead of a function
                       onPressed: () async {
                         // Add an onPressed parameter to handle the button press
-                        // if (_formKey.currentState!.validate()) {
-                        //   _formKey.currentState!.save();
-                        //   // TODO: Implement registration logic
-                        // }
-                        await authService.register(
-                          Get.find<FileController>().tempFilePath.value,
-                        );
-                        Get.to(() => const Principal());
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState!.save();
+                          setState(() {
+                            loginInProgress.value = true;
+                          });
+                          var answer = await authService.register(
+                            firstNameController!.text,
+                            lastNameController!.text,
+                            passwordController!.text,
+                            confirmPasswordController!.text,
+                            emailController!.text,
+                            phoneController!.text,
+                            npiController!.text,
+                            sexe,
+                            '1',
+                            '1',
+                            '1',
+                            Get.find<FileController>().isUploaded.value
+                                ? Get.find<FileController>().tempFilePath.value
+                                : "",
+                          );
+                          setState(() {
+                            loginInProgress.value = false;
+                          });
+
+                          if (answer is DioException) {
+                            // Handle the exception...
+                            print('Error message: ${answer.message}');
+                            print('Error data: ${answer.response?.data}');
+                            //show alert dialog
+                            Get.defaultDialog(
+                              title: 'Error',
+                              middleText: answer.response!.data.toString(),
+                              onConfirm: () => Get
+                                  .back(), // Navigate back when the confirm button is pressed
+                            );
+                          } else if (answer is Exception) {
+                            // Handle the exception...
+                            print('Error: ${answer.toString()}');
+                            //show alert dialog
+                            Get.defaultDialog(
+                              title: 'Error',
+                              middleText: answer.toString(),
+                              onConfirm: () => Get
+                                  .back(), // Navigate back when the confirm button is pressed
+                            );
+                          } else {
+                            User user = User.fromJson(answer);
+                            Get.find<UserController>().userData.value = user;
+                            print(user.token);
+                            Get.to(() => const Principal());
+                          }
+                        }
+                        //loading until the user is logged in
+                        const CircularProgressIndicator(); // Show loading spinner
                       },
                     ),
                   ),
+                  loginInProgress.value
+                      ? const CircularProgressIndicator()
+                      : const SizedBox(),
                 ],
               ),
             )),

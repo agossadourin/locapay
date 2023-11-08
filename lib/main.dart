@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:locapay/app/modules/principal/controllers/principal_controller.dart';
+import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
 import 'package:locapay/app/modules/register/controllers/account_type_controller.dart';
 import 'package:locapay/app/modules/register/controllers/file_controller.dart';
 import 'package:locapay/app/modules/splash_screen/splash_screen.dart';
@@ -14,6 +15,7 @@ void main() async {
   Get.put(AccountTypeController());
   Get.put(PrincipalController());
   Get.put(FileController());
+  Get.put(UserController());
   runApp(const MyApp());
 }
 

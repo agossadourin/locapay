@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/controllers/principal_controller.dart';
+import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
 import 'package:locapay/app/modules/principal/widgets/drawer_element.dart';
 
 import '../../register/controllers/file_controller.dart';
@@ -54,26 +55,32 @@ class CustomDrawer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Container(
-                          width: 35,
-                          height: 35,
-                          clipBehavior: Clip.antiAlias,
-                          decoration: ShapeDecoration(
-                            image: DecorationImage(
-                              image: FileImage(
-                                  Get.find<FileController>().file.value!),
-                              fit: BoxFit.fill,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                          ),
-                        ),
+                        Get.find<FileController>().file.value != null
+                            ? Container(
+                                width: 35,
+                                height: 35,
+                                clipBehavior: Clip.antiAlias,
+                                decoration: ShapeDecoration(
+                                  image: DecorationImage(
+                                    image: FileImage(
+                                        Get.find<FileController>().file.value!),
+                                    fit: BoxFit.fill,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30),
+                                  ),
+                                ),
+                              )
+                            : const Icon(
+                                Icons.account_circle,
+                                color: Colors.grey,
+                                size: 35,
+                              ),
                         const SizedBox(width: 10),
-                        const Text(
-                          'Adam ASSADOU',
+                        Text(
+                          '${Get.find<UserController>().userData.value!.firstname} ${Get.find<UserController>().userData.value!.lastname}',
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                             fontSize: 14,
                             fontFamily: 'Inter',

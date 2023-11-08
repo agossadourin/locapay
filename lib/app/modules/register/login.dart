@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/data/models/user.dart';
+import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
 import 'package:locapay/app/modules/principal/principal.dart';
 import 'package:locapay/app/widgets/action_button.dart';
 import 'package:locapay/app/widgets/my_form_field.dart';
@@ -18,6 +20,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   final TextEditingController? emailController = TextEditingController();
   final TextEditingController? passwordController = TextEditingController();
   AuthService authService = AuthService();
+  final loginInProgress = ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {
@@ -69,20 +72,33 @@ class _LoginWidgetState extends State<LoginWidget> {
                     child: ActionButton(
                       action:
                           'Se Connecter', // Pass a string instead of a function
-                      onPressed: () {
+                      onPressed: () async {
                         // Add an onPressed parameter to handle the button press
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
                           //login
-                          var ans = authService.login(
+                          setState(() {
+                            loginInProgress.value = true;
+                          });
+
+                          var answer = await authService.login(
                               emailController!.text, passwordController!.text);
-                          print(ans);
+                          setState(() {
+                            loginInProgress.value = false;
+                          });
+                          print(answer);
+                          User user = User.fromJson(answer);
+                          Get.find<UserController>().userData.value = user;
                           // TODO: Implement registration logic
-                          Get.to(const Principal());
+
+                          Get.to(() => const Principal());
                         }
                       },
                     ),
                   ),
+                  loginInProgress.value
+                      ? const CircularProgressIndicator()
+                      : const SizedBox(),
                 ],
               ),
             )),
