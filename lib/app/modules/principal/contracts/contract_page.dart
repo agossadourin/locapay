@@ -1,10 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/contracts/contract_rejection_page.dart';
+import 'package:locapay/app/modules/principal/contracts/sign_page.dart';
 import 'package:locapay/app/modules/principal/contracts/widgets/article.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:locapay/app/modules/principal/principal.dart';
+
+import '../controllers/principal_controller.dart';
 
 class ContractPage extends StatelessWidget {
-  const ContractPage({super.key});
+  ContractPage({super.key});
+
+  final LocalAuthentication auth = LocalAuthentication();
+
+  _authenticate() async {
+    bool authenticated = false;
+    try {
+      authenticated = await auth.authenticate(
+          localizedReason: 'Scan Fingerprint to Proceed');
+    } catch (e) {
+      print(e);
+    }
+    return authenticated;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -206,53 +224,67 @@ class ContractPage extends StatelessWidget {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.05,
                     ),
-                    Container(
-                      width: 310,
-                      height: 41,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 25, vertical: 8),
-                      decoration: const BoxDecoration(color: Color(0xFF00DAB7)),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 25,
-                            height: 25,
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  left: 0,
-                                  top: 0,
-                                  child: Container(
-                                    width: 25,
-                                    height: 25,
-                                    decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            "assets/icons/validate.png"),
-                                        fit: BoxFit.fill,
+                    GestureDetector(
+                      onTap: () async {
+                        bool isAuthenticated = await _authenticate();
+                        if (isAuthenticated) {
+                          Get.find<PrincipalController>().hasLocation.value =
+                              true;
+                          Get.to(() => const Principal());
+                        } else {
+                          Get.snackbar('Erreur', 'Erreur d\'authentification');
+                        }
+                        //Get.to(() => SignatureMaker());
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: 41,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 25, vertical: 8),
+                        decoration:
+                            const BoxDecoration(color: Color(0xFF00DAB7)),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 25,
+                              height: 25,
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    left: 0,
+                                    top: 0,
+                                    child: Container(
+                                      width: 25,
+                                      height: 25,
+                                      decoration: const BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                              "assets/icons/validate.png"),
+                                          fit: BoxFit.fill,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 10),
-                          const Text(
-                            'Signer et Payer l’acompte',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700,
-                              height: 0,
+                            const SizedBox(width: 10),
+                            const Text(
+                              'Signer et Payer l’acompte',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w700,
+                                height: 0,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(

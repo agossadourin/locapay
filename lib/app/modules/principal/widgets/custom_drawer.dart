@@ -125,7 +125,7 @@ class CustomDrawer extends StatelessWidget {
             ),
             DrawerElement(
               onTap: () {
-                Get.find<PrincipalController>().currentPage.value = 0;
+                Get.find<PrincipalController>().currentPage.value = 1;
                 Get.back();
                 //close the drawer
               },
@@ -134,7 +134,7 @@ class CustomDrawer extends StatelessWidget {
             ),
             DrawerElement(
               onTap: () {
-                Get.find<PrincipalController>().currentPage.value = 1;
+                Get.find<PrincipalController>().currentPage.value = 2;
                 Get.back();
                 //close the drawer
               },
@@ -143,7 +143,7 @@ class CustomDrawer extends StatelessWidget {
             ),
             DrawerElement(
               onTap: () {
-                Get.find<PrincipalController>().currentPage.value = 2;
+                Get.find<PrincipalController>().currentPage.value = 3;
                 Get.back();
                 //close the drawer
               },
@@ -152,7 +152,7 @@ class CustomDrawer extends StatelessWidget {
             ),
             DrawerElement(
               onTap: () {
-                Get.find<PrincipalController>().currentPage.value = 2;
+                Get.find<PrincipalController>().currentPage.value = 4;
                 Get.back();
                 //close the drawer
               },

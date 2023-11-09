@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/modules/principal/controllers/principal_controller.dart';
 import 'package:locapay/app/widgets/action_button_2.dart';
 
-import '../search_location/search_location.dart';
+import '../../search_location/search_location.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});

@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/modules/principal/about/about_page.dart';
+import 'package:locapay/app/modules/principal/dashboard/dashboard_page.dart';
+import 'package:locapay/app/modules/principal/edit_profile/edit_profile.dart';
 import 'package:locapay/app/modules/principal/my_locations/my_locations.dart';
 import 'package:locapay/app/modules/principal/notifications_page/notifications_page.dart';
-import 'package:locapay/app/modules/principal/welcome/welcome_page.dart';
+import 'package:locapay/app/modules/principal/dashboard/widgets/welcome_page.dart';
+import 'package:locapay/app/modules/principal/rules_contracts/rules_contract_page.dart';
 import 'package:locapay/app/modules/principal/widgets/custom_drawer.dart';
 
 import 'controllers/principal_controller.dart';
@@ -12,6 +16,13 @@ class Principal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> pageTitles = [
+      'Tableau de bord',
+      'Modifier mon profil',
+      'Mes locations',
+      'Contrats',
+      'A propos de LocaPay'
+    ];
     return Scaffold(
       //add background image
       drawer: const CustomDrawer(),
@@ -31,15 +42,18 @@ class Principal extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 AppBar(
-                  title: const Text(
-                    'Bienvenue',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 15,
-                      fontStyle: FontStyle.normal,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xFF313131),
+                  title: Obx(
+                    () => Text(
+                      pageTitles[
+                          Get.find<PrincipalController>().currentPage.value],
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 15,
+                        fontStyle: FontStyle.normal,
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xFF313131),
+                      ),
                     ),
                   ),
                   centerTitle: true,
@@ -73,10 +87,23 @@ class Principal extends StatelessWidget {
                   child: SingleChildScrollView(
                       child: Obx(
                     () => Get.find<PrincipalController>().currentPage.value == 0
-                        ? const WelcomePage()
+                        ? Get.find<PrincipalController>().hasLocation.value ==
+                                false
+                            ? const WelcomePage()
+                            : const DashBoardPage()
                         : Get.find<PrincipalController>().currentPage.value == 1
-                            ? const MyLocations()
-                            : const Text('contrats'),
+                            ? const EditProfile()
+                            : Get.find<PrincipalController>()
+                                        .currentPage
+                                        .value ==
+                                    2
+                                ? const MyLocations()
+                                : Get.find<PrincipalController>()
+                                            .currentPage
+                                            .value ==
+                                        3
+                                    ? const RulesContractPage()
+                                    : const AboutPage(),
                   )),
                 ),
               ],

@@ -18,7 +18,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final PageController _controller = PageController();
-  final RxBool _isRegisterPage = false.obs;
+  final RxBool _isRegisterPage = true.obs;
   TextStyle activeStyle = const TextStyle(
     fontFamily: 'Inter',
     fontSize: 14,
@@ -107,8 +107,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     activeDotColor: Colors.black,
                     dotHeight: 5,
                     dotWidth: MediaQuery.of(context).size.width * 0.4,
-                    expansionFactor: 1.1,
-                    spacing: 0,
+                    expansionFactor: 1.01,
+                    spacing: 10,
                   )),
               Expanded(
                 child: Obx(
