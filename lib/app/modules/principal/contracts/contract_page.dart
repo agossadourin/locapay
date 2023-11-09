@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/modules/principal/contracts/contract_rejection_page.dart';
 import 'package:locapay/app/modules/principal/contracts/widgets/article.dart';
 
 class ContractPage extends StatelessWidget {
@@ -257,58 +258,174 @@ class ContractPage extends StatelessWidget {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.02,
                     ),
-                    Container(
-                      width: 310,
-                      height: 41,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 25, vertical: 8),
-                      decoration: ShapeDecoration(
-                        color: const Color(0xFFFF0202),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 25,
-                            height: 25,
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  left: 0,
-                                  top: 0,
-                                  child: Container(
-                                    width: 25,
-                                    height: 25,
-                                    decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            "assets/icons/reject_contract.png"),
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                    GestureDetector(
+                      onTap: () {
+                        Get.defaultDialog(
+                          radius: 10,
+                          titlePadding: const EdgeInsets.all(20),
+                          title:
+                              'Êtes vous sûr de vouloir rejeter le contrat de location lancer par Mr ADJIBI ?',
+                          titleStyle: const TextStyle(
+                            color: Color(0xFFFF0202),
+                            fontSize: 14,
+                            fontFamily: 'Inter',
+                            fontWeight: FontWeight.w700,
+                            height: 0,
                           ),
-                          const SizedBox(width: 10),
-                          const Text(
-                            'Rejeter le contrat',
+                          content: const Text(
+                            'Après confirmation, prière nous informer des raisons qui vous amène à ce refus de signature.',
                             textAlign: TextAlign.center,
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
+                              color: Colors.black,
+                              fontSize: 12,
+                              fontStyle: FontStyle.italic,
                               fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.w400,
                               height: 0,
                             ),
                           ),
-                        ],
+                          confirm: GestureDetector(
+                            onTap: () {
+                              Get.to(() => const ContractRejectionPage());
+                            },
+                            child: Container(
+                              width: 103,
+                              height: 32,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 5),
+                              decoration: ShapeDecoration(
+                                color: const Color(0xFFFF0202),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                shadows: const [
+                                  BoxShadow(
+                                    color: Color(0x26000000),
+                                    blurRadius: 4,
+                                    offset: Offset(0, 2),
+                                    spreadRadius: 0,
+                                  )
+                                ],
+                              ),
+                              child: const Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Oui, Rejeter',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w700,
+                                      height: 0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          cancel: GestureDetector(
+                            onTap: () {
+                              //close dialog
+                              Get.back();
+                            },
+                            child: Container(
+                              width: 121,
+                              height: 35,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 8, vertical: 5),
+                              decoration: ShapeDecoration(
+                                color: const Color(0xFF00DAB7),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                shadows: const [
+                                  BoxShadow(
+                                    color: Color(0x26000000),
+                                    blurRadius: 4,
+                                    offset: Offset(0, 2),
+                                    spreadRadius: 0,
+                                  )
+                                ],
+                              ),
+                              child: const Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Non, Retour',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 12,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w700,
+                                      height: 0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        width: 310,
+                        height: 41,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 25, vertical: 8),
+                        decoration: ShapeDecoration(
+                          color: const Color(0xFFFF0202),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 25,
+                              height: 25,
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    left: 0,
+                                    top: 0,
+                                    child: Container(
+                                      width: 25,
+                                      height: 25,
+                                      decoration: const BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                              "assets/icons/reject_contract.png"),
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            const Text(
+                              'Rejeter le contrat',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w700,
+                                height: 0,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     )
                   ],

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:locapay/app/core/utils/extensions.dart';
 
 class MyFormField extends StatelessWidget {

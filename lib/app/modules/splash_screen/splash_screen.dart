@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:locapay/app/modules/principal/principal.dart';
 import 'package:locapay/app/modules/register/register_page.dart';
 import 'package:locapay/app/modules/splash_screen/onboarding_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';

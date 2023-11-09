@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/controllers/wallet_controller.dart';
 import 'package:locapay/app/modules/principal/principal.dart';
-import 'package:locapay/app/widgets/action_button_2.dart';
 import 'package:locapay/app/widgets/my_form_field.dart';
 
 import '../../../widgets/action_button.dart';

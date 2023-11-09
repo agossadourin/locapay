@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/register/controllers/account_type_controller.dart';
-import 'package:locapay/app/modules/register/register.dart';
-import 'package:locapay/app/modules/register/register_artisan.dart';
-import 'package:locapay/app/modules/register/register_proprio.dart';
 import 'package:locapay/app/modules/register/widgets/account_type.dart';
 import 'package:locapay/app/widgets/action_button.dart';
 

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/my_locations/my_locations.dart';
 import 'package:locapay/app/modules/principal/notifications_page/notifications_page.dart';
-import 'package:locapay/app/modules/principal/search_location/search_results.dart';
-import 'package:locapay/app/modules/principal/search_location/search_location.dart';
 import 'package:locapay/app/modules/principal/welcome/welcome_page.dart';
 import 'package:locapay/app/modules/principal/widgets/custom_drawer.dart';
 
