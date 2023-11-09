@@ -1,12 +1,9 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 class AuthService {
   //add required filePath
-
-  final Dio _dio = Dio();
 
   Future login(String phone, String password) async {
     final dio = Dio();

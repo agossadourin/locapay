@@ -30,6 +30,7 @@ class WelcomePage extends StatelessWidget {
             ),
             ActionButton2(
               action: 'Rechercher une location',
+              icon: 'assets/icons/home_search.png',
               onPressed: () {
                 Get.to(() => const SearchLocation());
               },

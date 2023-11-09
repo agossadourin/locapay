@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/widgets/charateristics_widget.dart';
 import 'package:locapay/app/modules/principal/widgets/picture_viewer.dart';
-import 'package:locapay/app/widgets/action_button_2.dart';
+import 'package:locapay/app/widgets/action_button.dart';
 
 class ItemDetails extends StatelessWidget {
   const ItemDetails({super.key});
@@ -326,7 +326,7 @@ class ItemDetails extends StatelessWidget {
                       SizedBox(
                         height: MediaQuery.of(context).size.width * 0.05,
                       ),
-                      ActionButton2(
+                      ActionButton(
                           action: 'Contacter le propriétaire',
                           onPressed: () {}),
                       SizedBox(

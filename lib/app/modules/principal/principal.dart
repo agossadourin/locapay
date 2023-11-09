@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/my_locations/my_locations.dart';
+import 'package:locapay/app/modules/principal/notifications_page/notifications_page.dart';
 import 'package:locapay/app/modules/principal/search_location/search_results.dart';
 import 'package:locapay/app/modules/principal/search_location/search_location.dart';
 import 'package:locapay/app/modules/principal/welcome/welcome_page.dart';
@@ -49,8 +50,11 @@ class Principal extends StatelessWidget {
                   elevation: 0,
                   actions: [
                     IconButton(
-                      onPressed: () {},
-                      icon: const Icon(Icons.notifications),
+                      onPressed: () {
+                        Get.to(() => const NotificationsPage());
+                      },
+                      icon: const Image(
+                          image: AssetImage('assets/icons/Notifications.png')),
                     )
                   ],
                   //menu hamburger with notification button at the right and title centered

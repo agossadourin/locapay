@@ -5,14 +5,14 @@ import 'package:locapay/app/core/utils/extensions.dart';
 class ActionButton2 extends StatelessWidget {
   final String? action;
   final VoidCallback? onPressed;
-  //final IconData? icon;
+  final String icon;
   //constructor
-  const ActionButton2({
-    Key? key,
-    required this.action,
-    required this.onPressed,
-    /*required this.icon*/
-  }) : super(key: key);
+  const ActionButton2(
+      {Key? key,
+      required this.action,
+      required this.onPressed,
+      required this.icon})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +38,9 @@ class ActionButton2 extends StatelessWidget {
             Container(
               width: 25,
               height: 25,
-              decoration: const BoxDecoration(
+              decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                      "assets/icons/home_search.png"), // replace with your image path
+                  image: AssetImage(icon), // replace with your image path
                   fit: BoxFit.fill,
                 ),
               ),

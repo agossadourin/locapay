@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/search_location/search_results.dart';
-import 'package:locapay/app/widgets/action_button.dart';
 import 'package:locapay/app/widgets/action_button_2.dart';
 import 'package:locapay/app/widgets/my_dropdown_form_field.dart';
 import 'package:locapay/app/widgets/my_form_field.dart';
@@ -15,16 +14,6 @@ class SearchLocation extends StatefulWidget {
 }
 
 class _SearchLocationState extends State<SearchLocation> {
-  TextEditingController _searchController = TextEditingController();
-
-  void _onSearchPressed() {
-    // TODO: Implement search functionality
-  }
-
-  void _onResultSelected(int index) {
-    // TODO: Implement selection of search result
-  }
-
   TextEditingController villeController = TextEditingController();
   TextEditingController nbreChambreController = TextEditingController();
   TextEditingController nbreSalonController = TextEditingController();
@@ -443,6 +432,7 @@ class _SearchLocationState extends State<SearchLocation> {
             ),
             ActionButton2(
                 action: 'Rechercher',
+                icon: 'assets/icons/home_search.png',
                 onPressed: () {
                   Get.to(() => const SearchResults());
                 }),
