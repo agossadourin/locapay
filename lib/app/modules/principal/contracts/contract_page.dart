@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/contracts/contract_rejection_page.dart';
+import 'package:locapay/app/modules/principal/contracts/pdf_test.dart';
 import 'package:locapay/app/modules/principal/contracts/sign_page.dart';
 import 'package:locapay/app/modules/principal/contracts/widgets/article.dart';
 import 'package:local_auth/local_auth.dart';
@@ -230,7 +231,7 @@ class ContractPage extends StatelessWidget {
                         if (isAuthenticated) {
                           Get.find<PrincipalController>().hasLocation.value =
                               true;
-                          Get.to(() => const Principal());
+                          Get.to(() => PdfTest());
                         } else {
                           Get.snackbar('Erreur', 'Erreur d\'authentification');
                         }

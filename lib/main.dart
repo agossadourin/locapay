@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:locapay/app/modules/principal/controllers/principal_controller.dart';
@@ -18,6 +19,11 @@ void main() async {
   Get.put(FileController());
   Get.put(UserController());
   Get.put(WalletController());
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await FlutterDownloader.initialize(
+      debug: true // optional: set false to disable printing logs to console
+      );
   runApp(const MyApp());
 }
 
