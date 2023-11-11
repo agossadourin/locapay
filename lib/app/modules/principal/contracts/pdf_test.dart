@@ -28,6 +28,14 @@ class _PdfTestState extends State<PdfTest> {
     super.initState();
   }
 
+  Future<pw.MemoryImage> _loadImage() async {
+    final imageBytes =
+        await rootBundle.load('assets/images/welcome_bg_img.png');
+    return pw.MemoryImage(imageBytes.buffer.asUint8List());
+  }
+
+  late final image = _loadImage();
+
   @override
   Widget build(BuildContext context) {
     List<pw.Widget> testW = [
@@ -109,16 +117,6 @@ class _PdfTestState extends State<PdfTest> {
         height: MediaQuery.of(context).size.height * 0.05,
       ),
       pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly, children: [
-        pw.Container(
-          width: MediaQuery.of(context).size.width * 0.3,
-          height: MediaQuery.of(context).size.height * 0.1,
-          decoration: pw.BoxDecoration(
-              // image: pw.DecorationImage(
-              //   image: _loadImage(), // replace with your image path
-              //   fit: pw.BoxFit.cover,
-              // ),
-              ),
-        ),
         pw.SizedBox(width: MediaQuery.of(context).size.width * 0.4),
         pw.Container(
             width: MediaQuery.of(context).size.width * 0.3,
