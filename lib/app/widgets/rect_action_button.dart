@@ -47,8 +47,8 @@ class RectActionButton extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 10),
-            const Text(
-              'Services',
+            Text(
+              action!,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,

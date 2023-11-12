@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/contracts/widgets/pdf_creator.dart';
+import 'package:locapay/app/modules/principal/principal.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
@@ -181,7 +182,7 @@ class _PdfTestState extends State<PdfTest> {
                   return IconButton(
                     icon: const Icon(Icons.arrow_back),
                     onPressed: () {
-                      Get.back();
+                      Get.to(() => const Principal());
                     },
                   );
                 },
