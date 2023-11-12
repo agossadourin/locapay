@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/dashboard/services_pages/widgets/payment_widget.dart';
 import 'package:locapay/app/modules/principal/dashboard/services_pages/widgets/services_widget.dart';
+import 'package:locapay/app/modules/principal/dashboard/transactions_pages/widgets/rent_transactions_widget.dart';
+import 'package:locapay/app/modules/principal/dashboard/transactions_pages/widgets/services_transactions_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class ServicesPage extends StatelessWidget {
-  ServicesPage({super.key});
+class TransactionsPage extends StatelessWidget {
+  TransactionsPage({super.key});
   final PageController _controller = PageController();
   final TextStyle activeStyle = const TextStyle(
     fontFamily: 'Inter',
@@ -22,7 +24,7 @@ class ServicesPage extends StatelessWidget {
     fontWeight: FontWeight.w700,
     color: Color.fromRGBO(0, 0, 0, 0.25),
   );
-  final RxBool _isServicePage = true.obs;
+  final RxBool _isRentPage = true.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class ServicesPage extends StatelessWidget {
               children: [
                 AppBar(
                   title: const Text(
-                    'Services',
+                    'Transactions',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Color(0xFF303030),
@@ -89,8 +91,8 @@ class ServicesPage extends StatelessWidget {
                                   _controller.jumpToPage(0);
                                 },
                                 child: Text(
-                                  'Rechercher',
-                                  style: _isServicePage.value
+                                  'Loyers',
+                                  style: _isRentPage.value
                                       ? activeStyle
                                       : inactiveStyle,
                                 ),
@@ -106,8 +108,8 @@ class ServicesPage extends StatelessWidget {
                                   _controller.jumpToPage(1);
                                 },
                                 child: Text(
-                                  'Payer',
-                                  style: _isServicePage.value
+                                  'Services',
+                                  style: _isRentPage.value
                                       ? inactiveStyle
                                       : activeStyle,
                                 ),
@@ -131,18 +133,21 @@ class ServicesPage extends StatelessWidget {
                         height: MediaQuery.of(context).size.height * 0.05,
                       ),
                       SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.95,
-                        height: MediaQuery.of(context).size.height * 0.7,
+                        width: MediaQuery.of(context).size.width * 0.8,
+                        height: MediaQuery.of(context).size.height * 0.5,
                         child: PageView(
                           controller: _controller,
                           onPageChanged: (index) {
                             if (index == 0) {
-                              _isServicePage.value = true;
+                              _isRentPage.value = true;
                             } else {
-                              _isServicePage.value = false;
+                              _isRentPage.value = false;
                             }
                           },
-                          children: const [ServicesWidget(), PaymentWidget()],
+                          children: const [
+                            RentTransactionsWidget(),
+                            ServicesTransactionsWidget()
+                          ],
                         ),
                       )
                     ],

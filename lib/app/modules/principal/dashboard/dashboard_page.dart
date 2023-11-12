@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/dashboard/services_pages/services_page.dart';
+import 'package:locapay/app/modules/principal/dashboard/transactions_pages/transactions_page.dart';
 import 'package:locapay/app/modules/principal/dashboard/widgets/dashboard_widget.dart';
 import 'package:locapay/app/widgets/rect_action_button.dart';
 
@@ -27,7 +28,9 @@ class DashBoardPage extends StatelessWidget {
           ),
           RectActionButton(
               action: 'Transactions',
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => TransactionsPage());
+              },
               icon: 'assets/icons/history.png'),
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.01,
