@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locapay/app/modules/principal/dashboard/services_pages/widgets/search_result_item.dart';
 
-class ServicesSearchResults extends StatelessWidget {
-  const ServicesSearchResults({super.key});
+class ServicesSearchResultDetails extends StatelessWidget {
+  const ServicesSearchResultDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -95,9 +94,6 @@ class ServicesSearchResults extends StatelessWidget {
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.02,
                           ),
-                          Column(
-                            children: [SearchResultItem()],
-                          )
                         ],
                       ),
                       ////////////////////////////////////////////////////////
