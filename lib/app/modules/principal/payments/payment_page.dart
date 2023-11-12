@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/modules/principal/contracts/pdf_test.dart';
 import 'package:locapay/app/modules/principal/controllers/wallet_controller.dart';
 import 'package:locapay/app/modules/principal/deposit/deposit_page.dart';
 import 'package:locapay/app/modules/principal/payments/controllers/payment_type_controller.dart';
+import 'package:locapay/app/modules/principal/payments/widgets/payment_done.dart';
 import 'package:locapay/app/modules/principal/payments/widgets/payment_type.dart';
 import 'package:locapay/app/modules/principal/principal.dart';
 import 'package:locapay/app/widgets/my_form_field.dart';
@@ -359,18 +361,77 @@ class PaymentPage extends StatelessWidget {
                                 width: MediaQuery.of(context).size.width * 0.7,
                                 hasSepBar: false),
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.05,
+                              height: MediaQuery.of(context).size.height * 0.01,
+                            ),
+                            Obx(
+                              () => Get.find<PaymentTypeController>()
+                                          .paymentType
+                                          .value ==
+                                      0
+                                  ? SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.7,
+                                      child: const Text(
+                                        'Cette somme représente l’acompte, le loyer de deux mois, payé en garantie au propriétaire et qui vous permet d’avoir un maximum de deux mois d’arriéré.',
+                                        style: TextStyle(
+                                          color: Color(0xFFFF0202),
+                                          fontSize: 11,
+                                          fontStyle: FontStyle.italic,
+                                          fontFamily: 'Inter',
+                                          fontWeight: FontWeight.w400,
+                                          height: 0,
+                                        ),
+                                      ),
+                                    )
+                                  : Get.find<PaymentTypeController>()
+                                              .paymentType
+                                              .value ==
+                                          1
+                                      ? SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.7,
+                                          child: const Text(
+                                            'Cette somme représente le loyer du mois en cours.',
+                                            style: TextStyle(
+                                              color: Color(0xFF00DAB7),
+                                              fontSize: 11,
+                                              fontStyle: FontStyle.italic,
+                                              fontFamily: 'Inter',
+                                              fontWeight: FontWeight.w400,
+                                              height: 0,
+                                            ),
+                                          ),
+                                        )
+                                      : SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.7,
+                                          child: const Text(
+                                            'Cette somme représente le paiement d\'un service.',
+                                            style: TextStyle(
+                                              color: Color(0xFF00DAB7),
+                                              fontSize: 11,
+                                              fontStyle: FontStyle.italic,
+                                              fontFamily: 'Inter',
+                                              fontWeight: FontWeight.w400,
+                                              height: 0,
+                                            ),
+                                          ),
+                                        ),
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.7,
                               child: ActionButton(
-                                  action: "Faire le dépôt",
+                                  action: "Valider",
                                   onPressed: () {
                                     Get.defaultDialog(
                                       radius: 10,
                                       titlePadding: const EdgeInsets.all(20),
                                       title:
-                                          'Voulez-vous vraiment payer 33 200 FCFA du loyer ?',
+                                          'Voulez-vous vraiment payer ${amountcontroller.value.text} FCFA du loyer ?',
                                       titleStyle: const TextStyle(
                                         color: Color(0xFF00DAB7),
                                         fontSize: 14,
@@ -402,7 +463,16 @@ class PaymentPage extends StatelessWidget {
                                                       .value +
                                                   int.parse(
                                                       amountcontroller.text);
-                                          Get.to(() => const Principal());
+                                          Get.back();
+                                          Get.defaultDialog(
+                                            title: '',
+                                            contentPadding: EdgeInsets.zero,
+                                            //backgroundColor: white with transparancy of 0.5
+                                            backgroundColor: const Color(
+                                                0x03FFFFFF), // white with transparancy of 0.5
+                                            radius: 10,
+                                            content: PaymentDone(),
+                                          );
                                         },
                                         child: Container(
                                           width: 103,

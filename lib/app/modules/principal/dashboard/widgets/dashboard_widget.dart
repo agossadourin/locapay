@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/modules/principal/payments/controllers/payment_type_controller.dart';
 import 'package:locapay/app/modules/principal/payments/payment_page.dart';
 
 class DashBoardWidget extends StatelessWidget {
@@ -280,6 +281,11 @@ class DashBoardWidget extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
+                            Get.find<PaymentTypeController>()
+                                .paymentType
+                                .value = 1;
+                            print(
+                                "****\n  ${Get.find<PaymentTypeController>().paymentType.value} ");
                             Get.to(() => PaymentPage());
                           },
                           child: Container(

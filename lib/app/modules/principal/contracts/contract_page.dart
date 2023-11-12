@@ -5,9 +5,11 @@ import 'package:locapay/app/modules/principal/contracts/pdf_test.dart';
 import 'package:locapay/app/modules/principal/contracts/sign_page.dart';
 import 'package:locapay/app/modules/principal/contracts/widgets/article.dart';
 import 'package:local_auth/local_auth.dart';
+import 'package:locapay/app/modules/principal/payments/payment_page.dart';
 import 'package:locapay/app/modules/principal/principal.dart';
 
 import '../controllers/principal_controller.dart';
+import '../payments/controllers/payment_type_controller.dart';
 
 class ContractPage extends StatelessWidget {
   ContractPage({super.key});
@@ -231,7 +233,9 @@ class ContractPage extends StatelessWidget {
                         if (isAuthenticated) {
                           Get.find<PrincipalController>().hasLocation.value =
                               true;
-                          Get.to(() => PdfTest());
+                          Get.find<PaymentTypeController>().paymentType.value =
+                              0;
+                          Get.to(() => PaymentPage());
                         } else {
                           Get.snackbar('Erreur', 'Erreur d\'authentification');
                         }
