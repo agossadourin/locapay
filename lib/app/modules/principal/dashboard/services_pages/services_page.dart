@@ -154,6 +154,5 @@ class ServicesPage extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }

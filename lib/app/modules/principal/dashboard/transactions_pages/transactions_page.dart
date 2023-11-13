@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locapay/app/modules/principal/dashboard/services_pages/widgets/payment_widget.dart';
-import 'package:locapay/app/modules/principal/dashboard/services_pages/widgets/services_widget.dart';
 import 'package:locapay/app/modules/principal/dashboard/transactions_pages/widgets/rent_transactions_widget.dart';
 import 'package:locapay/app/modules/principal/dashboard/transactions_pages/widgets/services_transactions_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -159,6 +157,5 @@ class TransactionsPage extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }

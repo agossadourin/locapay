@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locapay/app/modules/principal/contracts/pdf_test.dart';
 import 'package:locapay/app/modules/principal/controllers/wallet_controller.dart';
 import 'package:locapay/app/modules/principal/deposit/deposit_page.dart';
 import 'package:locapay/app/modules/principal/payments/controllers/payment_type_controller.dart';
 import 'package:locapay/app/modules/principal/payments/widgets/payment_done.dart';
 import 'package:locapay/app/modules/principal/payments/widgets/payment_type.dart';
-import 'package:locapay/app/modules/principal/principal.dart';
 import 'package:locapay/app/widgets/my_form_field.dart';
 
 import '../../../widgets/action_button.dart';

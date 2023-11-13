@@ -95,9 +95,73 @@ class ServicesSearchResults extends StatelessWidget {
                           SizedBox(
                             height: MediaQuery.of(context).size.height * 0.02,
                           ),
-                          Column(
-                            children: [SearchResultItem()],
-                          )
+                          const Column(
+                            children: [
+                              SearchResultItem(
+                                name: 'Jean',
+                                surname: 'Dupont',
+                                note: 9.5,
+                                image: 'assets/images/o.png',
+                              ),
+                              SearchResultItem(
+                                name: 'Jean',
+                                surname: 'Dupont',
+                                note: 8.5,
+                                image: 'assets/images/o.png',
+                              ),
+                              SearchResultItem(
+                                name: 'Jean',
+                                surname: 'Dupont',
+                                note: 7.5,
+                                image: 'assets/images/o.png',
+                              ),
+                              SearchResultItem(
+                                name: 'Jean',
+                                surname: 'Dupont',
+                                note: 6.5,
+                                image: 'assets/images/o.png',
+                              ),
+                              SearchResultItem(
+                                name: 'Jean',
+                                surname: 'Dupont',
+                                note: 5.5,
+                                image: 'assets/images/o.png',
+                              ),
+                              SearchResultItem(
+                                name: 'Jean',
+                                surname: 'Dupont',
+                                note: 4.5,
+                                image: 'assets/images/o.png',
+                              ),
+                              SearchResultItem(
+                                name: 'Jean',
+                                surname: 'Dupont',
+                                note: 4.5,
+                                image: 'assets/images/o.png',
+                              ),
+                              SearchResultItem(
+                                name: 'Jean',
+                                surname: 'Dupont',
+                                note: 4.5,
+                                image: 'assets/images/o.png',
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.02,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.4,
+                            decoration: ShapeDecoration(
+                              shape: RoundedRectangleBorder(
+                                side: BorderSide(
+                                  width: 0.50,
+                                  strokeAlign: BorderSide.strokeAlignCenter,
+                                  color: Colors.black.withOpacity(0.5),
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                       ////////////////////////////////////////////////////////
