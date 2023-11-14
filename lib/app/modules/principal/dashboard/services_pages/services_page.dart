@@ -143,8 +143,8 @@ class ServicesPage extends StatelessWidget {
                               _isServicePage.value = false;
                             }
                           },
-                          children: const [
-                            ServicesMiniPage(),
+                          children: [
+                            const ServicesMiniPage(),
                             PaymentMiniPage()
                           ],
                         ),

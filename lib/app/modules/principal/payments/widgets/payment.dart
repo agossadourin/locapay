@@ -12,10 +12,12 @@ import '../../deposit/deposit_page.dart';
 import '../controllers/payment_type_controller.dart';
 
 class Payment extends StatelessWidget {
-  Payment({super.key});
-
-  final TextEditingController phonecontroller = TextEditingController();
-  final TextEditingController amountcontroller = TextEditingController();
+  final TextEditingController? phonecontroller;
+  final TextEditingController? amountcontroller;
+  Payment(
+      {super.key,
+      required this.phonecontroller,
+      required this.amountcontroller});
 
   @override
   Widget build(BuildContext context) {
@@ -345,10 +347,10 @@ class Payment extends StatelessWidget {
                                 ),
                               ),
                               // star rating system
-                              // StarRating(
-                              //   maximumRating: 5,
-                              //   defaultRating: 3,
-                              // ),
+                              StarRating(
+                                maximumRating: 5,
+                                defaultRating: 3,
+                              ),
                               SizedBox(
                                 height:
                                     MediaQuery.of(context).size.height * 0.03,
@@ -417,7 +419,7 @@ class Payment extends StatelessWidget {
                           radius: 10,
                           titlePadding: const EdgeInsets.all(20),
                           title:
-                              'Voulez-vous vraiment payer ${amountcontroller.value.text} FCFA du loyer ?',
+                              'Voulez-vous vraiment payer ${amountcontroller?.value.text} FCFA du loyer ?',
                           titleStyle: const TextStyle(
                             color: Color(0xFF00DAB7),
                             fontSize: 14,
@@ -456,7 +458,7 @@ class Payment extends StatelessWidget {
                                       .value = Get.find<WalletController>()
                                           .balance!
                                           .value -
-                                      int.parse(amountcontroller.text);
+                                      int.parse(amountcontroller!.text);
                               Get.back();
                               Get.defaultDialog(
                                 title: '',

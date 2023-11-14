@@ -5,8 +5,8 @@ import 'package:locapay/app/modules/principal/payments/widgets/payment.dart';
 class PaymentPage extends StatelessWidget {
   PaymentPage({super.key});
 
-  final TextEditingController phonecontroller = TextEditingController();
-  final TextEditingController amountcontroller = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController amountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class PaymentPage extends StatelessWidget {
             children: [
               AppBar(
                 title: const Text(
-                  'Paiement du loyer',
+                  'Paiement ',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Color(0xFF303030),
@@ -65,7 +65,10 @@ class PaymentPage extends StatelessWidget {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.1,
               ),
-              Payment()
+              Payment(
+                phonecontroller: phoneController,
+                amountcontroller: amountController,
+              )
             ],
           ),
         ),
