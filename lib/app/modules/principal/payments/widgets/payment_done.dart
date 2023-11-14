@@ -18,7 +18,7 @@ class PaymentDone extends StatelessWidget {
       decoration: ShapeDecoration(
         color: Colors.white,
         shape: RoundedRectangleBorder(
-          side: BorderSide(width: 0.50, color: Color(0xFF00DAB7)),
+          side: const BorderSide(width: 0.50, color: Color(0xFF00DAB7)),
           borderRadius: BorderRadius.circular(10),
         ),
         shadows: const [
@@ -72,7 +72,7 @@ class PaymentDone extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 decoration: ShapeDecoration(
-                  color: Color(0xFF00DAB7),
+                  color: const Color(0xFF00DAB7),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5)),
                   shadows: const [
@@ -156,7 +156,7 @@ class PaymentDone extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                       width: 22,
                       height: 22,
                       child: Stack(

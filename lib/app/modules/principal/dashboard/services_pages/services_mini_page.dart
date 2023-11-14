@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/dashboard/services_pages/services_search_results.dart';
 import 'package:locapay/app/modules/principal/dashboard/services_pages/widgets/service_item.dart';
 
-import '../../../../../widgets/action_button_2.dart';
-import '../controllers/services_item_controller.dart';
+import '../../../../widgets/action_button_2.dart';
+import 'controllers/services_item_controller.dart';
 
-class ServicesWidget extends StatelessWidget {
-  const ServicesWidget({super.key});
+class ServicesMiniPage extends StatelessWidget {
+  const ServicesMiniPage({super.key});
 
   @override
   Widget build(BuildContext context) {

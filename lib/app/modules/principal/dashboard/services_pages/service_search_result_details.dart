@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/widgets/action_button_2.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ServicesSearchResultDetails extends StatelessWidget {
   final String? name;
@@ -133,7 +134,7 @@ class ServicesSearchResultDetails extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Container(
+                                SizedBox(
                                   width: double.infinity,
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
@@ -329,23 +330,11 @@ class ServicesSearchResultDetails extends StatelessWidget {
                                                               const BoxDecoration(
                                                             image:
                                                                 DecorationImage(
-                                                              image: NetworkImage(
-                                                                  "https://via.placeholder.com/20x20"),
+                                                              image: AssetImage(
+                                                                  "assets/icons/stats.png"),
                                                               fit: BoxFit.fill,
                                                             ),
                                                           ),
-                                                        ),
-                                                      ),
-                                                      Positioned(
-                                                        left: 0,
-                                                        top: 0,
-                                                        child: Container(
-                                                          width: 20,
-                                                          height: 20,
-                                                          decoration:
-                                                              const BoxDecoration(
-                                                                  color: Color(
-                                                                      0xFF00DAB7)),
                                                         ),
                                                       ),
                                                     ],
@@ -609,23 +598,11 @@ class ServicesSearchResultDetails extends StatelessWidget {
                                                               const BoxDecoration(
                                                             image:
                                                                 DecorationImage(
-                                                              image: NetworkImage(
-                                                                  "https://via.placeholder.com/20x20"),
+                                                              image: AssetImage(
+                                                                  "assets/icons/informations.png"),
                                                               fit: BoxFit.fill,
                                                             ),
                                                           ),
-                                                        ),
-                                                      ),
-                                                      Positioned(
-                                                        left: 0,
-                                                        top: 0,
-                                                        child: Container(
-                                                          width: 20,
-                                                          height: 20,
-                                                          decoration:
-                                                              const BoxDecoration(
-                                                                  color: Color(
-                                                                      0xFF00DAB7)),
                                                         ),
                                                       ),
                                                     ],
@@ -694,14 +671,33 @@ class ServicesSearchResultDetails extends StatelessWidget {
                                 width: MediaQuery.of(context).size.width * 0.4,
                                 child: ActionButton2(
                                     action: 'Ecrire',
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      var phoneNumber = "67894105";
+                                      var whatsappUrl =
+                                          "whatsapp://send?phone=$phoneNumber";
+
+                                      if (await canLaunch(whatsappUrl)) {
+                                        await launch(whatsappUrl);
+                                      } else {
+                                        throw 'Could not launch $whatsappUrl';
+                                      }
+                                    },
                                     icon: 'assets/icons/whatsapp.png'),
                               ),
                               SizedBox(
                                 width: MediaQuery.of(context).size.width * 0.4,
                                 child: ActionButton2(
                                     action: 'Appeler',
-                                    onPressed: () {},
+                                    onPressed: () async {
+                                      var phoneNumber = "67894105";
+                                      var dialerUrl = "tel:$phoneNumber";
+
+                                      if (await canLaunch(dialerUrl)) {
+                                        await launch(dialerUrl);
+                                      } else {
+                                        throw 'Could not launch $dialerUrl';
+                                      }
+                                    },
                                     icon: 'assets/icons/phone2.png'),
                               )
                             ],

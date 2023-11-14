@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locapay/app/modules/principal/dashboard/services_pages/widgets/payment_widget.dart';
-import 'package:locapay/app/modules/principal/dashboard/services_pages/widgets/services_widget.dart';
+import 'package:locapay/app/modules/principal/dashboard/services_pages/payment_mini_page.dart';
+import 'package:locapay/app/modules/principal/dashboard/services_pages/services_mini_page.dart';
+
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ServicesPage extends StatelessWidget {
@@ -132,7 +133,7 @@ class ServicesPage extends StatelessWidget {
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.95,
-                        height: MediaQuery.of(context).size.height * 0.7,
+                        height: MediaQuery.of(context).size.height * 0.73,
                         child: PageView(
                           controller: _controller,
                           onPageChanged: (index) {
@@ -142,7 +143,10 @@ class ServicesPage extends StatelessWidget {
                               _isServicePage.value = false;
                             }
                           },
-                          children: const [ServicesWidget(), PaymentWidget()],
+                          children: const [
+                            ServicesMiniPage(),
+                            PaymentMiniPage()
+                          ],
                         ),
                       )
                     ],

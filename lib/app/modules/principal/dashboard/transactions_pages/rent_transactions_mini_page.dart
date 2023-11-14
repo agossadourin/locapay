@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class RentTransactionsWidget extends StatelessWidget {
-  const RentTransactionsWidget({super.key});
+class RentTransactionsMiniPage extends StatelessWidget {
+  const RentTransactionsMiniPage({super.key});
 
   @override
   Widget build(BuildContext context) {

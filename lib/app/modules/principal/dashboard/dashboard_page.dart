@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/dashboard/services_pages/services_page.dart';
 import 'package:locapay/app/modules/principal/dashboard/transactions_pages/transactions_page.dart';
 import 'package:locapay/app/modules/principal/dashboard/widgets/dashboard_widget.dart';
+import 'package:locapay/app/modules/principal/payments/controllers/payment_type_controller.dart';
 import 'package:locapay/app/widgets/rect_action_button.dart';
 
 class DashBoardPage extends StatelessWidget {
@@ -20,6 +21,7 @@ class DashBoardPage extends StatelessWidget {
           RectActionButton(
               action: 'Services',
               onPressed: () {
+                Get.find<PaymentTypeController>().paymentType.value = 2;
                 Get.to(() => ServicesPage());
               },
               icon: 'assets/icons/services.png'),

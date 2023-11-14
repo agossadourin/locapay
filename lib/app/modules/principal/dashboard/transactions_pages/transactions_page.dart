@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locapay/app/modules/principal/dashboard/transactions_pages/widgets/rent_transactions_widget.dart';
-import 'package:locapay/app/modules/principal/dashboard/transactions_pages/widgets/services_transactions_widget.dart';
+import 'package:locapay/app/modules/principal/dashboard/transactions_pages/rent_transactions_mini_page.dart';
+import 'package:locapay/app/modules/principal/dashboard/transactions_pages/services_transactions_mini_page.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class TransactionsPage extends StatelessWidget {
@@ -143,8 +143,8 @@ class TransactionsPage extends StatelessWidget {
                             }
                           },
                           children: const [
-                            RentTransactionsWidget(),
-                            ServicesTransactionsWidget()
+                            RentTransactionsMiniPage(),
+                            ServicesTransactionsMiniPage()
                           ],
                         ),
                       )
