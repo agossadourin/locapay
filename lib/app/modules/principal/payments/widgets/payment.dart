@@ -24,10 +24,6 @@ class Payment extends StatelessWidget {
             scrollDirection: Axis.vertical,
             child: Column(
               children: [
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.1,
-                ),
-
                 /********************************************* */
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.7,
