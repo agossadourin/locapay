@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/payments/widgets/payment_done.dart';
 import 'package:locapay/app/modules/principal/payments/widgets/payment_type.dart';
+import 'package:locapay/app/widgets/star_rating.dart';
 
 import '../../../../widgets/action_button.dart';
 import '../../../../widgets/my_form_field.dart';
@@ -294,8 +295,79 @@ class Payment extends StatelessWidget {
                                   width:
                                       MediaQuery.of(context).size.width * 0.7,
                                   hasSepBar: false),
-                              ///////////////////////////////////////////////////////////////
-                              ///////////////////////////////////////////////////
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.01,
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.7,
+                                child: const Text(
+                                  '2.5% de réduction vous est appliqué pour le paiement des services.',
+                                  style: TextStyle(
+                                    color: Color(0xFF00DAB7),
+                                    fontSize: 12,
+                                    fontStyle: FontStyle.italic,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w400,
+                                    height: 0,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.03,
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.4,
+                                decoration: ShapeDecoration(
+                                  shape: RoundedRectangleBorder(
+                                    side: BorderSide(
+                                      width: 0.50,
+                                      strokeAlign: BorderSide.strokeAlignCenter,
+                                      color: Colors.black.withOpacity(0.5),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.03,
+                              ),
+                              const Text(
+                                'Notez l’Artisan',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontFamily: 'Inter',
+                                  fontWeight: FontWeight.w500,
+                                  height: 0,
+                                ),
+                              ),
+                              // star rating system
+                              // StarRating(
+                              //   maximumRating: 5,
+                              //   defaultRating: 3,
+                              // ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.03,
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.8,
+                                child: const Text(
+                                  'A rapport à la qualité de son travail et de sa prestation en générale,\nDonnez une note sur 20 à l’artisan afin d’aider à son référencement.',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Color(0xFF00DAB7),
+                                    fontSize: 12,
+                                    fontStyle: FontStyle.italic,
+                                    fontFamily: 'Inter',
+                                    fontWeight: FontWeight.w400,
+                                    height: 0,
+                                  ),
+                                ),
+                              )
                             ],
                           ),
                 SizedBox(
@@ -337,9 +409,9 @@ class Payment extends StatelessWidget {
                             ),
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.7,
+                  width: MediaQuery.of(context).size.width * 0.8,
                   child: ActionButton(
-                      action: "Valider",
+                      action: "Payer",
                       onPressed: () {
                         Get.defaultDialog(
                           radius: 10,
@@ -393,7 +465,7 @@ class Payment extends StatelessWidget {
                                 backgroundColor: const Color(
                                     0x03FFFFFF), // white with transparancy of 0.5
                                 radius: 10,
-                                content: PaymentDone(),
+                                content: const PaymentDone(),
                               );
                             },
                             child: Container(
