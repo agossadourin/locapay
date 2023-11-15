@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../contracts/tenants_rules_page.dart';
 
 class RulesContractPage extends StatelessWidget {
   const RulesContractPage({super.key});
@@ -12,7 +15,9 @@ class RulesContractPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Get.to(() => const TenantsRulesPage());
+            },
             child: Container(
               width: MediaQuery.of(context).size.width * 0.8,
               height: 41,
@@ -48,7 +53,7 @@ class RulesContractPage extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   const Text(
-                    'Mes contrats',
+                    'Règlement et conditions',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white,

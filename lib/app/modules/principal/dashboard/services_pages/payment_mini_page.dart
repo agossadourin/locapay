@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:locapay/app/modules/principal/dashboard/transactions_pages/widgets/bill.dart';
-import 'package:locapay/app/modules/principal/dashboard/services_pages/widgets/payment_item.dart';
-import 'package:locapay/app/modules/principal/payments/widgets/payment.dart';
 
-import '../../../../widgets/action_button_2.dart';
+import 'package:locapay/app/modules/principal/payments/widgets/payment.dart';
 
 class PaymentMiniPage extends StatefulWidget {
   const PaymentMiniPage({Key? key}) : super(key: key);

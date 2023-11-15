@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locapay/app/modules/principal/dashboard/transactions_pages/rent_transactions_mini_page.dart';
-import 'package:locapay/app/modules/principal/dashboard/transactions_pages/services_transactions_mini_page.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:locapay/app/modules/principal/dashboard/transactions_pages/controllers/transaction_controller.dart';
+import 'package:locapay/app/modules/principal/dashboard/transactions_pages/widgets/bill.dart';
+import 'package:locapay/app/modules/principal/dashboard/transactions_pages/widgets/filter.dart';
+import 'package:locapay/app/modules/principal/dashboard/transactions_pages/widgets/transaction_item.dart';
 
 class TransactionsPage extends StatelessWidget {
   TransactionsPage({super.key});
-  final PageController _controller = PageController();
   final TextStyle activeStyle = const TextStyle(
     fontFamily: 'Inter',
     fontSize: 14,
@@ -22,7 +22,6 @@ class TransactionsPage extends StatelessWidget {
     fontWeight: FontWeight.w700,
     color: Color.fromRGBO(0, 0, 0, 0.25),
   );
-  final RxBool _isRentPage = true.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -39,120 +38,129 @@ class TransactionsPage extends StatelessWidget {
               ),
             ),
           ),
-          SingleChildScrollView(
-            child: Column(
-              children: [
-                AppBar(
-                  title: const Text(
-                    'Transactions',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xFF303030),
-                      fontSize: 15,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w700,
-                      height: 0,
-                    ),
-                  ),
-                  centerTitle: true,
-                  // green with opacity of 0.5
-                  backgroundColor:
-                      const Color(0xFF00DBB7), // green with opacity of 0.5
-                  elevation: 0,
-
-                  //menu hamburger with notification button at the right and title centered
-                  leading: Builder(
-                    builder: (BuildContext context) {
-                      return IconButton(
-                        icon: const Icon(Icons.arrow_back),
-                        onPressed: () {
-                          Get.back();
-                        },
-                      );
-                    },
+          Column(
+            children: [
+              AppBar(
+                title: const Text(
+                  'Transactions',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color(0xFF303030),
+                    fontSize: 15,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w700,
+                    height: 0,
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.all(30),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.01,
+                centerTitle: true,
+                // green with opacity of 0.5
+                backgroundColor:
+                    const Color(0xFF00DBB7), // green with opacity of 0.5
+                elevation: 0,
+
+                //menu hamburger with notification button at the right and title centered
+                leading: Builder(
+                  builder: (BuildContext context) {
+                    return IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      onPressed: () {
+                        Get.back();
+                      },
+                    );
+                  },
+                ),
+              ),
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.89,
+                child: Column(
+                  children: [
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+                    const Filter(),
+                    SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.005),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      decoration: ShapeDecoration(
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                            width: 0.50,
+                            strokeAlign: BorderSide.strokeAlignCenter,
+                            color: Colors.black.withOpacity(0.5),
+                          ),
+                        ),
                       ),
-                      Obx(
-                        () => Row(
+                    ),
+                    SizedBox(height: MediaQuery.of(context).size.height * 0.03),
+                    Obx(() => Stack(
                           children: [
                             SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.4,
-                              child: GestureDetector(
-                                onTap: () {
-                                  _controller.jumpToPage(0);
-                                },
-                                child: Text(
-                                  'Loyers',
-                                  style: _isRentPage.value
-                                      ? activeStyle
-                                      : inactiveStyle,
+                              height: MediaQuery.of(context).size.height * 0.68,
+                              child: const SingleChildScrollView(
+                                scrollDirection: Axis.vertical,
+                                child: Column(
+                                  children: [
+                                    TransactionItem(
+                                        id: 14578,
+                                        amount: 35450,
+                                        date: '07 novembre',
+                                        toFname: 'MEHOU',
+                                        toLname: 'David Antoine',
+                                        principalReason: 'Menuiserie',
+                                        secondaryReason:
+                                            'conception de meuble'),
+                                    TransactionItem(
+                                        id: 14578,
+                                        amount: 35450,
+                                        date: '07 novembre',
+                                        toFname: 'MEHOU',
+                                        toLname: 'Adjilan',
+                                        principalReason: 'Loyer',
+                                        secondaryReason: 'Mois de Novembre'),
+                                    TransactionItem(
+                                        id: 14578,
+                                        amount: 35450,
+                                        date: '07 novembre',
+                                        toFname: 'MEHOU',
+                                        toLname: 'David Antoine',
+                                        principalReason: 'Menuiserie',
+                                        secondaryReason:
+                                            'conception de meuble'),
+                                    TransactionItem(
+                                        id: 14578,
+                                        amount: 35450,
+                                        date: '07 novembre',
+                                        toFname: 'MEHOU',
+                                        toLname: 'David Antoine',
+                                        principalReason: 'Menuiserie',
+                                        secondaryReason:
+                                            'conception de meuble'),
+                                  ],
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.4,
-                              child: GestureDetector(
-                                onTap: () {
-                                  _controller.jumpToPage(1);
-                                },
-                                child: Text(
-                                  'Services',
-                                  style: _isRentPage.value
-                                      ? inactiveStyle
-                                      : activeStyle,
-                                ),
-                              ),
-                            ),
+                            if (Get.find<TransactionController>()
+                                    .isItemselected
+                                    .value ==
+                                true)
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.68,
+                                width: MediaQuery.of(context).size.width * 0.9,
+                                child: const Bill(
+                                    title: '1245',
+                                    receiver: 'MEHOU David Antoine',
+                                    date: '07 Novembre',
+                                    reason: 'Loyer',
+                                    paidAmount: '25000.5',
+                                    remainsToPay: '2000',
+                                    penalty: 0),
+                              )
                           ],
-                        ),
-                      ),
-                      SmoothPageIndicator(
-                          controller: _controller,
-                          count: 2,
-                          effect: ExpandingDotsEffect(
-                            dotColor: Colors.grey,
-                            activeDotColor: Colors.black,
-                            dotHeight: 5,
-                            dotWidth: MediaQuery.of(context).size.width * 0.4,
-                            expansionFactor: 1.01,
-                            spacing: 10,
-                          )),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.05,
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        height: MediaQuery.of(context).size.height * 0.5,
-                        child: PageView(
-                          controller: _controller,
-                          onPageChanged: (index) {
-                            if (index == 0) {
-                              _isRentPage.value = true;
-                            } else {
-                              _isRentPage.value = false;
-                            }
-                          },
-                          children: const [
-                            RentTransactionsMiniPage(),
-                            ServicesTransactionsMiniPage()
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            ),
+                        ))
+                  ],
+                ),
+              )
+            ],
           ),
         ],
       ),

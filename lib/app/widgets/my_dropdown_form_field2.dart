@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:locapay/app/core/utils/extensions.dart';
 
-class MyDropdownFormField extends StatelessWidget {
+class MyDropdownFormField2 extends StatelessWidget {
   final String hintText;
   final List<String> items;
   final Function(String?) onChanged;
@@ -10,7 +10,7 @@ class MyDropdownFormField extends StatelessWidget {
   final String? rightIcon;
   final bool? hasSepBar;
 
-  const MyDropdownFormField({
+  const MyDropdownFormField2({
     super.key,
     required this.hintText,
     required this.items,
@@ -25,16 +25,16 @@ class MyDropdownFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 5.5.hp,
-      width: width,
+      width: width!,
       margin: const EdgeInsets.only(top: 5, bottom: 5),
-      padding: const EdgeInsets.only(left: 15, bottom: 5),
+      padding: const EdgeInsets.only(left: 10, bottom: 5),
       decoration: BoxDecoration(
         border: Border.all(
           color: const Color.fromRGBO(0, 0, 0, 0.25),
           width: 1.0,
         ),
         color: Colors.white,
-        borderRadius: BorderRadius.circular(50),
+        borderRadius: BorderRadius.circular(10),
       ),
       child: Stack(
         children: [

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../../../../widgets/action_button.dart';
 import '../../../../../widgets/action_button_2.dart';
+import '../controllers/transaction_controller.dart';
 
 class Bill extends StatelessWidget {
   final String? title;
@@ -715,11 +718,29 @@ class Bill extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 15),
-          ActionButton2(
-            onPressed: () {},
-            icon: 'assets/icons/download_bill.png',
-            action: 'Télécharger',
-          ),
+          Row(
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.3,
+                child: ActionButton(
+                  onPressed: () {
+                    Get.find<TransactionController>().isItemselected.value =
+                        false;
+                  },
+                  action: 'Retour',
+                ),
+              ),
+              const SizedBox(width: 15),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.47,
+                child: ActionButton2(
+                  onPressed: () {},
+                  icon: 'assets/icons/download_bill.png',
+                  action: 'Télécharger',
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );
