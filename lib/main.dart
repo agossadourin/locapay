@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:locapay/app/modules/principal/controllers/principal_controller.dart';
+import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
+import 'package:locapay/app/modules/principal/controllers/wallet_controller.dart';
+import 'package:locapay/app/modules/principal/dashboard/services_pages/controllers/services_item_controller.dart';
+import 'package:locapay/app/modules/principal/dashboard/transactions_pages/controllers/transaction_controller.dart';
+import 'package:locapay/app/modules/principal/payments/controllers/payment_type_controller.dart';
+import 'package:locapay/app/modules/register/controllers/account_type_controller.dart';
+import 'package:locapay/app/modules/register/controllers/file_controller.dart';
 import 'package:locapay/app/modules/splash_screen/splash_screen.dart';
 
 import 'app/data/services/storage/storage_services.dart';
@@ -8,6 +17,19 @@ import 'app/data/services/storage/storage_services.dart';
 void main() async {
   await GetStorage.init();
   await Get.putAsync(() => StorageService().init());
+  Get.put(AccountTypeController());
+  Get.put(PrincipalController());
+  Get.put(FileController());
+  Get.put(UserController());
+  Get.put(WalletController());
+  Get.put(PaymentTypeController());
+  Get.put(ServicesItemController());
+  Get.put(TransactionController());
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await FlutterDownloader.initialize(
+      debug: true // optional: set false to disable printing logs to console
+      );
   runApp(const MyApp());
 }
 
@@ -20,10 +42,12 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF00DBB7),
+        ),
         useMaterial3: true,
       ),
-      home: SplashScreen(),
+      home: const SplashScreen(),
     );
   }
 }

@@ -6,7 +6,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _SplashScreenState createState() => _SplashScreenState();
 }
 
@@ -17,10 +20,12 @@ class _SplashScreenState extends State<SplashScreen> {
     bool isFirstTime = prefs.getBool('first_time') ?? true;
 
     if (isFirstTime) {
-      Get.to(() => const OnboardingScreen());
+      //no possibility to go bak to splash screen
+
+      Get.off(() => const OnboardingScreen());
       await prefs.setBool('first_time', false);
     } else {
-      Get.to(() => const RegisterPage());
+      Get.off(() => const RegisterPage());
     }
   }
 
