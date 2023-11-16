@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
@@ -93,46 +94,59 @@ class AboutPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 16.26,
-                      height: 16.26,
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            left: 0,
-                            top: 0,
-                            child: Container(
-                              width: 16.26,
-                              height: 16.26,
-                              decoration: const BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                      "assets/icons/whatsapp_green.png"),
-                                  fit: BoxFit.fill,
+                GestureDetector(
+                  onTap: () async {
+                    // launch whatsapp message to
+                    var phoneNumber = 67894105;
+                    var whatsappUrl = "whatsapp://send?phone=$phoneNumber";
+
+                    if (await canLaunch(whatsappUrl)) {
+                      await launch(whatsappUrl);
+                    } else {
+                      throw 'Could not launch $whatsappUrl';
+                    }
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 16.26,
+                        height: 16.26,
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              left: 0,
+                              top: 0,
+                              child: Container(
+                                width: 16.26,
+                                height: 16.26,
+                                decoration: const BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/icons/whatsapp_green.png"),
+                                    fit: BoxFit.fill,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(width: 4.06),
-                    const Text(
-                      '00229 66 00 00 66',
-                      style: TextStyle(
-                        color: Color(0xFF00DAB7),
-                        fontSize: 14.63,
-                        fontFamily: 'Montserrat',
-                        fontWeight: FontWeight.w600,
-                        height: 0,
+                      const SizedBox(width: 4.06),
+                      const Text(
+                        '00229 66 00 00 66',
+                        style: TextStyle(
+                          color: Color(0xFF00DAB7),
+                          fontSize: 14.63,
+                          fontFamily: 'Montserrat',
+                          fontWeight: FontWeight.w600,
+                          height: 0,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 5),
                 Container(

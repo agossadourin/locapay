@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/modules/principal/dashboard/contact_us/contact_us_page.dart';
 import 'package:locapay/app/modules/principal/dashboard/services_pages/services_page.dart';
 import 'package:locapay/app/modules/principal/dashboard/transactions_pages/transactions_page.dart';
 import 'package:locapay/app/modules/principal/dashboard/widgets/dashboard_widget.dart';
@@ -39,7 +40,9 @@ class DashBoardPage extends StatelessWidget {
           ),
           RectActionButton(
               action: 'Ecrire à l\'équipe',
-              onPressed: () {},
+              onPressed: () {
+                Get.to(() => ContactUsPage());
+              },
               icon: 'assets/icons/email.png')
         ],
       ),

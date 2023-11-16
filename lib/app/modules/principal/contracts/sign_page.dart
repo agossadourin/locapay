@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class SignatureMaker extends StatefulWidget {
+  const SignatureMaker({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _SignatureMakerState createState() => _SignatureMakerState();
 }
 
@@ -55,14 +58,14 @@ class _SignatureMakerState extends State<SignatureMaker> {
                 _points.clear();
               });
             },
-            child: Icon(Icons.clear),
+            child: const Icon(Icons.clear),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           FloatingActionButton(
             onPressed: () {
               // Save signature
             },
-            child: Icon(Icons.done),
+            child: const Icon(Icons.done),
           ),
         ],
       ),
@@ -82,9 +85,7 @@ class SignaturePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     for (int i = 0; i < points.length - 1; i++) {
-      if (points[i] != null && points[i + 1] != null) {
-        canvas.drawLine(points[i], points[i + 1], _paint);
-      }
+      canvas.drawLine(points[i], points[i + 1], _paint);
     }
   }
 
