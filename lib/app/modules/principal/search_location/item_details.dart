@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locapay/app/modules/principal/widgets/charateristics_widget.dart';
+import 'package:locapay/app/modules/principal/search_location/widgets/charateristics_widget.dart';
 import 'package:locapay/app/modules/principal/widgets/picture_viewer.dart';
 import 'package:locapay/app/widgets/action_button.dart';
 

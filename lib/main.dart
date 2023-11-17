@@ -9,6 +9,8 @@ import 'package:locapay/app/modules/principal/dashboard/services_pages/controlle
 import 'package:locapay/app/modules/principal/dashboard/transactions_pages/controllers/transaction_controller.dart';
 import 'package:locapay/app/modules/principal/my_locations/controllers/locations_controller.dart';
 import 'package:locapay/app/modules/principal/payments/controllers/payment_type_controller.dart';
+import 'package:locapay/app/modules/proprio_principal/controllers/proprio_principal_controller.dart';
+import 'package:locapay/app/modules/proprio_principal/controllers/proprio_wallet_controller.dart';
 import 'package:locapay/app/modules/register/controllers/account_type_controller.dart';
 import 'package:locapay/app/modules/register/controllers/file_controller.dart';
 import 'package:locapay/app/modules/splash_screen/splash_screen.dart';
@@ -27,6 +29,8 @@ void main() async {
   Get.put(ServicesItemController());
   Get.put(TransactionController());
   Get.put(LocationsController());
+  Get.put(ProprioPrincipalController());
+  Get.put(ProprioWalletController());
 
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(

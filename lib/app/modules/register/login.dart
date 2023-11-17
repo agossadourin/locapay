@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:locapay/app/data/models/user.dart';
 import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
 import 'package:locapay/app/modules/principal/principal.dart';
+import 'package:locapay/app/modules/proprio_principal/proprio_principal.dart';
 import 'package:locapay/app/widgets/action_button.dart';
 import 'package:locapay/app/widgets/my_form_field.dart';
 import 'package:locapay/app/data/services/api/api.dart';
@@ -91,7 +92,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           // Get.find<UserController>().userData.value = user;
                           // TODO: Implement registration logic
 
-                          Get.to(() => const Principal());
+                          Get.to(() => const ProprioPrincipal());
                         }
                       },
                     ),
