@@ -5,6 +5,6 @@ class EditProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Text('EditProfile');
+    return const Text('Je veux changer mon profil');
   }
 }
