@@ -79,11 +79,12 @@ class CustomDrawer extends StatelessWidget {
                                 size: 35,
                               ),
                         const SizedBox(width: 10),
-                        Column(
+                        const Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              '${Get.find<UserController>().userData.value!.firstname} ${Get.find<UserController>().userData.value!.lastname}',
+                              //'${Get.find<UserController>().userData.value!.firstname} ${Get.find<UserController>().userData.value!.lastname}',
+                              'ok',
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 color: Colors.black,

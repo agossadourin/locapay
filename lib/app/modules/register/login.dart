@@ -77,18 +77,18 @@ class _LoginWidgetState extends State<LoginWidget> {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
                           //login
-                          setState(() {
-                            loginInProgress.value = true;
-                          });
+                          // setState(() {
+                          //   loginInProgress.value = true;
+                          // });
 
-                          var answer = await authService.login(
-                              emailController!.text, passwordController!.text);
-                          setState(() {
-                            loginInProgress.value = false;
-                          });
-                          print(answer);
-                          User user = User.fromJson(answer);
-                          Get.find<UserController>().userData.value = user;
+                          // var answer = await authService.login(
+                          //     emailController!.text, passwordController!.text);
+                          // setState(() {
+                          //   loginInProgress.value = false;
+                          // });
+                          // print(answer);
+                          // User user = User.fromJson(answer);
+                          // Get.find<UserController>().userData.value = user;
                           // TODO: Implement registration logic
 
                           Get.to(() => const Principal());

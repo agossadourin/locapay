@@ -19,7 +19,7 @@ class Principal extends StatelessWidget {
     List<String> pageTitles = [
       'Tableau de bord',
       'Modifier mon profil',
-      'Mes locations',
+      'Gestion des locations',
       'Contrats',
       'A propos de LocaPay'
     ];
