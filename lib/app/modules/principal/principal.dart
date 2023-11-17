@@ -92,7 +92,7 @@ class Principal extends StatelessWidget {
                             ? const WelcomePage()
                             : const DashBoardPage()
                         : Get.find<PrincipalController>().currentPage.value == 1
-                            ? const EditProfile()
+                            ? EditProfile()
                             : Get.find<PrincipalController>()
                                         .currentPage
                                         .value ==
