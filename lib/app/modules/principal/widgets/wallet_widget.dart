@@ -133,7 +133,9 @@ class WalletWidget extends StatelessWidget {
                       Expanded(
                         child: GestureDetector(
                           onTap: () {
-                            Get.to(() => DepositPage());
+                            Get.to(() => DepositPage(
+                                  isDeposit: true,
+                                ));
                           },
                           child: Container(
                             width: double.infinity,

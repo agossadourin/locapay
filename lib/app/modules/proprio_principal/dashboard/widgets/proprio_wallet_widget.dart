@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locapay/app/modules/proprio_principal/controllers/proprio_wallet_controller.dart';
+import 'package:locapay/app/modules/principal/controllers/wallet_controller.dart';
+import 'package:locapay/app/modules/principal/dashboard/transactions_pages/transactions_page.dart';
+import 'package:locapay/app/modules/principal/deposit/deposit_page.dart';
 
 class ProprioWalletWidget extends StatelessWidget {
   const ProprioWalletWidget({super.key});
@@ -106,12 +108,15 @@ class ProprioWalletWidget extends StatelessWidget {
                                     children: [
                                       Obx(
                                         () => Text(
-                                          Get.find<ProprioWalletController>()
+                                          Get.find<WalletController>()
                                                       .hideBalance
                                                       .value ==
                                                   true
                                               ? '****'
-                                              : '65 755',
+                                              : Get.find<WalletController>()
+                                                  .balance
+                                                  .value
+                                                  .toString(),
                                           textAlign: TextAlign.center,
                                           style: const TextStyle(
                                             color: Colors.white,
@@ -139,16 +144,14 @@ class ProprioWalletWidget extends StatelessWidget {
                                   Obx(
                                     () => GestureDetector(
                                       onTap: () {
-                                        Get.find<ProprioWalletController>()
+                                        Get.find<WalletController>()
                                                     .hideBalance
                                                     .value ==
                                                 true
-                                            ? Get.find<
-                                                    ProprioWalletController>()
+                                            ? Get.find<WalletController>()
                                                 .hideBalance
                                                 .value = false
-                                            : Get.find<
-                                                    ProprioWalletController>()
+                                            : Get.find<WalletController>()
                                                 .hideBalance
                                                 .value = true;
                                       },
@@ -165,7 +168,7 @@ class ProprioWalletWidget extends StatelessWidget {
                                                 height: 20,
                                                 decoration: BoxDecoration(
                                                   image: DecorationImage(
-                                                    image: Get.find<ProprioWalletController>()
+                                                    image: Get.find<WalletController>()
                                                                 .hideBalance
                                                                 .value ==
                                                             true
@@ -246,16 +249,19 @@ class ProprioWalletWidget extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  const Row(
+                                  Row(
                                     mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
                                       Text(
-                                        '24 450',
+                                        Get.find<WalletController>()
+                                            .nextPayment
+                                            .value
+                                            .toString(),
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.white,
                                           fontSize: 21.11,
                                           fontFamily: 'Inter',
@@ -263,8 +269,8 @@ class ProprioWalletWidget extends StatelessWidget {
                                           height: 0,
                                         ),
                                       ),
-                                      SizedBox(width: 4),
-                                      Text(
+                                      const SizedBox(width: 4),
+                                      const Text(
                                         'FCFA',
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
@@ -325,10 +331,13 @@ class ProprioWalletWidget extends StatelessWidget {
                                           ),
                                         ),
                                         const SizedBox(width: 4),
-                                        const Text(
-                                          '1er Décembre 2023',
+                                        Text(
+                                          Get.find<WalletController>()
+                                              .nextPaymentDate
+                                              .value
+                                              .toString(),
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 13,
                                             fontFamily: 'Inter',
@@ -384,156 +393,166 @@ class ProprioWalletWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(100),
                   ),
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: ShapeDecoration(
-                        color: const Color(0xFF00DAB7),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
+                child: GestureDetector(
+                  onTap: () {
+                    Get.to(() => DepositPage(isDeposit: true));
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: ShapeDecoration(
+                          color: const Color(0xFF00DAB7),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          shadows: const [
+                            BoxShadow(
+                              color: Color(0x19000000),
+                              blurRadius: 4,
+                              offset: Offset(0, 2),
+                              spreadRadius: 0,
+                            )
+                          ],
                         ),
-                        shadows: const [
-                          BoxShadow(
-                            color: Color(0x19000000),
-                            blurRadius: 4,
-                            offset: Offset(0, 2),
-                            spreadRadius: 0,
-                          )
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  left: 0,
-                                  top: 0,
-                                  child: Container(
-                                    width: 20,
-                                    height: 20,
-                                    decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            "assets/icons/save_money.png"),
-                                        fit: BoxFit.fill,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    left: 0,
+                                    top: 0,
+                                    child: Container(
+                                      width: 20,
+                                      height: 20,
+                                      decoration: const BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                              "assets/icons/save_money.png"),
+                                          fit: BoxFit.fill,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 5),
-                    const Text(
-                      'Dépôt',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color(0xFF00DAB7),
-                        fontSize: 13,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w700,
-                        height: 0,
+                      const SizedBox(height: 5),
+                      const Text(
+                        'Dépôt',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Color(0xFF00DAB7),
+                          fontSize: 13,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                          height: 0,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(width: 10),
               SizedBox(
                 height: 83,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: ShapeDecoration(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
+                child: GestureDetector(
+                  onTap: () {
+                    Get.to(() => TransactionsPage());
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: ShapeDecoration(
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
                         ),
-                      ),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.all(10),
-                            decoration: ShapeDecoration(
-                              color: const Color(0xFF00DAB7),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(100),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: ShapeDecoration(
+                                color: const Color(0xFF00DAB7),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(100),
+                                ),
+                                shadows: const [
+                                  BoxShadow(
+                                    color: Color(0x19000000),
+                                    blurRadius: 4,
+                                    offset: Offset(0, 2),
+                                    spreadRadius: 0,
+                                  )
+                                ],
                               ),
-                              shadows: const [
-                                BoxShadow(
-                                  color: Color(0x19000000),
-                                  blurRadius: 4,
-                                  offset: Offset(0, 2),
-                                  spreadRadius: 0,
-                                )
-                              ],
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  width: 22,
-                                  height: 22,
-                                  child: Stack(
-                                    children: [
-                                      Positioned(
-                                        left: 0,
-                                        top: 0,
-                                        child: Container(
-                                          width: 22,
-                                          height: 22,
-                                          decoration: const BoxDecoration(
-                                            image: DecorationImage(
-                                              image: AssetImage(
-                                                  "assets/icons/bills.png"),
-                                              fit: BoxFit.fill,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    width: 22,
+                                    height: 22,
+                                    child: Stack(
+                                      children: [
+                                        Positioned(
+                                          left: 0,
+                                          top: 0,
+                                          child: Container(
+                                            width: 22,
+                                            height: 22,
+                                            decoration: const BoxDecoration(
+                                              image: DecorationImage(
+                                                image: AssetImage(
+                                                    "assets/icons/bills.png"),
+                                                fit: BoxFit.fill,
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    const Text(
-                      'Mes Reçus',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color(0xFF00DAB7),
-                        fontSize: 13,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w700,
-                        height: 0,
+                      const Text(
+                        'Mes Reçus',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Color(0xFF00DAB7),
+                          fontSize: 13,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                          height: 0,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
               const SizedBox(width: 10),
@@ -545,71 +564,76 @@ class ProprioWalletWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(100),
                   ),
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: ShapeDecoration(
-                        color: const Color(0xFF00DAB7),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
+                child: GestureDetector(
+                  onTap: () {
+                    Get.to(() => DepositPage(isDeposit: false));
+                  },
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: ShapeDecoration(
+                          color: const Color(0xFF00DAB7),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          shadows: const [
+                            BoxShadow(
+                              color: Color(0x19000000),
+                              blurRadius: 4,
+                              offset: Offset(0, 2),
+                              spreadRadius: 0,
+                            )
+                          ],
                         ),
-                        shadows: const [
-                          BoxShadow(
-                            color: Color(0x19000000),
-                            blurRadius: 4,
-                            offset: Offset(0, 2),
-                            spreadRadius: 0,
-                          )
-                        ],
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            width: 20,
-                            height: 20,
-                            child: Stack(
-                              children: [
-                                Positioned(
-                                  left: 0,
-                                  top: 0,
-                                  child: Container(
-                                    width: 20,
-                                    height: 20,
-                                    decoration: const BoxDecoration(
-                                      image: DecorationImage(
-                                        image: AssetImage(
-                                            "assets/icons/withdraw.png"),
-                                        fit: BoxFit.fill,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    left: 0,
+                                    top: 0,
+                                    child: Container(
+                                      width: 20,
+                                      height: 20,
+                                      decoration: const BoxDecoration(
+                                        image: DecorationImage(
+                                          image: AssetImage(
+                                              "assets/icons/withdraw.png"),
+                                          fit: BoxFit.fill,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 5),
-                    const Text(
-                      'Retrait',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Color(0xFF00DAB7),
-                        fontSize: 13,
-                        fontFamily: 'Inter',
-                        fontWeight: FontWeight.w700,
-                        height: 0,
+                      const SizedBox(height: 5),
+                      const Text(
+                        'Retrait',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: Color(0xFF00DAB7),
+                          fontSize: 13,
+                          fontFamily: 'Inter',
+                          fontWeight: FontWeight.w700,
+                          height: 0,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ],

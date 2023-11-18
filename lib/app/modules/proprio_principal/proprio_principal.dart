@@ -74,8 +74,7 @@ class ProprioPrincipal extends StatelessWidget {
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * 0.85,
-                  child: SingleChildScrollView(
-                      child: Obx(
+                  child: Obx(
                     () => Get.find<ProprioPrincipalController>()
                                 .currentPage
                                 .value ==
@@ -113,7 +112,7 @@ class ProprioPrincipal extends StatelessWidget {
                                             ? const Text(
                                                 'Règlement des proprio')
                                             : const Text('About page'),
-                  )),
+                  ),
                 ),
               ],
             ),

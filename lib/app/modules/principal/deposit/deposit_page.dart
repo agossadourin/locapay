@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/controllers/wallet_controller.dart';
 import 'package:locapay/app/modules/principal/principal.dart';
+import 'package:locapay/app/modules/proprio_principal/proprio_principal.dart';
+import 'package:locapay/app/modules/register/controllers/account_type_controller.dart';
 import 'package:locapay/app/widgets/my_form_field.dart';
 
 import '../../../widgets/action_button.dart';
 
 class DepositPage extends StatelessWidget {
-  DepositPage({super.key});
+  final bool? isDeposit;
+  DepositPage({super.key, required this.isDeposit});
 
   final TextEditingController phonecontroller = TextEditingController();
   final TextEditingController amountcontroller = TextEditingController();
@@ -31,10 +34,10 @@ class DepositPage extends StatelessWidget {
             child: Column(
               children: [
                 AppBar(
-                  title: const Text(
-                    'Recharger mon compte',
+                  title: Text(
+                    isDeposit! ? 'Recharger mon compte' : 'Faire un retrait',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color(0xFF303030),
                       fontSize: 15,
                       fontFamily: 'Inter',
@@ -77,10 +80,12 @@ class DepositPage extends StatelessWidget {
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.7,
-                              child: const Text(
-                                'Numéro de dépot',
+                              child: Text(
+                                isDeposit!
+                                    ? 'Numéro de dépot'
+                                    : 'Numéro  du compte a créditer',
                                 textAlign: TextAlign.start,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 12,
                                   fontFamily: 'Inter',
@@ -176,7 +181,9 @@ class DepositPage extends StatelessWidget {
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.7,
                               child: ActionButton(
-                                  action: "Faire le dépôt",
+                                  action: isDeposit!
+                                      ? "Faire le dépôt"
+                                      : 'Faire le retrait',
                                   onPressed: () {
                                     Get.defaultDialog(
                                       radius: 10,
@@ -207,14 +214,20 @@ class DepositPage extends StatelessWidget {
                                       confirm: GestureDetector(
                                         onTap: () {
                                           Get.find<WalletController>()
-                                                  .balance!
+                                                  .balance
                                                   .value =
                                               Get.find<WalletController>()
-                                                      .balance!
+                                                      .balance
                                                       .value +
                                                   int.parse(
                                                       amountcontroller.text);
-                                          Get.to(() => const Principal());
+                                          Get.to(() =>
+                                              Get.find<AccountTypeController>()
+                                                          .selectedIndex
+                                                          .value ==
+                                                      0
+                                                  ? const Principal()
+                                                  : const ProprioPrincipal());
                                         },
                                         child: Container(
                                           width: 103,
