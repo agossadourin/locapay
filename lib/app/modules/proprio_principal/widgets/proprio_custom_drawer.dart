@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locapay/app/modules/principal/controllers/principal_controller.dart';
 import 'package:locapay/app/modules/principal/widgets/drawer_element.dart';
 import 'package:locapay/app/modules/proprio_principal/controllers/proprio_principal_controller.dart';
 

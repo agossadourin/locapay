@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
 import 'package:locapay/app/modules/register/controllers/account_type_controller.dart';
 import 'package:locapay/app/modules/register/widgets/account_type.dart';
 import 'package:locapay/app/widgets/action_button.dart';
@@ -47,8 +48,7 @@ class AccountTypePage extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Get.find<AccountTypeController>().selectedIndex.value = 0;
-              print('0 selected');
-              print(Get.find<AccountTypeController>().selectedIndex.value);
+              Get.find<UserController>().accountType.value = 0;
             },
             child: AccountType(
               title: 'Locataire',
@@ -67,6 +67,7 @@ class AccountTypePage extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Get.find<AccountTypeController>().selectedIndex.value = 1;
+              Get.find<UserController>().accountType.value = 1;
             },
             child: AccountType(
               title: 'Propriétaire',
@@ -85,6 +86,7 @@ class AccountTypePage extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Get.find<AccountTypeController>().selectedIndex.value = 2;
+              Get.find<UserController>().accountType.value = 2;
             },
             child: AccountType(
               title: 'Artisan',

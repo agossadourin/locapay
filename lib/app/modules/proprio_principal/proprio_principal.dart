@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/modules/principal/dashboard/widgets/welcome_page.dart';
 import 'package:locapay/app/modules/principal/notifications_page/notifications_page.dart';
 import 'package:locapay/app/modules/proprio_principal/dashboard/proprio_dashboard.dart';
 import 'package:locapay/app/modules/proprio_principal/widgets/proprio_custom_drawer.dart';
@@ -83,8 +84,8 @@ class ProprioPrincipal extends StatelessWidget {
                                     .hasLocation
                                     .value ==
                                 false
-                            ? const ProprioDashBoard()
-                            : const Text('Dashboard Page')
+                            ? const WelcomePage()
+                            : const ProprioDashBoard()
                         : Get.find<ProprioPrincipalController>()
                                     .currentPage
                                     .value ==
