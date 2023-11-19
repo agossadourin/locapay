@@ -45,22 +45,19 @@ class _AddMultiPhotoWidgetState extends State<AddMultiPhotoWidget> {
         height: MediaQuery.of(context).size.width * 0.5,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: Get.find<FileController>().biometricIsUploaded.value == false
-              ? Colors.grey[400]
-              : Colors.transparent,
           borderRadius: BorderRadius.circular(10),
         ),
         child: SizedBox(
           width: MediaQuery.of(context).size.width * 0.95,
+          height: MediaQuery.of(context).size.width * 0.3,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
                 if (Get.find<FileController>().rentFiles.isNotEmpty)
-                  Container(
-                    width: MediaQuery.of(context)
-                        .size
-                        .width, // Set a specific width constraint
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    // Set a specific width constraint
                     child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: Get.find<FileController>().rentFiles.length,
@@ -71,7 +68,11 @@ class _AddMultiPhotoWidgetState extends State<AddMultiPhotoWidget> {
                               ? Stack(
                                   children: [
                                     Container(
-                                      margin: const EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey[700],
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      margin: const EdgeInsets.only(right: 10),
                                       width: MediaQuery.of(context).size.width *
                                           0.3,
                                       height:
@@ -83,13 +84,13 @@ class _AddMultiPhotoWidgetState extends State<AddMultiPhotoWidget> {
                                           Get.find<FileController>()
                                               .rentFiles[index]
                                               .value!,
-                                          fit: BoxFit.cover,
+                                          fit: BoxFit.contain,
                                         ),
                                       ),
                                     ),
                                     Positioned(
                                       top: 5,
-                                      right: 5,
+                                      right: 15,
                                       child: GestureDetector(
                                         onTap: () {
                                           Get.find<FileController>()
@@ -117,12 +118,106 @@ class _AddMultiPhotoWidgetState extends State<AddMultiPhotoWidget> {
                                     ),
                                   ],
                                 )
-                              : Row(
-                                  children: [
-                                    Stack(
-                                      children: [
-                                        Container(
-                                          margin: const EdgeInsets.all(10),
+                              : Container(
+                                  margin:
+                                      const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                                  child: Row(
+                                    children: [
+                                      Stack(
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                              color: Colors.grey[700],
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            margin: const EdgeInsets.only(
+                                                right: 10),
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.3,
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.3,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              child: Image.file(
+                                                Get.find<FileController>()
+                                                    .rentFiles[index]
+                                                    .value!,
+                                                fit: BoxFit.contain,
+                                              ),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            top: 5,
+                                            right: 15,
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                Get.find<FileController>()
+                                                    .rentFiles
+                                                    .removeAt(index);
+                                                Get.find<FileController>()
+                                                    .renttempFilePaths
+                                                    .removeAt(index);
+                                              },
+                                              child: Container(
+                                                width: 20,
+                                                height: 20,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                ),
+                                                child: const Icon(
+                                                  Icons.close,
+                                                  size: 15,
+                                                  color: Colors.red,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      GestureDetector(
+                                        onTap: () {
+                                          showModalBottomSheet(
+                                            context: context,
+                                            builder: (context) {
+                                              return Wrap(
+                                                children: <Widget>[
+                                                  ListTile(
+                                                    leading: const Icon(
+                                                        Icons.camera_alt),
+                                                    title: const Text('Camera'),
+                                                    onTap: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      _pickImage(
+                                                          ImageSource.camera);
+                                                    },
+                                                  ),
+                                                  ListTile(
+                                                    leading: const Icon(
+                                                        Icons.photo_album),
+                                                    title:
+                                                        const Text('Galerie'),
+                                                    onTap: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      _pickImage(
+                                                          ImageSource.gallery);
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        },
+                                        child: Container(
                                           width: MediaQuery.of(context)
                                                   .size
                                                   .width *
@@ -131,98 +226,19 @@ class _AddMultiPhotoWidgetState extends State<AddMultiPhotoWidget> {
                                                   .size
                                                   .width *
                                               0.3,
-                                          child: ClipRRect(
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey[700],
                                             borderRadius:
                                                 BorderRadius.circular(10),
-                                            child: Image.file(
-                                              Get.find<FileController>()
-                                                  .rentFiles[index]
-                                                  .value!,
-                                              fit: BoxFit.cover,
-                                            ),
                                           ),
-                                        ),
-                                        Positioned(
-                                          top: 5,
-                                          right: 5,
-                                          child: GestureDetector(
-                                            onTap: () {
-                                              Get.find<FileController>()
-                                                  .rentFiles
-                                                  .removeAt(index);
-                                              Get.find<FileController>()
-                                                  .renttempFilePaths
-                                                  .removeAt(index);
-                                            },
-                                            child: Container(
-                                              width: 20,
-                                              height: 20,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(50),
-                                              ),
-                                              child: const Icon(
-                                                Icons.close,
-                                                size: 15,
-                                                color: Colors.red,
-                                              ),
-                                            ),
+                                          child: const Icon(
+                                            Icons.camera_alt,
+                                            color: Colors.grey,
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        showModalBottomSheet(
-                                          context: context,
-                                          builder: (context) {
-                                            return Wrap(
-                                              children: <Widget>[
-                                                ListTile(
-                                                  leading: const Icon(
-                                                      Icons.camera_alt),
-                                                  title: const Text('Camera'),
-                                                  onTap: () {
-                                                    Navigator.of(context).pop();
-                                                    _pickImage(
-                                                        ImageSource.camera);
-                                                  },
-                                                ),
-                                                ListTile(
-                                                  leading: const Icon(
-                                                      Icons.photo_album),
-                                                  title: const Text('Galerie'),
-                                                  onTap: () {
-                                                    Navigator.of(context).pop();
-                                                    _pickImage(
-                                                        ImageSource.gallery);
-                                                  },
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                      },
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.3,
-                                        height:
-                                            MediaQuery.of(context).size.width *
-                                                0.3,
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey[700],
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        child: const Icon(
-                                          Icons.camera_alt,
-                                          color: Colors.grey,
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 );
                         }),
                   ),
