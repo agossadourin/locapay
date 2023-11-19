@@ -66,7 +66,8 @@ class _AddMultiPhotoWidgetState extends State<AddMultiPhotoWidget> {
                         itemCount: Get.find<FileController>().rentFiles.length,
                         itemBuilder: (context, index) {
                           return index !=
-                                  Get.find<FileController>().rentFiles.length
+                                  Get.find<FileController>().rentFiles.length -
+                                      1
                               ? Stack(
                                   children: [
                                     Container(
