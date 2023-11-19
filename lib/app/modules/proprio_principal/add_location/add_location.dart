@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/search_location/search_results.dart';
 import 'package:locapay/app/widgets/action_button_2.dart';
+import 'package:locapay/app/widgets/add_multi_photo_widget.dart';
 import 'package:locapay/app/widgets/my_dropdown_form_field.dart';
 import 'package:locapay/app/widgets/my_form_field.dart';
 
@@ -612,14 +613,80 @@ class _AddLocationState extends State<AddLocation> {
               ),
             ),
 
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.025,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.85,
+              child: const Text(
+                'Photos',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 16,
+                  fontFamily: 'Inter',
+                  fontWeight: FontWeight.w600,
+                  height: 0,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.025,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.85,
+              height: 55,
+              child: const Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      'Ajouter ou supprimez des photos des locations',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 12.50,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                        height: 0,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      'Veillez à prendre des photos assez claires des compartiments de la location',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xFFFF0202),
+                        fontSize: 12,
+                        fontStyle: FontStyle.italic,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w300,
+                        height: 0,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.025,
+            ),
+            const AddMultiPhotoWidget(),
+
             /////////////////////////////////////////
 
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.025,
             ),
             ActionButton2(
-                action: 'Rechercher',
-                icon: 'assets/icons/home_search.png',
+                action: 'Ajouter la location',
+                icon: 'assets/icons/home_add.png',
                 onPressed: () {
                   Get.to(() => const SearchResults());
                 }),
