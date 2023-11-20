@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locapay/app/modules/principal/search_location/search_results.dart';
 import 'package:locapay/app/modules/proprio_principal/controllers/proprio_principal_controller.dart';
 import 'package:locapay/app/modules/proprio_principal/proprio_principal.dart';
 import 'package:locapay/app/widgets/action_button_2.dart';
@@ -184,9 +183,7 @@ class _AddLocationState extends State<AddLocation> {
                 leftIcon: 'assets/icons/bedroom.png',
                 hintText: 'Nombre de chambres',
                 items: const ['1', '2', '3', '4', '5', '6', '7', '8', '+'],
-                onChanged: (String? value) {
-                  print('Selected: $value');
-                },
+                onChanged: (String? value) {},
                 width: MediaQuery.of(context).size.width * 0.85,
                 rightIcon: 'assets/icons/arrow_down.png',
                 hasSepBar: true),
@@ -197,9 +194,7 @@ class _AddLocationState extends State<AddLocation> {
                 leftIcon: 'assets/icons/furniture.png',
                 hintText: 'Nombre de salons',
                 items: const ['1', '2', '3', '4', '5', '6', '7', '8', '+'],
-                onChanged: (String? value) {
-                  print('Selected: $value');
-                },
+                onChanged: (String? value) {},
                 width: MediaQuery.of(context).size.width * 0.85,
                 rightIcon: 'assets/icons/arrow_down.png',
                 hasSepBar: true),
@@ -727,7 +722,7 @@ class _AddLocationState extends State<AddLocation> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  SizedBox(height: 10),
                   SizedBox(
                     width: double.infinity,
                     child: Text(

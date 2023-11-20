@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/modules/principal/about/about_page.dart';
+import 'package:locapay/app/modules/principal/dashboard/services_pages/services_page.dart';
 import 'package:locapay/app/modules/principal/dashboard/widgets/welcome_page.dart';
 import 'package:locapay/app/modules/principal/edit_profile/edit_profile.dart';
 import 'package:locapay/app/modules/principal/notifications_page/notifications_page.dart';
@@ -104,7 +106,7 @@ class ProprioPrincipal extends StatelessWidget {
                                             .currentPage
                                             .value ==
                                         3
-                                    ? const Text('Services page')
+                                    ? ServicesPage()
                                     : Get.find<ProprioPrincipalController>()
                                                 .currentPage
                                                 .value ==
@@ -115,7 +117,7 @@ class ProprioPrincipal extends StatelessWidget {
                                                     .value ==
                                                 5
                                             ? const OwnersRulesPage()
-                                            : const Text('About page'),
+                                            : const AboutPage(),
                   ),
                 ),
               ],

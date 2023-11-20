@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locapay/app/modules/principal/dashboard/services_pages/payment_mini_page.dart';
-import 'package:locapay/app/modules/principal/dashboard/services_pages/services_mini_page.dart';
 import 'package:locapay/app/modules/proprio_principal/my_locations_pages/active_locations_mini_page.dart';
 import 'package:locapay/app/modules/proprio_principal/my_locations_pages/inactive_locations_mini_page.dart';
 
