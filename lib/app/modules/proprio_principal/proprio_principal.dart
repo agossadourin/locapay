@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/dashboard/widgets/welcome_page.dart';
+import 'package:locapay/app/modules/principal/edit_profile/edit_profile.dart';
 import 'package:locapay/app/modules/principal/notifications_page/notifications_page.dart';
+import 'package:locapay/app/modules/proprio_principal/bills_page/bills_page.dart';
 import 'package:locapay/app/modules/proprio_principal/dashboard/proprio_dashboard.dart';
+import 'package:locapay/app/modules/proprio_principal/my_locations_pages/my_locations_page.dart';
+import 'package:locapay/app/modules/proprio_principal/owners_rules_page/owners_rules_page.dart';
 import 'package:locapay/app/modules/proprio_principal/widgets/proprio_custom_drawer.dart';
 
 import 'controllers/proprio_principal_controller.dart';
@@ -74,7 +78,7 @@ class ProprioPrincipal extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.85,
+                  height: MediaQuery.of(context).size.height * 0.9,
                   child: Obx(
                     () => Get.find<ProprioPrincipalController>()
                                 .currentPage
@@ -90,12 +94,12 @@ class ProprioPrincipal extends StatelessWidget {
                                     .currentPage
                                     .value ==
                                 1
-                            ? const Text('Bill page')
+                            ? const BillsPage()
                             : Get.find<ProprioPrincipalController>()
                                         .currentPage
                                         .value ==
                                     2
-                                ? const Text('Locations page')
+                                ? MyLocationsPage()
                                 : Get.find<ProprioPrincipalController>()
                                             .currentPage
                                             .value ==
@@ -105,13 +109,12 @@ class ProprioPrincipal extends StatelessWidget {
                                                 .currentPage
                                                 .value ==
                                             4
-                                        ? const Text('Edit Profile page')
+                                        ? EditProfile()
                                         : Get.find<ProprioPrincipalController>()
                                                     .currentPage
                                                     .value ==
                                                 5
-                                            ? const Text(
-                                                'Règlement des proprio')
+                                            ? const OwnersRulesPage()
                                             : const Text('About page'),
                   ),
                 ),

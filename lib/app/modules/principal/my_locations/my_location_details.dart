@@ -451,7 +451,7 @@ class MyLocationDetails extends StatelessWidget {
                         RectActionButton(
                             action: "Voir le contrat",
                             onPressed: () {
-                              Get.to(() => ContractPage());
+                              Get.to(() => ContractPage(isSigned: true));
                             },
                             icon: 'assets/icons/contract.png'),
                       ],

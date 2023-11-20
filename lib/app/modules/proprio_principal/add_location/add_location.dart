@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/search_location/search_results.dart';
+import 'package:locapay/app/modules/proprio_principal/controllers/proprio_principal_controller.dart';
+import 'package:locapay/app/modules/proprio_principal/proprio_principal.dart';
 import 'package:locapay/app/widgets/action_button_2.dart';
 import 'package:locapay/app/widgets/add_multi_photo_widget.dart';
 import 'package:locapay/app/widgets/my_dropdown_form_field.dart';
@@ -25,6 +27,76 @@ class _AddLocationState extends State<AddLocation> {
 
   @override
   Widget build(BuildContext context) {
+    void onPressed() {
+      Get.defaultDialog(
+        radius: 10,
+        titlePadding: const EdgeInsets.all(20),
+        title: 'Bien Recu',
+        titleStyle: const TextStyle(
+          color: Color(0xFF00DAB7),
+          fontSize: 14,
+          fontFamily: 'Inter',
+          fontWeight: FontWeight.w700,
+          height: 0,
+        ),
+        content: const Text(
+          'Après étude des informations fournies, une équipe sera envoyé pour contrôle de conformité. Après quoi, votre nouvel location sera rajouter à la base de données.',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 12,
+            fontStyle: FontStyle.italic,
+            fontFamily: 'Inter',
+            fontWeight: FontWeight.w400,
+            height: 0,
+          ),
+        ),
+        confirm: GestureDetector(
+          onTap: () {
+            Get.find<ProprioPrincipalController>().hasLocation.value = true;
+            Get.to(() => const ProprioPrincipal());
+          },
+          child: Container(
+            width: 103,
+            height: 32,
+            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
+            decoration: ShapeDecoration(
+              color: const Color(0xFF00DAB7),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              shadows: const [
+                BoxShadow(
+                  color: Color(0x26000000),
+                  blurRadius: 4,
+                  offset: Offset(0, 2),
+                  spreadRadius: 0,
+                )
+              ],
+            ),
+            child: const Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'D’accord',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w700,
+                    height: 0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -687,9 +759,7 @@ class _AddLocationState extends State<AddLocation> {
             ActionButton2(
                 action: 'Ajouter la location',
                 icon: 'assets/icons/home_add.png',
-                onPressed: () {
-                  Get.to(() => const SearchResults());
-                }),
+                onPressed: onPressed),
           ],
         ),
       ),
