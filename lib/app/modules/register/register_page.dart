@@ -49,108 +49,118 @@ class _RegisterPageState extends State<RegisterPage> {
           return quitApp; // return true if the route should be popped; false otherwise
         },
         child: Scaffold(
-            body: Container(
-          padding: const EdgeInsets.all(30),
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 50,
-              ),
-              Image.asset(
-                'assets/images/logo_black.png',
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              Obx(
-                () => Row(
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      child: GestureDetector(
-                        onTap: () {
-                          _controller.jumpToPage(0);
-                        },
-                        child: Text(
-                          'S\'inscrire',
-                          style: _isRegisterPage.value
-                              ? activeStyle
-                              : inactiveStyle,
+            body: Stack(
+          children: [
+            Image.asset(
+              'assets/images/starter.png',
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.cover,
+            ),
+            Container(
+              padding: const EdgeInsets.all(30),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Image.asset(
+                    'assets/images/logo_black.png',
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Obx(
+                    () => Row(
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          child: GestureDetector(
+                            onTap: () {
+                              _controller.jumpToPage(0);
+                            },
+                            child: Text(
+                              'S\'inscrire',
+                              style: _isRegisterPage.value
+                                  ? activeStyle
+                                  : inactiveStyle,
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      child: GestureDetector(
-                        onTap: () {
-                          _controller.jumpToPage(1);
-                        },
-                        child: Text(
-                          'Se connecter',
-                          style: _isRegisterPage.value
-                              ? inactiveStyle
-                              : activeStyle,
+                        const SizedBox(
+                          width: 10,
                         ),
-                      ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          child: GestureDetector(
+                            onTap: () {
+                              _controller.jumpToPage(1);
+                            },
+                            child: Text(
+                              'Se connecter',
+                              style: _isRegisterPage.value
+                                  ? inactiveStyle
+                                  : activeStyle,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              SmoothPageIndicator(
-                  controller: _controller,
-                  count: 2,
-                  effect: ExpandingDotsEffect(
-                    dotColor: Colors.grey,
-                    activeDotColor: Colors.black,
-                    dotHeight: 5,
-                    dotWidth: MediaQuery.of(context).size.width * 0.4,
-                    expansionFactor: 1.01,
-                    spacing: 10,
-                  )),
-              Expanded(
-                child: Obx(
-                  () => PageView(
-                    controller: _controller,
-                    onPageChanged: (index) {
-                      if (index == 0) {
-                        _isRegisterPage.value = true;
-                      } else {
-                        _isRegisterPage.value = false;
-                      }
-                    },
-                    children: [
-                      Get.find<AccountTypeController>()
-                                  .isAccountTypeChosen
-                                  .value ==
-                              false
-                          ? const AccountTypePage()
-                          : Get.find<AccountTypeController>()
+                  ),
+                  SmoothPageIndicator(
+                      controller: _controller,
+                      count: 2,
+                      effect: ExpandingDotsEffect(
+                        dotColor: Colors.grey,
+                        activeDotColor: Colors.black,
+                        dotHeight: 5,
+                        dotWidth: MediaQuery.of(context).size.width * 0.4,
+                        expansionFactor: 1.01,
+                        spacing: 10,
+                      )),
+                  Expanded(
+                    child: Obx(
+                      () => PageView(
+                        controller: _controller,
+                        onPageChanged: (index) {
+                          if (index == 0) {
+                            _isRegisterPage.value = true;
+                          } else {
+                            _isRegisterPage.value = false;
+                          }
+                        },
+                        children: [
+                          Get.find<AccountTypeController>()
                                       .isAccountTypeChosen
-                                      .value &&
-                                  Get.find<AccountTypeController>()
-                                          .selectedIndex
-                                          .value ==
-                                      0
-                              ? const RegisterWidget()
+                                      .value ==
+                                  false
+                              ? const AccountTypePage()
                               : Get.find<AccountTypeController>()
                                           .isAccountTypeChosen
                                           .value &&
                                       Get.find<AccountTypeController>()
                                               .selectedIndex
                                               .value ==
-                                          1
-                                  ? const RegisterProprioWidget()
-                                  : const RegisterArtisanWidget(),
-                      const LoginWidget(),
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
+                                          0
+                                  ? const RegisterWidget()
+                                  : Get.find<AccountTypeController>()
+                                              .isAccountTypeChosen
+                                              .value &&
+                                          Get.find<AccountTypeController>()
+                                                  .selectedIndex
+                                                  .value ==
+                                              1
+                                      ? const RegisterProprioWidget()
+                                      : const RegisterArtisanWidget(),
+                          const LoginWidget(),
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
         )));
   }
 }

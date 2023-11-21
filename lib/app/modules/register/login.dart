@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/data/models/user.dart';
+import 'package:locapay/app/modules/artisans_principal/artisans_principal.dart';
 import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
 import 'package:locapay/app/modules/principal/principal.dart';
 import 'package:locapay/app/modules/proprio_principal/proprio_principal.dart';
@@ -8,6 +9,7 @@ import 'package:locapay/app/modules/register/controllers/account_type_controller
 import 'package:locapay/app/widgets/action_button.dart';
 import 'package:locapay/app/widgets/my_form_field.dart';
 import 'package:locapay/app/data/services/api/api.dart';
+import 'package:locapay/app/widgets/my_form_field_bold.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({super.key});
@@ -27,6 +29,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -37,31 +40,77 @@ class _LoginWidgetState extends State<LoginWidget> {
                 children: <Widget>[
                   const SizedBox(height: 50),
 
-                  MyFormField(
+                  MyFormFieldBold(
+                      leftIcon: "assets/icons/phone_bold.png",
                       controller: emailController,
                       testInputType: TextInputType.text,
-                      hintText: 'email',
+                      hintText: 'téléphone',
                       width: MediaQuery.of(context).size.width * 0.9,
                       hasSepBar: false,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'Please enter your email';
+                          return 'Please enter your phone number';
                         }
                         return null;
                       }),
                   const SizedBox(height: 15),
-                  MyFormField(
-                      controller: passwordController,
-                      testInputType: TextInputType.text,
-                      hintText: 'Mot de passe',
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      hasSepBar: false,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your password';
-                        }
-                        return null;
-                      }),
+                  Obx(
+                    () => MyFormFieldBold(
+                        leftIcon: 'assets/icons/lock_bold.png',
+                        rightIcon: Get.find<AccountTypeController>()
+                                    .hidePassword2
+                                    .value ==
+                                false
+                            ? 'assets/icons/show.png'
+                            : 'assets/icons/hide_bold.png',
+                        onTap: () {
+                          if (Get.find<AccountTypeController>()
+                                  .hidePassword2
+                                  .value ==
+                              true) {
+                            Get.find<AccountTypeController>()
+                                .hidePassword2
+                                .value = false;
+                          } else {
+                            Get.find<AccountTypeController>()
+                                .hidePassword2
+                                .value = true;
+                          }
+                        },
+                        obscureText: Get.find<AccountTypeController>()
+                            .hidePassword2
+                            .value,
+                        controller: passwordController,
+                        testInputType: TextInputType.visiblePassword,
+                        hintText: 'Mot de passe',
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        hasSepBar: false,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your password';
+                          }
+                          return null;
+                        }),
+                  ),
+
+                  const SizedBox(height: 5),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: const Text(
+                      'Mot de passe oublié?',
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: Color(0xFF00DAB7),
+                        fontSize: 12,
+                        fontStyle: FontStyle.italic,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w400,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Color(0xFF00DAB7),
+                        height: 0,
+                      ),
+                    ),
+                  ),
                   const SizedBox(height: 15),
                   //separator line
                   Container(
@@ -97,7 +146,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       .value ==
                                   0
                               ? Get.to(() => const Principal())
-                              : Get.to(() => const ProprioPrincipal());
+                              : Get.find<AccountTypeController>()
+                                          .selectedIndex
+                                          .value ==
+                                      1
+                                  ? Get.to(() => const ProprioPrincipal())
+                                  : Get.to(() => const ArtisansPrincipal());
                         }
                       },
                     ),

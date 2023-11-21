@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:locapay/app/modules/artisans_principal/controllers/artisans_principal_controller.dart';
 import 'package:locapay/app/modules/principal/controllers/principal_controller.dart';
 import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
 import 'package:locapay/app/modules/principal/controllers/wallet_controller.dart';
@@ -29,6 +30,7 @@ void main() async {
   Get.put(TransactionController());
   Get.put(LocationsController());
   Get.put(ProprioPrincipalController());
+  Get.put(ArtisansPrincipalController());
 
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(
