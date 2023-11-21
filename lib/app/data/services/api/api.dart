@@ -4,10 +4,11 @@ import 'package:dio/dio.dart';
 
 class AuthService {
   //add required filePath
+  static const baseUrl = "locapay.sc1cjlx6136.universe.wf/api";
 
   Future login(String phone, String password) async {
     final dio = Dio();
-    const url = "https://locapay.lazonebleue.com/api/login";
+    const url = "$baseUrl/login";
     final headers = {
       "Content-Type": "application/json",
       "Accept": "application/json",
@@ -87,7 +88,7 @@ class AuthService {
 
     try {
       final response = await dio.post(
-        'https://locapay.lazonebleue.com/api/register',
+        '$baseUrl/register',
         data: formData,
         options: Options(
           headers: {

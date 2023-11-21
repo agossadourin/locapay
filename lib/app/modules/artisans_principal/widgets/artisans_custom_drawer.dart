@@ -7,8 +7,11 @@ import 'package:locapay/app/modules/proprio_principal/controllers/proprio_princi
 import '../../register/controllers/file_controller.dart';
 import '../../register/register_page.dart';
 
+// ignore: must_be_immutable
 class ArtisansCustomDrawer extends StatelessWidget {
-  const ArtisansCustomDrawer({super.key});
+  ArtisansCustomDrawer({super.key});
+
+  RxBool isAvailable = true.obs;
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +116,106 @@ class ArtisansCustomDrawer extends StatelessWidget {
                 ],
               ),
             ),
+            /////////////////////////////////////////////////////////////////////
+            Obx(
+              () => Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      isAvailable.value = true;
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 42,
+                      padding: const EdgeInsets.only(left: 30),
+                      decoration: BoxDecoration(
+                          color: isAvailable.value
+                              ? const Color(0xFF00CAAA)
+                              : Colors.transparent),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              height: 17,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Disponible',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: isAvailable.value
+                                          ? Colors.white
+                                          : Colors.black,
+                                      fontSize: 14,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w700,
+                                      height: 0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      isAvailable.value = false;
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      height: 42,
+                      padding: const EdgeInsets.only(left: 30),
+                      decoration: BoxDecoration(
+                          color: isAvailable.value
+                              ? Colors.transparent
+                              : const Color(0xFFFF0202)),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              height: 17,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Indisponible',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: isAvailable.value
+                                          ? Colors.black
+                                          : Colors.white,
+                                      fontSize: 14,
+                                      fontFamily: 'Inter',
+                                      fontWeight: FontWeight.w700,
+                                      height: 0,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ////////////////////////////////////////////////////////////////////
             DrawerElement(
               onTap: () {
                 Get.find<ArtisansPrincipalController>().currentPage.value = 0;

@@ -23,7 +23,7 @@ class ArtisansPrincipal extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       //add background image
-      drawer: const ArtisansCustomDrawer(),
+      drawer: ArtisansCustomDrawer(),
       body: Stack(
         children: [
           SingleChildScrollView(
