@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/principal.dart';
-import 'package:locapay/app/modules/proprio_principal/add_location/add_location.dart';
 import 'package:locapay/app/modules/register/controllers/file_controller.dart';
+import 'package:locapay/app/modules/upload_biometrics/add_sign_picture.dart';
 import 'package:locapay/app/widgets/action_button_2.dart';
 import 'package:locapay/app/widgets/add_photo_widget.dart';
 
@@ -95,16 +95,17 @@ class UploadBiometrics extends StatelessWidget {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.02,
                     ),
-                    const AddPhotoWidget(
-                      isSignature: true,
-                    ),
+                    const AddSignPicture(),
                     ActionButton2(
                       action: 'Charger un document',
                       icon: 'assets/icons/upload.png',
                       onPressed: () {
+                        print('****************************************\n\n');
                         if (Get.find<FileController>().signFile.value != null) {
                           Get.find<FileController>().isSignUploaded.value =
                               true;
+                          print(
+                              Get.find<FileController>().isSignUploaded.value);
                           Get.to(() => const Principal());
                         } else {
                           Get.defaultDialog(
