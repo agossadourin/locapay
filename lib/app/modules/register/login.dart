@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/data/models/user.dart';
@@ -128,30 +129,48 @@ class _LoginWidgetState extends State<LoginWidget> {
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
                           //login
-                          // setState(() {
-                          //   loginInProgress.value = true;
-                          // });
+                          setState(() {
+                            loginInProgress.value = true;
+                          });
 
-                          // var answer = await authService.login(
-                          //     emailController!.text, passwordController!.text);
-                          // setState(() {
-                          //   loginInProgress.value = false;
-                          // });
-                          // print(answer);
-                          // User user = User.fromJson(answer);
-                          // Get.find<UserController>().userData.value = user;
+                          var answer = await authService.login(
+                              emailController!.text, passwordController!.text);
+
+                          setState(() {
+                            loginInProgress.value = false;
+                          });
+                          print(answer);
+                          if (answer is DioException) {
+                            // Handle the exception...
+                            print('Error message: ${answer.message}');
+                            print('Error data: ${answer.response?.data}');
+                            //show alert dialog
+                            Get.defaultDialog(
+                              title: 'Error',
+                              middleText: answer.response!.data.toString(),
+                              onConfirm: () => Get
+                                  .back(), // Navigate back when the confirm button is pressed
+                            );
+                          } else if (answer is Exception) {
+                            // Handle the exception...
+                            print('Error: ${answer.toString()}');
+                            //show alert dialog
+                            Get.defaultDialog(
+                              title: 'Error',
+                              middleText: answer.toString(),
+                              onConfirm: () => Get
+                                  .back(), // Navigate back when the confirm button is pressed
+                            );
+                          } else {
+                            print(answer);
+                            User user = User.fromJson(answer);
+                            Get.find<UserController>().userData.value = user;
+                            if (user.roleId == 1) {
+                              Get.offAll(() => const Principal());
+                            }
+                          }
+
                           // TODO: Implement registration logic
-                          Get.find<AccountTypeController>()
-                                      .selectedIndex
-                                      .value ==
-                                  0
-                              ? Get.to(() => const Principal())
-                              : Get.find<AccountTypeController>()
-                                          .selectedIndex
-                                          .value ==
-                                      1
-                                  ? Get.to(() => const ProprioPrincipal())
-                                  : Get.to(() => const ArtisansPrincipal());
                         }
                       },
                     ),

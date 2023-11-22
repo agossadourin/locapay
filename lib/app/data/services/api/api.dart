@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 
 class AuthService {
   //add required filePath
-  static const baseUrl = "locapay.sc1cjlx6136.universe.wf/api";
+  static const baseUrl = "http://locapay.sc1cjlx6136.universe.wf/api";
 
   Future login(String phone, String password) async {
     final dio = Dio();
@@ -23,6 +23,9 @@ class AuthService {
           headers: headers,
         ),
       );
+      if (response.data["success"] == false) {
+        return Exception(response.data["message"]);
+      }
 
       return response.data['body'];
       // final token = answer[1];

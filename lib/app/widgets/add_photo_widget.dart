@@ -7,7 +7,8 @@ import 'package:locapay/app/modules/register/controllers/file_controller.dart';
 import 'package:path_provider/path_provider.dart';
 
 class AddPhotoWidget extends StatefulWidget {
-  const AddPhotoWidget({super.key});
+  final bool? isSignature;
+  const AddPhotoWidget({super.key, required this.isSignature});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -29,10 +30,15 @@ class _AddPhotoWidgetState extends State<AddPhotoWidget> {
       await pickedFile.readAsBytes().then((data) {
         return tempFile.writeAsBytes(data);
       });
-
-      Get.find<FileController>().biometricFile.value = tempFile;
-      Get.find<FileController>().biometricTempFilePath.value = tempFile.path;
-      Get.find<FileController>().biometricIsUploaded.value = true;
+      if (widget.isSignature == true) {
+        Get.find<FileController>().signFile.value = tempFile;
+        Get.find<FileController>().tempSignFilePath.value = tempFile.path;
+        Get.find<FileController>().isSignUploaded.value = true;
+      } else {
+        Get.find<FileController>().biometricFile.value = tempFile;
+        Get.find<FileController>().biometricTempFilePath.value = tempFile.path;
+        Get.find<FileController>().biometricIsUploaded.value = true;
+      }
     }
   }
 

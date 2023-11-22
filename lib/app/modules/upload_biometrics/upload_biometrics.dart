@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/modules/principal/principal.dart';
 import 'package:locapay/app/modules/proprio_principal/add_location/add_location.dart';
 import 'package:locapay/app/modules/register/controllers/file_controller.dart';
 import 'package:locapay/app/widgets/action_button_2.dart';
 import 'package:locapay/app/widgets/add_photo_widget.dart';
 
-class IdentityCheckPage extends StatelessWidget {
-  const IdentityCheckPage({super.key});
+class UploadBiometrics extends StatelessWidget {
+  const UploadBiometrics({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class IdentityCheckPage extends StatelessWidget {
             children: [
               AppBar(
                 title: const Text(
-                  'Vérification d\'identité',
+                  'Enregistrement de signature',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: Color(0xFF303030),
@@ -63,7 +64,7 @@ class IdentityCheckPage extends StatelessWidget {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.9,
                       child: const Text(
-                        'Avant tout, faites vérifier votre compte en téléchargeant une preuve d’identité.',
+                        'Uploadez une photo de votre signature',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.black,
@@ -95,17 +96,16 @@ class IdentityCheckPage extends StatelessWidget {
                       height: MediaQuery.of(context).size.height * 0.02,
                     ),
                     const AddPhotoWidget(
-                      isSignature: false,
+                      isSignature: true,
                     ),
                     ActionButton2(
                       action: 'Charger un document',
                       icon: 'assets/icons/upload.png',
                       onPressed: () {
-                        if (Get.find<FileController>().biometricFile.value !=
-                            null) {
-                          Get.find<FileController>().biometricIsUploaded.value =
+                        if (Get.find<FileController>().signFile.value != null) {
+                          Get.find<FileController>().isSignUploaded.value =
                               true;
-                          Get.to(() => const AddLocation());
+                          Get.to(() => const Principal());
                         } else {
                           Get.defaultDialog(
                             radius: 10,
@@ -119,7 +119,7 @@ class IdentityCheckPage extends StatelessWidget {
                               height: 0,
                             ),
                             content: const Text(
-                              'Veillez chager une photo de votre pièce d\'identité pour continuer',
+                              'Veillez chager une photo de signature pour continuer',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.black,

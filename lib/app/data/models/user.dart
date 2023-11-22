@@ -41,7 +41,7 @@ class User {
         emailVerifiedAt: json['email_verified_at'],
         phone: json['phone'],
         npi: json['npi'],
-        image: json['image'],
+        image: json['image'] ?? "",
         sexe: json['sexe'],
         roleId: json['role_id'],
         activityId: json['activity_id'],

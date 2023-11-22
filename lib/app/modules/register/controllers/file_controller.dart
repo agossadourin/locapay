@@ -12,18 +12,14 @@ class FileController extends GetxController {
   final RxString biometricTempFilePath = ''.obs;
   final RxBool biometricIsUploaded = false.obs;
 
-  //Rent photos
-  // List<Rx<File?>> rentPhotos = List<Rx<File?>>.generate(
-  //   5, // Specify the initial size of the list
-  //   (index) => Rx<File?>(null), // Initialize each element with Rx<File?>(null)
-  // );
+  //rent
 
   List<Rx<File?>> rentFiles = RxList<Rx<File?>>();
 
   List<RxString> renttempFilePaths = RxList<RxString>();
 
-  // List<RxString> tempFilePaths = List<RxString>.generate(
-  //   5, // Specify the initial size of the list
-  //   (index) => ''.obs, // Initialize each element with an empty RxString
-  // );
+  //signature
+  var signFile = Rx<File?>(null);
+  final RxString tempSignFilePath = ''.obs;
+  final RxBool isSignUploaded = false.obs;
 }

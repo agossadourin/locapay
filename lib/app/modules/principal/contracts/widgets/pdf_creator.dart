@@ -24,6 +24,7 @@ class PdfCreator {
     }
 
     final image = await _loadImage();
+
     pdf.addPage(
       pw.Page(
         build: (context) => pw.Container(

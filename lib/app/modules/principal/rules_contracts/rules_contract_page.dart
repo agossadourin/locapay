@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/contracts/contract_page.dart';
+import 'package:locapay/app/modules/upload_biometrics/upload_biometrics.dart';
 
 import '../contracts/tenants_rules_page.dart';
 
@@ -126,7 +127,9 @@ class RulesContractPage extends StatelessWidget {
           ),
           SizedBox(height: MediaQuery.of(context).size.height * 0.05),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Get.to(() => const UploadBiometrics());
+            },
             child: Container(
               width: MediaQuery.of(context).size.width * 0.8,
               height: 41,

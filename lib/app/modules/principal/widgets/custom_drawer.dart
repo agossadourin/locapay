@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/controllers/principal_controller.dart';
+import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
 import 'package:locapay/app/modules/principal/widgets/drawer_element.dart';
 import 'package:locapay/app/modules/principal/widgets/wallet_widget.dart';
 
@@ -78,12 +79,11 @@ class CustomDrawer extends StatelessWidget {
                                 size: 35,
                               ),
                         const SizedBox(width: 10),
-                        const Column(
+                        Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              //'${Get.find<UserController>().userData.value!.firstname} ${Get.find<UserController>().userData.value!.lastname}',
-                              'ok',
+                              '${Get.find<UserController>().userData.value!.firstname} ${Get.find<UserController>().userData.value!.lastname}',
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 color: Colors.black,
