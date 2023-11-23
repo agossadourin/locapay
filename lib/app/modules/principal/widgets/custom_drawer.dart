@@ -57,7 +57,12 @@ class CustomDrawer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Get.find<FileController>().file.value != null
+                        Get.find<UserController>()
+                                    .userData
+                                    .value!
+                                    .imgUrl
+                                    ?.isNotEmpty ??
+                                false
                             ? Container(
                                 width: 35,
                                 height: 35,

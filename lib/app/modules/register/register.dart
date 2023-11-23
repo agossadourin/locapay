@@ -293,9 +293,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             phoneController!.text,
                             npiController!.text,
                             sexe,
-                            '1',
-                            '1',
-                            '1',
+                            '2',
+                            '',
+                            '',
                             Get.find<FileController>().isUploaded.value
                                 ? Get.find<FileController>().tempFilePath.value
                                 : "",

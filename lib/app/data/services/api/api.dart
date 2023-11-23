@@ -76,11 +76,16 @@ class AuthService {
       ..add(MapEntry('phone', phone))
       ..add(MapEntry('npi', npi))
       ..add(MapEntry('sexe', sexe))
-      ..add(MapEntry('role_id', roleId))
-      ..add(MapEntry('activity_id', activityId))
-      ..add(MapEntry('city_id', cityId));
+      ..add(MapEntry('role_id', roleId));
 
-    filePath != ""
+    if (activityId.isNotEmpty) {
+      formData.fields.add(MapEntry('activity_id', activityId));
+    }
+    if (cityId.isNotEmpty) {
+      formData.fields.add(MapEntry('city_id', cityId));
+    }
+
+    filePath.isNotEmpty
         ? formData.files.add(
             MapEntry(
               'image',
@@ -100,6 +105,12 @@ class AuthService {
           },
         ),
       );
+
+      print("****Artisan test******\n\n");
+      print(response);
+      if (response.data["success"] == false) {
+        return Exception(response.data["message"]);
+      }
       print(response.data);
       return response.data['body'];
 
@@ -120,4 +131,47 @@ class AuthService {
       // show alert dialog with the error
     }
   }
+
+  //Deposit
+
+  Future deposit(
+    String amount,
+    String payerMobileNumber,
+  ) async {
+    var dio = Dio();
+    String reason = "Rechargement";
+
+    try {
+      final response = await dio.get(
+        '$baseUrl/initiate-transaction/$amount/$payerMobileNumber/$reason',
+        options: Options(
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+          },
+        ),
+      );
+      if (response.data["success"] == false) {
+        return Exception(response.data["message"]);
+      }
+      return response.data['body'];
+      // Handle the response...
+    } catch (e) {
+      // print('********DIO**********');
+      // if (e is DioException) {
+      //   print('Error message: ${e.message}');
+      //   print('Error data: ${e.response?.data}');
+      // } else {
+      //   print(e);
+      // }
+      // print('******************');
+      // // Handle dio errors
+      // // Handle dio errors
+
+      return e;
+      // show alert dialog with the error
+    }
+  }
+
+//add location
 }

@@ -111,7 +111,7 @@ class _PdfTestState extends State<PdfTest> {
     ];
 
     file = PdfCreator.generate(testW);
-    final _controller = Completer<PDFViewController>();
+    final controller = Completer<PDFViewController>();
 
     //
     //
@@ -166,7 +166,7 @@ class _PdfTestState extends State<PdfTest> {
                 },
               ),
             ),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 0.8,
               child: Column(
@@ -205,7 +205,7 @@ class _PdfTestState extends State<PdfTest> {
                             // },
                             onViewCreated:
                                 (PDFViewController pdfViewController) {
-                              _controller.complete(pdfViewController);
+                              controller.complete(pdfViewController);
                             },
                             // onPageChanged: (int? page, int? total) {
                             //   print('page change: $page/$total');

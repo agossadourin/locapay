@@ -1,5 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/data/services/api/api.dart';
 import 'package:locapay/app/modules/principal/controllers/wallet_controller.dart';
 import 'package:locapay/app/modules/principal/principal.dart';
 import 'package:locapay/app/modules/proprio_principal/proprio_principal.dart';
@@ -14,6 +16,7 @@ class DepositPage extends StatelessWidget {
 
   final TextEditingController phonecontroller = TextEditingController();
   final TextEditingController amountcontroller = TextEditingController();
+  AuthService authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -189,7 +192,7 @@ class DepositPage extends StatelessWidget {
                                       radius: 10,
                                       titlePadding: const EdgeInsets.all(20),
                                       title:
-                                          'Voulez-vous vraiment payer 33 200 FCFA du loyer ?',
+                                          'Voulez-vous vraiment déposer ${amountcontroller.text} ?',
                                       titleStyle: const TextStyle(
                                         color: Color(0xFF00DAB7),
                                         fontSize: 14,
@@ -212,22 +215,70 @@ class DepositPage extends StatelessWidget {
                                       textConfirm: 'Confirmer',
                                       textCancel: 'Annuler',
                                       confirm: GestureDetector(
-                                        onTap: () {
-                                          Get.find<WalletController>()
-                                                  .balance
-                                                  .value =
-                                              Get.find<WalletController>()
-                                                      .balance
-                                                      .value +
-                                                  int.parse(
-                                                      amountcontroller.text);
-                                          Get.to(() =>
-                                              Get.find<AccountTypeController>()
-                                                          .selectedIndex
-                                                          .value ==
-                                                      0
-                                                  ? const Principal()
-                                                  : const ProprioPrincipal());
+                                        onTap: () async {
+                                          Get.back();
+                                          if (isDeposit!) {
+                                            var answer =
+                                                await authService.deposit(
+                                                    amountcontroller.text,
+                                                    phonecontroller.text);
+
+                                            if (answer is DioException) {
+                                              // Handle the exception...
+                                              print(
+                                                  'Error message: ${answer.message}');
+                                              print(
+                                                  'Error data: ${answer.response?.data}');
+                                              //show alert dialog
+                                              Get.defaultDialog(
+                                                title: 'Error',
+                                                middleText: answer
+                                                    .response!.data
+                                                    .toString(),
+                                                onConfirm: () => Get
+                                                    .back(), // Navigate back when the confirm button is pressed
+                                              );
+                                            } else if (answer is Exception) {
+                                              // Handle the exception...
+                                              print(
+                                                  'Error: ${answer.toString()}');
+                                              //show alert dialog
+                                              Get.defaultDialog(
+                                                title: 'Error',
+                                                middleText: answer.toString(),
+                                                onConfirm: () => Get
+                                                    .back(), // Navigate back when the confirm button is pressed
+                                              );
+                                            } else {
+                                              print(
+                                                  '\n* okok ${answer["amount"]} \n*');
+                                              Get.defaultDialog(
+                                                  title: 'Succès',
+                                                  middleText:
+                                                      " Vous avez éffectué avec succès un dépôt de ${answer["amount"]} FCFA",
+                                                  textConfirm: 'OK',
+                                                  confirmTextColor:
+                                                      const Color(0xFF00DAB7),
+                                                  onConfirm: () {
+                                                    Get.find<WalletController>()
+                                                        .balance
+                                                        .value = Get.find<
+                                                                WalletController>()
+                                                            .balance
+                                                            .value +
+                                                        int.parse(
+                                                            amountcontroller
+                                                                .text);
+                                                    Get.to(() => Get.find<
+                                                                    AccountTypeController>()
+                                                                .selectedIndex
+                                                                .value ==
+                                                            0
+                                                        ? const Principal()
+                                                        : const ProprioPrincipal());
+                                                  });
+                                            }
+                                          }
                                         },
                                         child: Container(
                                           width: 103,

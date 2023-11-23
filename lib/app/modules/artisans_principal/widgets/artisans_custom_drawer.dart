@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/artisans_principal/controllers/artisans_principal_controller.dart';
 import 'package:locapay/app/modules/principal/widgets/drawer_element.dart';
-import 'package:locapay/app/modules/proprio_principal/controllers/proprio_principal_controller.dart';
 
 import '../../register/controllers/file_controller.dart';
 import '../../register/register_page.dart';

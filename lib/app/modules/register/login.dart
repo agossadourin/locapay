@@ -8,7 +8,6 @@ import 'package:locapay/app/modules/principal/principal.dart';
 import 'package:locapay/app/modules/proprio_principal/proprio_principal.dart';
 import 'package:locapay/app/modules/register/controllers/account_type_controller.dart';
 import 'package:locapay/app/widgets/action_button.dart';
-import 'package:locapay/app/widgets/my_form_field.dart';
 import 'package:locapay/app/data/services/api/api.dart';
 import 'package:locapay/app/widgets/my_form_field_bold.dart';
 
@@ -166,6 +165,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                             User user = User.fromJson(answer);
                             Get.find<UserController>().userData.value = user;
                             if (user.roleId == 1) {
+                              Get.offAll(() => const ProprioPrincipal());
+                            } else if (user.roleId == 3) {
+                              Get.offAll(() => const ArtisansPrincipal());
+                            } else {
                               Get.offAll(() => const Principal());
                             }
                           }
