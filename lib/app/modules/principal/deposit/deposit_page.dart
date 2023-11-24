@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/data/services/api/api.dart';
+import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
 import 'package:locapay/app/modules/principal/controllers/wallet_controller.dart';
 import 'package:locapay/app/modules/principal/principal.dart';
 import 'package:locapay/app/modules/proprio_principal/proprio_principal.dart';
@@ -221,7 +222,12 @@ class DepositPage extends StatelessWidget {
                                             var answer =
                                                 await authService.deposit(
                                                     amountcontroller.text,
-                                                    phonecontroller.text);
+                                                    'Recharge',
+                                                    Get.find<UserController>()
+                                                        .userData
+                                                        .value!
+                                                        .token
+                                                        .split("|")[1]);
 
                                             if (answer is DioException) {
                                               // Handle the exception...

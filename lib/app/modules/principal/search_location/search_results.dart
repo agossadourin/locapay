@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:locapay/app/modules/principal/my_locations/controllers/locations_controller.dart';
 import 'package:locapay/app/modules/principal/search_location/item_details.dart';
 import 'package:locapay/app/modules/principal/widgets/filter_button.dart';
 import 'package:locapay/app/modules/register/controllers/locations_data_controller.dart';
@@ -255,8 +254,7 @@ class SearchResults extends StatelessWidget {
                                 locationsController.locationsData[index];
                             return GestureDetector(
                                 onTap: () {
-                                  Get.to(() =>
-                                      ItemDetails(/*location: location*/));
+                                  Get.to(() => ItemDetails(location: location));
                                 },
                                 child: ItemWidget(location: location));
                           },

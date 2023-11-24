@@ -91,13 +91,13 @@ class ItemWidget extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 5.32),
-                const SizedBox(
+                SizedBox(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Note',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -108,11 +108,11 @@ class ItemWidget extends StatelessWidget {
                           height: 0,
                         ),
                       ),
-                      SizedBox(height: 5.32),
+                      const SizedBox(height: 5.32),
                       Text(
-                        '4.8/5',
+                        '${location!.generalRating}/10',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 12.76,
                           fontFamily: 'Inter',
@@ -139,16 +139,16 @@ class ItemWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10.63),
-          const SizedBox(
+          SizedBox(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  '90 000 fcfa',
+                  '${location!.monthlyRent} fcfa',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color(0xFF00DAB7),
                     fontSize: 13.83,
                     fontFamily: 'Inter',
@@ -156,7 +156,7 @@ class ItemWidget extends StatelessWidget {
                     height: 0,
                   ),
                 ),
-                Text(
+                const Text(
                   'Par mois',
                   textAlign: TextAlign.center,
                   style: TextStyle(

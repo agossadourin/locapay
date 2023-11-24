@@ -138,21 +138,24 @@ class AuthService {
 
   Future deposit(
     String amount,
-    String payerMobileNumber,
+    String type,
+    String authorization,
   ) async {
     var dio = Dio();
-    String reason = "Rechargement";
+    String reason = "1";
 
     try {
       final response = await dio.get(
-        '$baseUrl/initiate-transaction/$amount/$payerMobileNumber/$reason',
+        '$baseUrl/initiate-transaction/$amount/$reason/$type',
         options: Options(
           headers: {
             "Content-Type": "application/json",
             "Accept": "application/json",
+            'Authorization': 'Bearer $authorization',
           },
         ),
       );
+      print(response);
       if (response.data["success"] == false) {
         return Exception(response.data["message"]);
       }
