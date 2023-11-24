@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
+import 'package:locapay/app/modules/proprio_principal/add_location/add_location.dart';
 import 'package:locapay/app/modules/proprio_principal/identity_check_page/identity_check_page.dart';
 import 'package:locapay/app/widgets/action_button_2.dart';
 
@@ -31,18 +32,18 @@ class WelcomePage extends StatelessWidget {
               height: 20,
             ),
             ActionButton2(
-              action: Get.find<UserController>().accountType.value == 0
+              action: Get.find<UserController>().userData.value!.roleId == 2
                   ? 'Rechercher une location'
                   : 'Ajouter un bien',
-              icon: Get.find<UserController>().accountType.value == 0
+              icon: Get.find<UserController>().userData.value!.roleId == 2
                   ? 'assets/icons/home_search.png'
                   : 'assets/icons/home_add.png',
               onPressed: () {
-                Get.find<UserController>().accountType.value == 0
+                Get.find<UserController>().userData.value!.roleId == 2
                     ? Get.to(() => const SearchLocation())
                     : Get.find<UserController>().isVerified.value == false
                         ? Get.to(() => const IdentityCheckPage())
-                        : Get.to(() => const SearchLocation());
+                        : Get.to(() => const AddLocation());
               },
             ),
             if (Get.find<UserController>().accountType.value == 0)

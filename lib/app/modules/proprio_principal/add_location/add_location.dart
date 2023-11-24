@@ -1,7 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/data/services/api/api.dart';
+import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
 import 'package:locapay/app/modules/proprio_principal/controllers/proprio_principal_controller.dart';
 import 'package:locapay/app/modules/proprio_principal/proprio_principal.dart';
+import 'package:locapay/app/modules/register/controllers/file_controller.dart';
 import 'package:locapay/app/widgets/action_button_2.dart';
 import 'package:locapay/app/widgets/add_multi_photo_widget.dart';
 import 'package:locapay/app/widgets/my_dropdown_form_field.dart';
@@ -22,7 +26,21 @@ class _AddLocationState extends State<AddLocation> {
   TextEditingController nbreSalonController = TextEditingController();
   TextEditingController margeLoyerController = TextEditingController();
   TextEditingController locationAmountController = TextEditingController();
-  bool isChecked = false;
+  TextEditingController descriptionController = TextEditingController();
+  final loginInProgress = ValueNotifier<bool>(false);
+  AuthService authService = AuthService();
+
+  List<int> mainFeatures = [];
+  List<int> secondaryFeatures = [];
+
+  String city = "";
+  bool p1 = false;
+
+  bool p2 = false;
+  bool p3 = false;
+  bool s1 = false;
+  bool s2 = false;
+  bool s3 = false;
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +169,7 @@ class _AddLocationState extends State<AddLocation> {
             ),
             MyFormField(
                 leftIcon: 'assets/icons/house_black.png',
-                controller: villeController,
+                controller: locationNameController,
                 testInputType: TextInputType.text,
                 hintText: 'Nom de la location',
                 validator: null,
@@ -160,14 +178,69 @@ class _AddLocationState extends State<AddLocation> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.025,
             ),
-            MyFormField(
-                leftIcon: 'assets/icons/home_location.png',
-                controller: villeController,
-                testInputType: TextInputType.text,
-                hintText: 'Localité/Ville',
-                validator: null,
-                width: MediaQuery.of(context).size.width * 0.85,
-                hasSepBar: true),
+            MyDropdownFormField(
+              leftIcon: 'assets/icons/home_location.png',
+              rightIcon: 'assets/icons/arrow_down.png',
+              hintText: 'Ville d\'intervention',
+              hasSepBar: true,
+              items: const [
+                'Akpakpa',
+                'Cadjehoun',
+                'Gbegamey',
+                'Houeyiho',
+                'Fidjrossè',
+                'Agla',
+                'Godomey',
+                'Tanpkè',
+                'Houèto',
+                'Aitchedji'
+              ],
+              width: MediaQuery.of(context).size.width * 0.9,
+              onChanged: (String? value) {
+                if (value == 'Akpakpa') {
+                  setState(() {
+                    city = '1';
+                  });
+                } else if (value == 'Cadjehoun') {
+                  setState(() {
+                    city = '2';
+                  });
+                } else if (value == 'Gbegamey') {
+                  setState(() {
+                    city = '3';
+                  });
+                } else if (value == 'Houeyiho') {
+                  setState(() {
+                    city = '4';
+                  });
+                } else if (value == 'Fidjrossè') {
+                  setState(() {
+                    city = '5';
+                  });
+                } else if (value == 'Agla') {
+                  setState(() {
+                    city = '6';
+                  });
+                } else if (value == 'Godomey') {
+                  setState(() {
+                    city = '7';
+                  });
+                } else if (value == 'Tanpkè') {
+                  setState(() {
+                    city = '8';
+                  });
+                } else if (value == 'Houèto') {
+                  setState(() {
+                    city = '9';
+                  });
+                } else if (value == 'Aitchedji') {
+                  setState(() {
+                    city = '10';
+                  });
+                }
+              },
+            ),
+
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.025,
             ),
@@ -182,7 +255,7 @@ class _AddLocationState extends State<AddLocation> {
             MyDropdownFormField(
                 leftIcon: 'assets/icons/bedroom.png',
                 hintText: 'Nombre de chambres',
-                items: const ['1', '2', '3', '4', '5', '6', '7', '8', '+'],
+                items: const ['1', '2', '3', '4', '5', '6', '7', '8'],
                 onChanged: (String? value) {},
                 width: MediaQuery.of(context).size.width * 0.85,
                 rightIcon: 'assets/icons/arrow_down.png',
@@ -193,7 +266,7 @@ class _AddLocationState extends State<AddLocation> {
             MyDropdownFormField(
                 leftIcon: 'assets/icons/furniture.png',
                 hintText: 'Nombre de salons',
-                items: const ['1', '2', '3', '4', '5', '6', '7', '8', '+'],
+                items: const ['1', '2', '3', '4', '5', '6', '7', '8'],
                 onChanged: (String? value) {},
                 width: MediaQuery.of(context).size.width * 0.85,
                 rightIcon: 'assets/icons/arrow_down.png',
@@ -260,183 +333,20 @@ class _AddLocationState extends State<AddLocation> {
                     ),
                     //checkbox
                     child: Checkbox(
-                      value: isChecked, // Replace with your variable
+                      value: p1, // Replace with your variable
                       onChanged: (bool? value) {
                         // Handle when the checkbox is clicked
                         setState(() {
-                          isChecked = value!; // Replace with your variable
-                        });
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  const Text(
-                    'Simple Entrée-Couchée',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xFF303030),
-                      fontSize: 12,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w600,
-                      height: 0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width * 0.05,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.85,
-              height: 20,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 20,
-                    height: 20,
-                    decoration: const ShapeDecoration(
-                      shape: RoundedRectangleBorder(side: BorderSide.none),
-                    ),
-                    //checkbox
-                    child: Checkbox(
-                      value: isChecked, // Replace with your variable
-                      onChanged: (bool? value) {
-                        // Handle when the checkbox is clicked
-                        setState(() {
-                          isChecked = value!; // Replace with your variable
-                        });
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  const Text(
-                    'Meublée / Equipée',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xFF303030),
-                      fontSize: 12,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w600,
-                      height: 0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width * 0.05,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.85,
-              height: 20,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 20,
-                    height: 20,
-                    decoration: const ShapeDecoration(
-                      shape: RoundedRectangleBorder(side: BorderSide.none),
-                    ),
-                    //checkbox
-                    child: Checkbox(
-                      value: isChecked, // Replace with your variable
-                      onChanged: (bool? value) {
-                        // Handle when the checkbox is clicked
-                        setState(() {
-                          isChecked = value!; // Replace with your variable
-                        });
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  const Text(
-                    'Avec Cuisine & Douche',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xFF303030),
-                      fontSize: 12,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w600,
-                      height: 0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width * 0.05,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.85,
-              height: 20,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 20,
-                    height: 20,
-                    decoration: const ShapeDecoration(
-                      shape: RoundedRectangleBorder(side: BorderSide.none),
-                    ),
-                    //checkbox
-                    child: Checkbox(
-                      value: isChecked, // Replace with your variable
-                      onChanged: (bool? value) {
-                        // Handle when the checkbox is clicked
-                        setState(() {
-                          isChecked = value!; // Replace with your variable
-                        });
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  const Text(
-                    'Ordinaire',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xFF303030),
-                      fontSize: 12,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w600,
-                      height: 0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width * 0.05,
-            ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.85,
-              height: 20,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 20,
-                    height: 20,
-                    decoration: const ShapeDecoration(
-                      shape: RoundedRectangleBorder(side: BorderSide.none),
-                    ),
-                    //checkbox
-                    child: Checkbox(
-                      value: isChecked, // Replace with your variable
-                      onChanged: (bool? value) {
-                        // Handle when the checkbox is clicked
-                        setState(() {
-                          isChecked = value!; // Replace with your variable
+                          p1 = value!; // Replace with your variable
+                          if (p1) {
+                            if (mainFeatures.contains(1) == false) {
+                              mainFeatures.add(1);
+                            }
+                          } else {
+                            if (mainFeatures.contains(1)) {
+                              mainFeatures.remove(1);
+                            }
+                          }
                         });
                       },
                     ),
@@ -475,11 +385,228 @@ class _AddLocationState extends State<AddLocation> {
                     ),
                     //checkbox
                     child: Checkbox(
-                      value: isChecked, // Replace with your variable
+                      value: p2, // Replace with your variable
                       onChanged: (bool? value) {
                         // Handle when the checkbox is clicked
                         setState(() {
-                          isChecked = value!; // Replace with your variable
+                          p2 = value!; // Replace with your variable
+                          if (p2) {
+                            if (mainFeatures.contains(2) == false) {
+                              mainFeatures.add(2);
+                            }
+                          } else {
+                            if (mainFeatures.contains(2)) {
+                              mainFeatures.remove(2);
+                            }
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  const Text(
+                    'Avec douche',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xFF303030),
+                      fontSize: 12,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w600,
+                      height: 0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.width * 0.05,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.85,
+              height: 20,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 20,
+                    height: 20,
+                    decoration: const ShapeDecoration(
+                      shape: RoundedRectangleBorder(side: BorderSide.none),
+                    ),
+                    //checkbox
+                    child: Checkbox(
+                      value: p3, // Replace with your variable
+                      onChanged: (bool? value) {
+                        // Handle when the checkbox is clicked
+                        setState(() {
+                          p3 = value!; // Replace with your variable
+                          if (p3) {
+                            if (mainFeatures.contains(3) == false) {
+                              mainFeatures.add(3);
+                            }
+                          } else {
+                            if (mainFeatures.contains(3)) {
+                              mainFeatures.remove(3);
+                            }
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  const Text(
+                    'Avec arrière cour',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xFF303030),
+                      fontSize: 12,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w600,
+                      height: 0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.width * 0.05,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.85,
+              height: 20,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 20,
+                    height: 20,
+                    decoration: const ShapeDecoration(
+                      shape: RoundedRectangleBorder(side: BorderSide.none),
+                    ),
+                    //checkbox
+                    child: Checkbox(
+                      value: s1, // Replace with your variable
+                      onChanged: (bool? value) {
+                        // Handle when the checkbox is clicked
+                        setState(() {
+                          s1 = value!; // Replace with your variable
+                          if (s1) {
+                            if (secondaryFeatures.contains(1) == false) {
+                              secondaryFeatures.add(1);
+                            }
+                          } else {
+                            if (secondaryFeatures.contains(1)) {
+                              secondaryFeatures.remove(1);
+                            }
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  const Text(
+                    'cuisine',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xFF303030),
+                      fontSize: 12,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w600,
+                      height: 0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.width * 0.05,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.85,
+              height: 20,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 20,
+                    height: 20,
+                    decoration: const ShapeDecoration(
+                      shape: RoundedRectangleBorder(side: BorderSide.none),
+                    ),
+                    //checkbox
+                    child: Checkbox(
+                      value: s2, // Replace with your variable
+                      onChanged: (bool? value) {
+                        // Handle when the checkbox is clicked
+                        setState(() {
+                          s2 = value!; // Replace with your variable
+                          if (s2) {
+                            if (secondaryFeatures.contains(2) == false) {
+                              secondaryFeatures.add(2);
+                            }
+                          } else {
+                            if (secondaryFeatures.contains(2)) {
+                              secondaryFeatures.remove(2);
+                            }
+                          }
+                        });
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  const Text(
+                    'Salle à manger',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Color(0xFF303030),
+                      fontSize: 12,
+                      fontFamily: 'Inter',
+                      fontWeight: FontWeight.w600,
+                      height: 0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.width * 0.05,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.85,
+              height: 20,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 20,
+                    height: 20,
+                    decoration: const ShapeDecoration(
+                      shape: RoundedRectangleBorder(side: BorderSide.none),
+                    ),
+                    //checkbox
+                    child: Checkbox(
+                      value: s3, // Replace with your variable
+                      onChanged: (bool? value) {
+                        // Handle when the checkbox is clicked
+                        setState(() {
+                          s3 = value!; // Replace with your variable
+                          if (s3) {
+                            if (secondaryFeatures.contains(3) == false) {
+                              secondaryFeatures.add(3);
+                            }
+                          } else {
+                            if (secondaryFeatures.contains(3)) {
+                              secondaryFeatures.remove(3);
+                            }
+                          }
                         });
                       },
                     ),
@@ -649,9 +776,10 @@ class _AddLocationState extends State<AddLocation> {
                 color: Color(0xFFE5E5E5),
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
-              child: const TextField(
+              child: TextField(
+                controller: descriptionController,
                 maxLines: 10,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: InputBorder.none,
                   hintText: 'Ecrivez ici',
                   hintStyle: TextStyle(
@@ -754,7 +882,83 @@ class _AddLocationState extends State<AddLocation> {
             ActionButton2(
                 action: 'Ajouter la location',
                 icon: 'assets/icons/home_add.png',
-                onPressed: onPressed),
+                onPressed: () async {
+///////////////////////////////////////////////////////////////
+
+                  setState(() {
+                    loginInProgress.value = true;
+                  });
+                  List<String> galleries = Get.find<FileController>()
+                      .renttempFilePaths
+                      .map((rxString) => rxString.value)
+                      .toList();
+
+                  String input =
+                      Get.find<UserController>().userData.value!.token;
+                  String token = input.split("|")[1];
+                  print('token: $input');
+                  print('token: ${locationNameController.text}');
+                  var answer = await authService.addLocation(
+                      'Maison',
+                      locationNameController.text,
+                      city,
+                      locationAmountController.text,
+                      descriptionController.text,
+                      Get.find<UserController>().userData.value!.phone,
+                      0,
+                      9,
+                      8,
+                      7,
+                      Get.find<UserController>().userData.value!.id,
+                      int.parse(city),
+                      galleries,
+                      mainFeatures,
+                      secondaryFeatures,
+                      token);
+
+                  setState(() {
+                    loginInProgress.value = false;
+                  });
+
+                  if (answer is DioException) {
+                    // Handle the exception...
+                    print('Error message: ${answer.message}');
+                    print('Error data: ${answer.response?.data}');
+                    //show alert dialog
+                    Get.defaultDialog(
+                      title: 'Error',
+                      middleText: answer.response!.data.toString(),
+                      onConfirm: () => Get
+                          .back(), // Navigate back when the confirm button is pressed
+                    );
+                  } else if (answer is Exception) {
+                    // Handle the exception...
+                    print('Error: ${answer.toString()}');
+                    //show alert dialog
+                    Get.defaultDialog(
+                      title: 'Error',
+                      middleText: answer.toString(),
+                      onConfirm: () => Get
+                          .back(), // Navigate back when the confirm button is pressed
+                    );
+                  } else {
+                    Get.find<ProprioPrincipalController>().hasLocation.value =
+                        true;
+                    Get.defaultDialog(
+                      title: 'Succès!',
+                      middleText: 'Votre location a été ajouté avec succès',
+                      onConfirm: () => Get.off(() =>
+                          const ProprioPrincipal()), // Navigate back when the confirm button is pressed
+                    );
+                  }
+
+                  const CircularProgressIndicator();
+//////////////////////////////////////////////////////////////
+                }),
+
+            loginInProgress.value
+                ? const CircularProgressIndicator()
+                : const SizedBox(),
           ],
         ),
       ),
