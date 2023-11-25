@@ -1,6 +1,19 @@
 # locapay
 
-A new Flutter project.
+#visuels de présentation:
+![Texte alternatif](assets/images/logo_black.png)
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Getting Started
 
