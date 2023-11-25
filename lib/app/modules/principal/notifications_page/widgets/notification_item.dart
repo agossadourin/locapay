@@ -219,7 +219,9 @@ class NotificationItem extends StatelessWidget {
                                 children: [
                                   GestureDetector(
                                     onTap: () {
-                                      Get.to(() => ContractPage());
+                                      Get.to(() => ContractPage(
+                                            isSigned: false,
+                                          ));
                                     },
                                     child: const Text(
                                       'Lire le contrat',

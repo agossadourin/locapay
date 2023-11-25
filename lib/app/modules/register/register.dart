@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/data/services/api/api.dart';
+import 'package:locapay/app/modules/principal/controllers/wallet_controller.dart';
 import 'package:locapay/app/modules/principal/principal.dart';
 import 'package:locapay/app/modules/register/controllers/account_type_controller.dart';
 import 'package:locapay/app/modules/register/widgets/add_profile_photo.dart';
@@ -42,6 +43,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -292,9 +294,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             phoneController!.text,
                             npiController!.text,
                             sexe,
-                            '1',
-                            '1',
-                            '1',
+                            '2',
+                            '',
+                            '',
                             Get.find<FileController>().isUploaded.value
                                 ? Get.find<FileController>().tempFilePath.value
                                 : "",
@@ -327,6 +329,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                           } else {
                             User user = User.fromJson(answer);
                             Get.find<UserController>().userData.value = user;
+
                             print(user.token);
                             Get.to(() => const Principal());
                           }

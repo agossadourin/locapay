@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
+import 'package:locapay/app/modules/proprio_principal/add_location/add_location.dart';
+import 'package:locapay/app/modules/proprio_principal/identity_check_page/identity_check_page.dart';
 import 'package:locapay/app/widgets/action_button_2.dart';
 
 import '../../search_location/search_location.dart';
@@ -29,27 +32,36 @@ class WelcomePage extends StatelessWidget {
               height: 20,
             ),
             ActionButton2(
-              action: 'Rechercher une location',
-              icon: 'assets/icons/home_search.png',
+              action: Get.find<UserController>().userData.value!.roleId == 2
+                  ? 'Rechercher une location'
+                  : 'Ajouter un bien',
+              icon: Get.find<UserController>().userData.value!.roleId == 2
+                  ? 'assets/icons/home_search.png'
+                  : 'assets/icons/home_add.png',
               onPressed: () {
-                Get.to(() => const SearchLocation());
+                Get.find<UserController>().userData.value!.roleId == 2
+                    ? Get.to(() => const SearchLocation())
+                    : Get.find<UserController>().isVerified.value == false
+                        ? Get.to(() => const IdentityCheckPage())
+                        : Get.to(() => const AddLocation());
               },
             ),
-            const SizedBox(
-              width: 310,
-              child: Text(
-                'Si vous avez déjà rencontrer un propriétaire, patientez qu\'il lance un contrat de location à votre nom. Une fois cela fait, vous devriez recevoir une notification.',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 13,
-                  fontStyle: FontStyle.italic,
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w300,
-                  height: 0,
+            if (Get.find<UserController>().accountType.value == 0)
+              const SizedBox(
+                width: 310,
+                child: Text(
+                  'Si vous avez déjà rencontré un propriétaire, patientez qu\'il lance un contrat de location à votre nom. Une fois cela fait, vous devriez recevoir une notification.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 13,
+                    fontStyle: FontStyle.italic,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w300,
+                    height: 0,
+                  ),
                 ),
-              ),
-            )
+              )
           ],
         ));
   }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:locapay/app/data/models/location_model.dart';
 
 class ItemWidget extends StatelessWidget {
-  const ItemWidget({super.key});
+  final Location? location;
+  const ItemWidget({super.key, required this.location});
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +40,8 @@ class ItemWidget extends StatelessWidget {
             width: 212.69,
             height: 141.99,
             decoration: ShapeDecoration(
-              image: const DecorationImage(
-                image: AssetImage("assets/images/house.png"),
+              image: DecorationImage(
+                image: NetworkImage(location!.mainImageUrl),
                 fit: BoxFit.fill,
               ),
               shape: RoundedRectangleBorder(
@@ -51,7 +53,7 @@ class ItemWidget extends StatelessWidget {
           Container(
             width: double.infinity,
             padding: const EdgeInsets.symmetric(horizontal: 21.27),
-            child: const Row(
+            child: Row(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,7 +64,7 @@ class ItemWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Maison',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -73,11 +75,11 @@ class ItemWidget extends StatelessWidget {
                           height: 0,
                         ),
                       ),
-                      SizedBox(height: 5.32),
+                      const SizedBox(height: 5.32),
                       Text(
-                        'ADJIBI',
+                        '${location!.propertyLastName} ${location!.propertyFirstName}',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 12.76,
                           fontFamily: 'Inter',
@@ -88,14 +90,14 @@ class ItemWidget extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(width: 5.32),
+                const SizedBox(width: 5.32),
                 SizedBox(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Note',
                         textAlign: TextAlign.center,
                         style: TextStyle(
@@ -106,11 +108,11 @@ class ItemWidget extends StatelessWidget {
                           height: 0,
                         ),
                       ),
-                      SizedBox(height: 5.32),
+                      const SizedBox(height: 5.32),
                       Text(
-                        '4.8/5',
+                        '${location!.generalRating}/10',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 12.76,
                           fontFamily: 'Inter',
@@ -137,16 +139,16 @@ class ItemWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 10.63),
-          const SizedBox(
+          SizedBox(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  '90 000 fcfa',
+                  '${location!.monthlyRent} fcfa',
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Color(0xFF00DAB7),
                     fontSize: 13.83,
                     fontFamily: 'Inter',
@@ -154,7 +156,7 @@ class ItemWidget extends StatelessWidget {
                     height: 0,
                   ),
                 ),
-                Text(
+                const Text(
                   'Par mois',
                   textAlign: TextAlign.center,
                   style: TextStyle(

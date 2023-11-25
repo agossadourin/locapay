@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:locapay/app/data/models/location_model.dart';
 
+// ignore: must_be_immutable
 class PictureViewer extends StatelessWidget {
-  const PictureViewer({super.key});
+  final Location? location;
+  PictureViewer({super.key, required this.location});
+
+  RxString curentImage = ''.obs;
+  RxInt curentIndex = 0.obs;
 
   @override
   Widget build(BuildContext context) {
-    List<String> images = [
-      "assets/images/house.png",
-      "assets/images/house.png",
-      "assets/images/house.png",
-      "assets/images/house.png"
-    ];
     return Container(
       width: MediaQuery.of(context).size.width * 0.85,
       height: MediaQuery.of(context).size.height * 0.38,
@@ -39,16 +40,20 @@ class PictureViewer extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.8,
-            height: MediaQuery.of(context).size.height * 0.22,
-            decoration: ShapeDecoration(
-              image: DecorationImage(
-                image: AssetImage(images[0]),
-                fit: BoxFit.fill,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(21.11),
+          Obx(
+            () => Container(
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.height * 0.22,
+              decoration: ShapeDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(curentImage.isNotEmpty
+                      ? curentImage.value
+                      : location!.mainImageUrl),
+                  fit: BoxFit.fill,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(21.11),
+                ),
               ),
             ),
           ),
@@ -71,25 +76,36 @@ class PictureViewer extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 0.1,
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              child: Row(
-                children: images
-                    .map((image) => Opacity(
-                          opacity: 0.25,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.22,
-                            height: MediaQuery.of(context).size.height * 0.07,
-                            margin: const EdgeInsets.only(right: 12),
-                            decoration: ShapeDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(image),
-                                fit: BoxFit.fill,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5)),
+              child: Obx(
+                () => Row(
+                  children: location!.gallery.asMap().entries.map((entry) {
+                    int index = entry.key;
+                    var image = entry.value;
+                    return Opacity(
+                      opacity: curentIndex.value == index ? 1 : 0.25,
+                      child: GestureDetector(
+                        onTap: () {
+                          curentImage.value = image.imageUrl;
+                          curentIndex.value = index;
+                        },
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.22,
+                          height: MediaQuery.of(context).size.height * 0.07,
+                          margin: const EdgeInsets.only(right: 12),
+                          decoration: ShapeDecoration(
+                            image: DecorationImage(
+                              image: NetworkImage(image.imageUrl),
+                              fit: BoxFit.fill,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
                             ),
                           ),
-                        ))
-                    .toList(),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
               ),
             ),
           )

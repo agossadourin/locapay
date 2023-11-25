@@ -1,6 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/data/services/api/api.dart';
+import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
 import 'package:locapay/app/modules/principal/search_location/search_results.dart';
+import 'package:locapay/app/modules/register/controllers/locations_data_controller.dart';
 import 'package:locapay/app/widgets/action_button_2.dart';
 import 'package:locapay/app/widgets/my_dropdown_form_field.dart';
 import 'package:locapay/app/widgets/my_form_field.dart';
@@ -19,6 +23,8 @@ class _SearchLocationState extends State<SearchLocation> {
   TextEditingController nbreSalonController = TextEditingController();
   TextEditingController margeLoyerController = TextEditingController();
   bool isChecked = false;
+  AuthService authService = AuthService();
+  final loginInProgress = ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {
@@ -433,9 +439,56 @@ class _SearchLocationState extends State<SearchLocation> {
             ActionButton2(
                 action: 'Rechercher',
                 icon: 'assets/icons/home_search.png',
-                onPressed: () {
-                  Get.to(() => const SearchResults());
+                onPressed: () async {
+                  setState(() {
+                    loginInProgress.value = true;
+                  });
+                  String token = Get.find<UserController>()
+                      .userData
+                      .value!
+                      .token
+                      .split("|")[1];
+                  print("token : $token");
+                  var answer = await authService.getAllLocation(token);
+                  setState(() {
+                    loginInProgress.value = false;
+                  });
+
+                  if (answer is DioException) {
+                    // Handle the exception...
+                    print('Error message: $answer');
+
+                    //show alert dialog
+                    Get.defaultDialog(
+                      title: 'Error',
+                      middleText: answer.toString(),
+                      onConfirm: () => Get
+                          .back(), // Navigate back when the confirm button is pressed
+                    );
+                  } else if (answer is Exception) {
+                    // Handle the exception...
+                    print('Error: ${answer.toString()}');
+                    //show alert dialog
+                    Get.defaultDialog(
+                      title: 'Error',
+                      middleText: answer.toString(),
+                      onConfirm: () => Get
+                          .back(), // Navigate back when the confirm button is pressed
+                    );
+                  } else {
+                    print("***********loc data************\n\n");
+                    print("locationsdata: $answer");
+                    print(answer);
+                    Get.find<LocationsDataController>().locationsData.value =
+                        answer;
+                    Get.to(() => const SearchResults());
+                  }
+
+                  const CircularProgressIndicator();
                 }),
+            loginInProgress.value
+                ? const CircularProgressIndicator()
+                : const SizedBox(),
           ],
         ),
       ),

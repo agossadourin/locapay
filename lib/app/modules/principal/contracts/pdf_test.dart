@@ -52,14 +52,6 @@ class _PdfTestState extends State<PdfTest> {
       ),
       pw.Text(
           'La technologie a pris une place\n prépondérante dans nos vies ces dernières années, modifiant en profondeur nos habitudes et notre quotidien. Les smartphones sont devenus des compagnons inséparables qui nous suivent partout, dans nos poches ou au creux de nos mains. Grâce à eux, nous sommes connectés en permanence au monde digital, avec un accès instantané à une masse dinformations inédite dans lhistoire de lhumanité. Les réseaux sociaux nous permettent de partager chaque instant de nos vies et dentretenir le lien avec nos proches, où quils soient. Mais cette hyperconnexion nest pas sans conséquences. Certains dénoncent une forme daddiction qui nous couperait du monde réel, toujours le nez rivé sur nos écrans. Dautres craignent pour la confidentialité de leurs données personnelles, aspirées par les géants du web. Des voix sélèvent également contre les bulles de filtres qui renforceraient nos biais cognitifs, nous enfermant dans des chambres décho idéologiques. Pourtant, refuser par principe les avancées technologiques serait tout aussi dommageable. Lintelligence artificielle recèle des promesses extraordinaires dans le domaine de la santé, avec des systèmes experts capables de poser des diagnostics plus fiables que nimporte quel médecin. Les progrès dans la robotique et lapprentissage machine pourraient également nous libérer des tâches pénibles et répétitives, en déléguant le travail physique à des machines intelligentes.Une chose est sûre, le potentiel de transformation de la révolution numérique est colossal, à la mesure des défis quelle pose.Le développement fulgurant de linternet des objets connectés annonce un monde où chaque élément de notre environnement dialoguera en permanence avec des serveurs distants. Villes, logements, transports, énergie, rien ne sera épargné par cette nouvelle invasion numérique.'),
-      pw.Text(
-          'La technologie a pris une place\n prépondérante dans nos vies ces dernières années, modifiant en profondeur nos habitudes et notre quotidien. Les smartphones sont devenus des compagnons inséparables qui nous suivent partout, dans nos poches ou au creux de nos mains. Grâce à eux, nous sommes connectés en permanence au monde digital, avec un accès instantané à une masse dinformations inédite dans lhistoire de lhumanité. Les réseaux sociaux nous permettent de partager chaque instant de nos vies et dentretenir le lien avec nos proches, où quils soient. Mais cette hyperconnexion nest pas sans conséquences. Certains dénoncent une forme daddiction qui nous couperait du monde réel, toujours le nez rivé sur nos écrans. Dautres craignent pour la confidentialité de leurs données personnelles, aspirées par les géants du web. Des voix sélèvent également contre les bulles de filtres qui renforceraient nos biais cognitifs, nous enfermant dans des chambres décho idéologiques. Pourtant, refuser par principe les avancées technologiques serait tout aussi dommageable. Lintelligence artificielle recèle des promesses extraordinaires dans le domaine de la santé, avec des systèmes experts capables de poser des diagnostics plus fiables que nimporte quel médecin. Les progrès dans la robotique et lapprentissage machine pourraient également nous libérer des tâches pénibles et répétitives, en déléguant le travail physique à des machines intelligentes.Une chose est sûre, le potentiel de transformation de la révolution numérique est colossal, à la mesure des défis quelle pose.Le développement fulgurant de linternet des objets connectés annonce un monde où chaque élément de notre environnement dialoguera en permanence avec des serveurs distants. Villes, logements, transports, énergie, rien ne sera épargné par cette nouvelle invasion numérique.'),
-      pw.Text(
-          'La technologie a pris une place\n prépondérante dans nos vies ces dernières années, modifiant en profondeur nos habitudes et notre quotidien. Les smartphones sont devenus des compagnons inséparables qui nous suivent partout, dans nos poches ou au creux de nos mains. Grâce à eux, nous sommes connectés en permanence au monde digital, avec un accès instantané à une masse dinformations inédite dans lhistoire de lhumanité. Les réseaux sociaux nous permettent de partager chaque instant de nos vies et dentretenir le lien avec nos proches, où quils soient. Mais cette hyperconnexion nest pas sans conséquences. Certains dénoncent une forme daddiction qui nous couperait du monde réel, toujours le nez rivé sur nos écrans. Dautres craignent pour la confidentialité de leurs données personnelles, aspirées par les géants du web. Des voix sélèvent également contre les bulles de filtres qui renforceraient nos biais cognitifs, nous enfermant dans des chambres décho idéologiques. Pourtant, refuser par principe les avancées technologiques serait tout aussi dommageable. Lintelligence artificielle recèle des promesses extraordinaires dans le domaine de la santé, avec des systèmes experts capables de poser des diagnostics plus fiables que nimporte quel médecin. Les progrès dans la robotique et lapprentissage machine pourraient également nous libérer des tâches pénibles et répétitives, en déléguant le travail physique à des machines intelligentes.Une chose est sûre, le potentiel de transformation de la révolution numérique est colossal, à la mesure des défis quelle pose.Le développement fulgurant de linternet des objets connectés annonce un monde où chaque élément de notre environnement dialoguera en permanence avec des serveurs distants. Villes, logements, transports, énergie, rien ne sera épargné par cette nouvelle invasion numérique.'),
-      pw.Text(
-          'La technologie a pris une place\n prépondérante dans nos vies ces dernières années, modifiant en profondeur nos habitudes et notre quotidien. Les smartphones sont devenus des compagnons inséparables qui nous suivent partout, dans nos poches ou au creux de nos mains. Grâce à eux, nous sommes connectés en permanence au monde digital, avec un accès instantané à une masse dinformations inédite dans lhistoire de lhumanité. Les réseaux sociaux nous permettent de partager chaque instant de nos vies et dentretenir le lien avec nos proches, où quils soient. Mais cette hyperconnexion nest pas sans conséquences. Certains dénoncent une forme daddiction qui nous couperait du monde réel, toujours le nez rivé sur nos écrans. Dautres craignent pour la confidentialité de leurs données personnelles, aspirées par les géants du web. Des voix sélèvent également contre les bulles de filtres qui renforceraient nos biais cognitifs, nous enfermant dans des chambres décho idéologiques. Pourtant, refuser par principe les avancées technologiques serait tout aussi dommageable. Lintelligence artificielle recèle des promesses extraordinaires dans le domaine de la santé, avec des systèmes experts capables de poser des diagnostics plus fiables que nimporte quel médecin. Les progrès dans la robotique et lapprentissage machine pourraient également nous libérer des tâches pénibles et répétitives, en déléguant le travail physique à des machines intelligentes.Une chose est sûre, le potentiel de transformation de la révolution numérique est colossal, à la mesure des défis quelle pose.Le développement fulgurant de linternet des objets connectés annonce un monde où chaque élément de notre environnement dialoguera en permanence avec des serveurs distants. Villes, logements, transports, énergie, rien ne sera épargné par cette nouvelle invasion numérique.'),
-      pw.Text(
-          'La technologie a pris une place\n prépondérante dans nos vies ces dernières années, modifiant en profondeur nos habitudes et notre quotidien. Les smartphones sont devenus des compagnons inséparables qui nous suivent partout, dans nos poches ou au creux de nos mains. Grâce à eux, nous sommes connectés en permanence au monde digital, avec un accès instantané à une masse dinformations inédite dans lhistoire de lhumanité. Les réseaux sociaux nous permettent de partager chaque instant de nos vies et dentretenir le lien avec nos proches, où quils soient. Mais cette hyperconnexion nest pas sans conséquences. Certains dénoncent une forme daddiction qui nous couperait du monde réel, toujours le nez rivé sur nos écrans. Dautres craignent pour la confidentialité de leurs données personnelles, aspirées par les géants du web. Des voix sélèvent également contre les bulles de filtres qui renforceraient nos biais cognitifs, nous enfermant dans des chambres décho idéologiques. Pourtant, refuser par principe les avancées technologiques serait tout aussi dommageable. Lintelligence artificielle recèle des promesses extraordinaires dans le domaine de la santé, avec des systèmes experts capables de poser des diagnostics plus fiables que nimporte quel médecin. Les progrès dans la robotique et lapprentissage machine pourraient également nous libérer des tâches pénibles et répétitives, en déléguant le travail physique à des machines intelligentes.Une chose est sûre, le potentiel de transformation de la révolution numérique est colossal, à la mesure des défis quelle pose.Le développement fulgurant de linternet des objets connectés annonce un monde où chaque élément de notre environnement dialoguera en permanence avec des serveurs distants. Villes, logements, transports, énergie, rien ne sera épargné par cette nouvelle invasion numérique.'),
       pw.SizedBox(height: MediaQuery.of(context).size.height * 0.1),
       pw.Row(children: [
         pw.Text(
@@ -70,7 +62,7 @@ class _PdfTestState extends State<PdfTest> {
           ),
         ),
         pw.Text(
-          'Paris',
+          'Cotonou',
           style: pw.TextStyle(
             fontSize: 15,
             fontWeight: pw.FontWeight.normal,
@@ -84,7 +76,7 @@ class _PdfTestState extends State<PdfTest> {
           ),
         ),
         pw.Text(
-          '12/12/2021',
+          '24/11/2023',
           style: pw.TextStyle(
             fontSize: 15,
             fontWeight: pw.FontWeight.normal,
@@ -116,23 +108,10 @@ class _PdfTestState extends State<PdfTest> {
       pw.SizedBox(
         height: MediaQuery.of(context).size.height * 0.05,
       ),
-      pw.Row(mainAxisAlignment: pw.MainAxisAlignment.spaceEvenly, children: [
-        pw.SizedBox(width: MediaQuery.of(context).size.width * 0.4),
-        pw.Container(
-            width: MediaQuery.of(context).size.width * 0.3,
-            height: MediaQuery.of(context).size.height * 0.1,
-            decoration: pw.BoxDecoration(
-              color: PdfColors.yellow,
-              border: pw.Border.all(
-                color: PdfColors.black,
-                width: 5,
-              ),
-            )),
-      ]),
     ];
 
     file = PdfCreator.generate(testW);
-    final _controller = Completer<PDFViewController>();
+    final controller = Completer<PDFViewController>();
 
     //
     //
@@ -187,7 +166,7 @@ class _PdfTestState extends State<PdfTest> {
                 },
               ),
             ),
-            Container(
+            SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 0.8,
               child: Column(
@@ -226,7 +205,7 @@ class _PdfTestState extends State<PdfTest> {
                             // },
                             onViewCreated:
                                 (PDFViewController pdfViewController) {
-                              _controller.complete(pdfViewController);
+                              controller.complete(pdfViewController);
                             },
                             // onPageChanged: (int? page, int? total) {
                             //   print('page change: $page/$total');

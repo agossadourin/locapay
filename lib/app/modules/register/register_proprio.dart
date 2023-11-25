@@ -1,5 +1,12 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/data/models/user.dart';
+import 'package:locapay/app/data/services/api/api.dart';
+import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
+import 'package:locapay/app/modules/principal/principal.dart';
+import 'package:locapay/app/modules/register/controllers/file_controller.dart';
+import 'package:locapay/app/modules/register/widgets/add_profile_photo.dart';
 import 'package:locapay/app/widgets/action_button.dart';
 import 'package:locapay/app/widgets/my_form_field.dart';
 
@@ -26,9 +33,15 @@ class _RegisterProprioWidgetState extends State<RegisterProprioWidget> {
   final TextEditingController? confirmPasswordController =
       TextEditingController();
 
+  String sexe = '';
+  final loginInProgress = ValueNotifier<bool>(false);
+
+  AuthService authService = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
@@ -48,67 +61,69 @@ class _RegisterProprioWidgetState extends State<RegisterProprioWidget> {
                       )),
                   Row(
                     children: [
-                      Image.asset('assets/images/add_photo.png',
-                          width: MediaQuery.of(context).size.width * 0.23),
-                      const SizedBox(height: 3),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          MyFormField(
-                              leftIcon: 'assets/icons/user.png',
-                              controller: firstNameController,
-                              testInputType: TextInputType.text,
-                              hintText: 'Nom',
-                              width: MediaQuery.of(context).size.width * 0.45,
-                              hasSepBar: false,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Entrez votre nom';
-                                }
-                                return null;
-                              }),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.51),
-                          MyFormField(
-                              leftIcon: 'assets/icons/user.png',
-                              controller: lastNameController,
-                              testInputType: TextInputType.text,
-                              hintText: 'Prénom.s',
-                              width: MediaQuery.of(context).size.width * 0.45,
-                              hasSepBar: false,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Entrez votre prénom';
-                                }
-                                return null;
-                              }),
-                          SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.51),
-                          MyFormField(
+                      const AddProfilePhoto(),
+                      // Image.asset('assets/images/add_photo.png',
+                      //     width: MediaQuery.of(context).size.width * 0.23),
+                      const SizedBox(height: 1),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.45,
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            MyFormField(
+                                leftIcon: 'assets/icons/user.png',
+                                controller: firstNameController,
+                                testInputType: TextInputType.text,
+                                hintText: 'Nom',
+                                width: MediaQuery.of(context).size.width * 0.45,
+                                hasSepBar: false,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Entrez votre nom';
+                                  }
+                                  return null;
+                                }),
+                            SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.width * 0.51),
+                            MyFormField(
+                                leftIcon: 'assets/icons/user.png',
+                                controller: lastNameController,
+                                testInputType: TextInputType.text,
+                                hintText: 'Prénom.s',
+                                width: MediaQuery.of(context).size.width * 0.45,
+                                hasSepBar: false,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'Entrez votre prénom';
+                                  }
+                                  return null;
+                                }),
+                            SizedBox(
+                                width:
+                                    MediaQuery.of(context).size.width * 0.51),
+                            MyDropdownFormField(
                               leftIcon: 'assets/icons/Gender.png',
-                              controller: sexController,
-                              testInputType: TextInputType.text,
+                              rightIcon: 'assets/icons/arrow_down.png',
                               hintText: 'Sexe',
-                              width: MediaQuery.of(context).size.width * 0.45,
                               hasSepBar: false,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Entrez votre sexe';
+                              items: const ['M', 'F'],
+                              width: MediaQuery.of(context).size.width * 0.45,
+                              onChanged: (String? value) {
+                                if (value == 'M') {
+                                  setState(() {
+                                    sexe = '1';
+                                  });
+                                } else {
+                                  setState(() {
+                                    sexe = '2';
+                                  });
                                 }
-                                return null;
-                              }),
-                          MyDropdownFormField(
-                            leftIcon: 'assets/icons/Gender.png',
-                            rightIcon: 'assets/icons/arrow_down.png',
-                            hintText: 'Sexe',
-                            hasSepBar: false,
-                            items: const ['M', 'F', 'NB'],
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            onChanged: (String? value) {
-                              print('Selected: $value');
-                            },
-                          ),
-                        ],
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
@@ -123,6 +138,20 @@ class _RegisterProprioWidgetState extends State<RegisterProprioWidget> {
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'Please enter your phone';
+                        }
+                        return null;
+                      }),
+                  const SizedBox(height: 15),
+                  MyFormField(
+                      leftIcon: 'assets/icons/phone.png',
+                      controller: emailController,
+                      testInputType: TextInputType.text,
+                      hintText: 'Email',
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      hasSepBar: false,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'Please enter your email';
                         }
                         return null;
                       }),
@@ -247,15 +276,70 @@ class _RegisterProprioWidgetState extends State<RegisterProprioWidget> {
                     padding: const EdgeInsets.symmetric(vertical: 16.0),
                     child: ActionButton(
                       action: 'Créer', // Pass a string instead of a function
-                      onPressed: () {
+                      onPressed: () async {
                         // Add an onPressed parameter to handle the button press
+
                         if (_formKey.currentState!.validate()) {
                           _formKey.currentState!.save();
-                          // TODO: Implement registration logic
+                          setState(() {
+                            loginInProgress.value = true;
+                          });
+                          var answer = await authService.register(
+                            firstNameController!.text,
+                            lastNameController!.text,
+                            passwordController!.text,
+                            confirmPasswordController!.text,
+                            emailController!.text,
+                            phoneController!.text,
+                            npiController!.text,
+                            sexe,
+                            '1',
+                            '',
+                            '',
+                            Get.find<FileController>().isUploaded.value
+                                ? Get.find<FileController>().tempFilePath.value
+                                : "",
+                          );
+                          setState(() {
+                            loginInProgress.value = false;
+                          });
+
+                          if (answer is DioException) {
+                            // Handle the exception...
+                            print('Error message: ${answer.message}');
+                            print('Error data: ${answer.response?.data}');
+                            //show alert dialog
+                            Get.defaultDialog(
+                              title: 'Error',
+                              middleText: answer.response!.data.toString(),
+                              onConfirm: () => Get
+                                  .back(), // Navigate back when the confirm button is pressed
+                            );
+                          } else if (answer is Exception) {
+                            // Handle the exception...
+                            print('Error: ${answer.toString()}');
+                            //show alert dialog
+                            Get.defaultDialog(
+                              title: 'Error',
+                              middleText: answer.toString(),
+                              onConfirm: () => Get
+                                  .back(), // Navigate back when the confirm button is pressed
+                            );
+                          } else {
+                            print(answer);
+                            User user = User.fromJson(answer);
+                            Get.find<UserController>().userData.value = user;
+                            print(user.token);
+                            Get.to(() => const Principal());
+                          }
                         }
+                        const CircularProgressIndicator();
                       },
                     ),
                   ),
+                  loginInProgress.value
+                      ? const CircularProgressIndicator()
+                      : const SizedBox(),
                 ],
               ),
             )),

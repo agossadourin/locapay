@@ -183,7 +183,7 @@ class Payment extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  '${Get.find<WalletController>().balance!.value}',
+                                  '${Get.find<WalletController>().balance.value}',
                                   textAlign: TextAlign.center,
                                   style: const TextStyle(
                                     color: Color(0xFF00DAB7),
@@ -215,7 +215,7 @@ class Payment extends StatelessWidget {
                                   icon: "assets/icons/dollar.png",
                                   action: "Recharger",
                                   onPressed: () {
-                                    Get.to(() => DepositPage());
+                                    Get.to(() => DepositPage(isDeposit: true));
                                   }),
                             )
                           ],

@@ -14,6 +14,7 @@ class User {
   final String createdAt;
   final String updatedAt;
   final String token;
+  final String? imgUrl;
 
   User(
       {required this.id,
@@ -30,7 +31,8 @@ class User {
       required this.cityId,
       required this.createdAt,
       required this.updatedAt,
-      required this.token});
+      required this.token,
+      required this.imgUrl});
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -41,14 +43,15 @@ class User {
         emailVerifiedAt: json['email_verified_at'],
         phone: json['phone'],
         npi: json['npi'],
-        image: json['image'],
+        image: json['image'] ?? "",
         sexe: json['sexe'],
         roleId: json['role_id'],
-        activityId: json['activity_id'],
-        cityId: json['city_id'],
+        activityId: json['activity_id'] ?? 0,
+        cityId: json['city_id'] ?? 0,
         createdAt: json['created_at'],
         updatedAt: json['updated_at'],
-        token: json['token']);
+        token: json['token'],
+        imgUrl: json['img_url'] ?? "");
   }
 
   Map<String, dynamic> toJson() {

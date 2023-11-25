@@ -19,7 +19,7 @@ class Principal extends StatelessWidget {
     List<String> pageTitles = [
       'Tableau de bord',
       'Modifier mon profil',
-      'Mes locations',
+      'Gestion des locations',
       'Contrats',
       'A propos de LocaPay'
     ];
@@ -92,7 +92,7 @@ class Principal extends StatelessWidget {
                             ? const WelcomePage()
                             : const DashBoardPage()
                         : Get.find<PrincipalController>().currentPage.value == 1
-                            ? const EditProfile()
+                            ? EditProfile()
                             : Get.find<PrincipalController>()
                                         .currentPage
                                         .value ==

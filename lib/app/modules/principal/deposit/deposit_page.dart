@@ -1,16 +1,23 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/data/services/api/api.dart';
+import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
 import 'package:locapay/app/modules/principal/controllers/wallet_controller.dart';
 import 'package:locapay/app/modules/principal/principal.dart';
+import 'package:locapay/app/modules/proprio_principal/proprio_principal.dart';
+import 'package:locapay/app/modules/register/controllers/account_type_controller.dart';
 import 'package:locapay/app/widgets/my_form_field.dart';
 
 import '../../../widgets/action_button.dart';
 
 class DepositPage extends StatelessWidget {
-  DepositPage({super.key});
+  final bool? isDeposit;
+  DepositPage({super.key, required this.isDeposit});
 
   final TextEditingController phonecontroller = TextEditingController();
   final TextEditingController amountcontroller = TextEditingController();
+  AuthService authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +38,10 @@ class DepositPage extends StatelessWidget {
             child: Column(
               children: [
                 AppBar(
-                  title: const Text(
-                    'Recharger mon compte',
+                  title: Text(
+                    isDeposit! ? 'Recharger mon compte' : 'Faire un retrait',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Color(0xFF303030),
                       fontSize: 15,
                       fontFamily: 'Inter',
@@ -77,10 +84,12 @@ class DepositPage extends StatelessWidget {
                             ),
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.7,
-                              child: const Text(
-                                'Numéro de dépot',
+                              child: Text(
+                                isDeposit!
+                                    ? 'Numéro de dépot'
+                                    : 'Numéro  du compte a créditer',
                                 textAlign: TextAlign.start,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontSize: 12,
                                   fontFamily: 'Inter',
@@ -176,13 +185,15 @@ class DepositPage extends StatelessWidget {
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.7,
                               child: ActionButton(
-                                  action: "Faire le dépôt",
+                                  action: isDeposit!
+                                      ? "Faire le dépôt"
+                                      : 'Faire le retrait',
                                   onPressed: () {
                                     Get.defaultDialog(
                                       radius: 10,
                                       titlePadding: const EdgeInsets.all(20),
                                       title:
-                                          'Voulez-vous vraiment payer 33 200 FCFA du loyer ?',
+                                          'Voulez-vous vraiment déposer ${amountcontroller.text} ?',
                                       titleStyle: const TextStyle(
                                         color: Color(0xFF00DAB7),
                                         fontSize: 14,
@@ -205,16 +216,78 @@ class DepositPage extends StatelessWidget {
                                       textConfirm: 'Confirmer',
                                       textCancel: 'Annuler',
                                       confirm: GestureDetector(
-                                        onTap: () {
-                                          Get.find<WalletController>()
-                                                  .balance!
-                                                  .value =
+                                        onTap: () async {
+                                          Get.back();
+                                          if (isDeposit!) {
+                                            var answer =
+                                                await authService.deposit(
+                                                    amountcontroller.text,
+                                                    'Recharge',
+                                                    Get.find<UserController>()
+                                                        .userData
+                                                        .value!
+                                                        .token
+                                                        .split("|")[1]);
+
+                                            if (answer is DioException) {
+                                              // Handle the exception...
+                                              print(
+                                                  'Error message: ${answer.message}');
+                                              print(
+                                                  'Error data: ${answer.response?.data}');
+                                              //show alert dialog
+                                              Get.defaultDialog(
+                                                title: 'Error',
+                                                middleText: answer
+                                                    .response!.data
+                                                    .toString(),
+                                                onConfirm: () => Get
+                                                    .back(), // Navigate back when the confirm button is pressed
+                                              );
+                                            } else if (answer is Exception) {
+                                              // Handle the exception...
+                                              print(
+                                                  'Error: ${answer.toString()}');
+                                              //show alert dialog
+                                              Get.defaultDialog(
+                                                title: 'Error',
+                                                middleText: answer.toString(),
+                                                onConfirm: () => Get
+                                                    .back(), // Navigate back when the confirm button is pressed
+                                              );
+                                            } else {
                                               Get.find<WalletController>()
-                                                      .balance!
-                                                      .value +
-                                                  int.parse(
-                                                      amountcontroller.text);
-                                          Get.to(() => const Principal());
+                                                  .balance
+                                                  .value = answer["balance"];
+                                              print(
+                                                  '\n* okok ${answer["amount"]} \n*');
+                                              Get.defaultDialog(
+                                                  title: 'Succès',
+                                                  middleText:
+                                                      " Vous avez éffectué avec succès un dépôt de ${answer["amount"]} FCFA",
+                                                  textConfirm: 'OK',
+                                                  confirmTextColor:
+                                                      const Color(0xFF00DAB7),
+                                                  onConfirm: () {
+                                                    Get.find<WalletController>()
+                                                        .balance
+                                                        .value = Get.find<
+                                                                WalletController>()
+                                                            .balance
+                                                            .value +
+                                                        int.parse(
+                                                            amountcontroller
+                                                                .text);
+                                                    Get.to(() => Get.find<
+                                                                    AccountTypeController>()
+                                                                .selectedIndex
+                                                                .value ==
+                                                            0
+                                                        ? const Principal()
+                                                        : const ProprioPrincipal());
+                                                  });
+                                            }
+                                          }
                                         },
                                         child: Container(
                                           width: 103,
