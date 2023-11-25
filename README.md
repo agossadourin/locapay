@@ -1,7 +1,10 @@
 # locapay
 
 #visuels de présentation:
-![Texte alternatif](assets/images/logo_black.png)
+![logo locapay](assets/images/logo_black.png)
+
+![visuel proprios](0-visuels-présentation/1 - Proprios.jpg)
+
 
 
 
