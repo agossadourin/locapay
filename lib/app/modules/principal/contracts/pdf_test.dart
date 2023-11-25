@@ -62,7 +62,7 @@ class _PdfTestState extends State<PdfTest> {
           ),
         ),
         pw.Text(
-          'Paris',
+          'Cotonou',
           style: pw.TextStyle(
             fontSize: 15,
             fontWeight: pw.FontWeight.normal,
@@ -76,7 +76,7 @@ class _PdfTestState extends State<PdfTest> {
           ),
         ),
         pw.Text(
-          '12/12/2021',
+          '24/11/2023',
           style: pw.TextStyle(
             fontSize: 15,
             fontWeight: pw.FontWeight.normal,

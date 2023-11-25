@@ -29,6 +29,9 @@ class PdfCreator {
         await rootBundle.load('assets/icons/bill_certification.png');
     final certification = pw.MemoryImage(imageBytes3.buffer.asUint8List());
 
+    final imageBytes4 = await rootBundle.load('assets/images/signature.png');
+    final signature = pw.MemoryImage(imageBytes4.buffer.asUint8List());
+
     final image = await _loadImage();
 
     pdf.addPage(pw.MultiPage(
@@ -44,7 +47,7 @@ class PdfCreator {
             height: 70,
             decoration: pw.BoxDecoration(
               image: pw.DecorationImage(
-                image: image,
+                image: signature,
                 fit: pw.BoxFit.cover,
               ),
             ),

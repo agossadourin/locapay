@@ -256,6 +256,9 @@ class DepositPage extends StatelessWidget {
                                                     .back(), // Navigate back when the confirm button is pressed
                                               );
                                             } else {
+                                              Get.find<WalletController>()
+                                                  .balance
+                                                  .value = answer["balance"];
                                               print(
                                                   '\n* okok ${answer["amount"]} \n*');
                                               Get.defaultDialog(

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:locapay/app/data/models/user.dart';
 import 'package:locapay/app/modules/artisans_principal/artisans_principal.dart';
 import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
+import 'package:locapay/app/modules/principal/controllers/wallet_controller.dart';
 import 'package:locapay/app/modules/principal/principal.dart';
 import 'package:locapay/app/modules/proprio_principal/proprio_principal.dart';
 import 'package:locapay/app/modules/register/controllers/account_type_controller.dart';
@@ -162,6 +163,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                             );
                           } else {
                             print(answer);
+                            Get.find<WalletController>().balance.value =
+                                double.parse(answer['balance']);
                             User user = User.fromJson(answer);
                             Get.find<UserController>().userData.value = user;
                             if (user.roleId == 1) {

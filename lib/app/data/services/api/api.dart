@@ -142,7 +142,7 @@ class AuthService {
     String authorization,
   ) async {
     var dio = Dio();
-    String reason = "1";
+    String reason = "depot";
 
     try {
       final response = await dio.get(
