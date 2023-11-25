@@ -3,10 +3,7 @@
 
 
 #presentation video
-<p align="center">
-  <video src="https://drive.google.com/file/d/1O6OCEaDCW0gl-PMP4qe55KrziK1ddYRB/view?usp=drive_link" width="320" height="240" controls>
-</video>
-</p>
+[Vidéo de présentation](https://drive.google.com/file/d/1O6OCEaDCW0gl-PMP4qe55KrziK1ddYRB/view?usp=drive_link)
 
 
 #visuels de présentation:
