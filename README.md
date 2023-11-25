@@ -1,7 +1,7 @@
 # locapay
 
 #visuels de présentation:
-![Texte alternatif](url_image.jpg)
+![Texte alternatif](assets/images/logo_black.png)
 
 
 
