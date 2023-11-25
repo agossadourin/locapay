@@ -26,9 +26,7 @@
 
 ## Liens utiles
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
 
 - [Vidéos youtube](https://youtu.be/FvUZMTSa3Xo)
 - [Maquette Figma](https://www.figma.com/file/3gHRzdbkQ7MMayEaxPPyiP/LocaPay?type=design&node-id=0%3A1&mode=design&t=EtT0pez9xu4CswOe-1)
