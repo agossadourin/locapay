@@ -3,8 +3,14 @@
 
 
 #visuels de présentation:
+
+##Locataires
 ![visuel proprios](0-visuels-présentation/Locataires.jpg)
+
+##Propriétaires
 ![visuel proprios](0-visuels-présentation/Proprios.jpg)
+
+##Artisans
 ![visuel proprios](0-visuels-présentation/Artisans.jpg)
 
 
