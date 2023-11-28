@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
 import 'package:locapay/app/modules/principal/widgets/drawer_element.dart';
 import 'package:locapay/app/modules/proprio_principal/controllers/proprio_principal_controller.dart';
 
@@ -77,12 +78,11 @@ class ProprioCustomDrawer extends StatelessWidget {
                                 size: 35,
                               ),
                         const SizedBox(width: 10),
-                        const Column(
+                        Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              //'${Get.find<UserController>().userData.value!.firstname} ${Get.find<UserController>().userData.value!.lastname}',
-                              'ok',
+                              '${Get.find<UserController>().userData.value!.firstname} ${Get.find<UserController>().userData.value!.lastname}',
                               textAlign: TextAlign.center,
                               style: const TextStyle(
                                 color: Colors.black,
@@ -191,7 +191,7 @@ class ProprioCustomDrawer extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                     decoration: ShapeDecoration(
-                      color: Color(0xFF00DAB7),
+                      color: const Color(0xFF00DAB7),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -204,6 +204,7 @@ class ProprioCustomDrawer extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             Get.to(() => const RegisterPage());
+                            Get.reset();
                           },
                           child: SizedBox(
                             width: 20,

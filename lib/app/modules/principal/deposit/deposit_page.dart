@@ -1,16 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/data/models/transaction_model.dart';
 import 'package:locapay/app/data/services/api/api.dart';
 import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
 import 'package:locapay/app/modules/principal/controllers/wallet_controller.dart';
 import 'package:locapay/app/modules/principal/principal.dart';
+import 'package:locapay/app/modules/proprio_principal/controllers/proprio_principal_controller.dart';
 import 'package:locapay/app/modules/proprio_principal/proprio_principal.dart';
 import 'package:locapay/app/modules/register/controllers/account_type_controller.dart';
+import 'package:locapay/app/modules/register/controllers/transactions_controller.dart';
 import 'package:locapay/app/widgets/my_form_field.dart';
 
 import '../../../widgets/action_button.dart';
 
+// ignore: must_be_immutable
 class DepositPage extends StatelessWidget {
   final bool? isDeposit;
   DepositPage({super.key, required this.isDeposit});
@@ -257,34 +261,116 @@ class DepositPage extends StatelessWidget {
                                               );
                                             } else {
                                               Get.find<WalletController>()
-                                                  .balance
-                                                  .value = answer["balance"];
-                                              print(
-                                                  '\n* okok ${answer["amount"]} \n*');
+                                                      .balance
+                                                      .value =
+                                                  answer["balance"].toDouble();
+
+                                              TransactionModel transaction =
+                                                  TransactionModel.fromJson(
+                                                      answer);
+
+                                              Get.find<TransactionsController>()
+                                                  .transactions
+                                                  .add(transaction);
+
                                               Get.defaultDialog(
                                                   title: 'Succès',
                                                   middleText:
-                                                      " Vous avez éffectué avec succès un dépôt de ${answer["amount"]} FCFA",
+                                                      " Vous avez éffectué avec succès un dépôt de ${amountcontroller.text} FCFA",
                                                   textConfirm: 'OK',
                                                   confirmTextColor:
                                                       const Color(0xFF00DAB7),
                                                   onConfirm: () {
-                                                    Get.find<WalletController>()
-                                                        .balance
-                                                        .value = Get.find<
-                                                                WalletController>()
-                                                            .balance
-                                                            .value +
-                                                        int.parse(
-                                                            amountcontroller
-                                                                .text);
                                                     Get.to(() => Get.find<
                                                                     AccountTypeController>()
                                                                 .selectedIndex
                                                                 .value ==
-                                                            0
+                                                            1
                                                         ? const Principal()
                                                         : const ProprioPrincipal());
+                                                    print(Get.find<
+                                                            ProprioPrincipalController>()
+                                                        .hasLocation
+                                                        .value);
+                                                  });
+                                            }
+                                          }
+
+                                          ////////////////////
+                                          ///
+                                          if (isDeposit! == false) {
+                                            var answer =
+                                                await authService.deposit(
+                                                    amountcontroller.text,
+                                                    'Retrait',
+                                                    Get.find<UserController>()
+                                                        .userData
+                                                        .value!
+                                                        .token
+                                                        .split("|")[1]);
+
+                                            if (answer is DioException) {
+                                              // Handle the exception...
+                                              print(
+                                                  'Error message: ${answer.message}');
+                                              print(
+                                                  'Error data: ${answer.response?.data}');
+                                              //show alert dialog
+                                              Get.defaultDialog(
+                                                title: 'Error',
+                                                middleText: answer
+                                                    .response!.data
+                                                    .toString(),
+                                                onConfirm: () => Get
+                                                    .back(), // Navigate back when the confirm button is pressed
+                                              );
+                                            } else if (answer is Exception) {
+                                              // Handle the exception...
+                                              print(
+                                                  'Error: ${answer.toString()}');
+                                              //show alert dialog
+                                              Get.defaultDialog(
+                                                title: 'Error',
+                                                middleText: answer.toString(),
+                                                onConfirm: () => Get
+                                                    .back(), // Navigate back when the confirm button is pressed
+                                              );
+                                            } else {
+                                              TransactionModel transaction =
+                                                  TransactionModel.fromJson(
+                                                      answer);
+                                              Get.find<TransactionsController>()
+                                                  .transactions
+                                                  .add(transaction);
+                                              print(
+                                                  "\n\n****************transactions*****************");
+                                              print(Get.find<
+                                                      TransactionsController>()
+                                                  .transactions);
+                                              Get.find<WalletController>()
+                                                      .balance
+                                                      .value =
+                                                  answer["balance"].toDouble();
+
+                                              Get.defaultDialog(
+                                                  title: 'Succès',
+                                                  middleText:
+                                                      " Vous avez éffectué avec succès un retrait de ${amountcontroller.text} FCFA",
+                                                  textConfirm: 'OK',
+                                                  confirmTextColor:
+                                                      const Color(0xFF00DAB7),
+                                                  onConfirm: () {
+                                                    Get.to(() => Get.find<
+                                                                    AccountTypeController>()
+                                                                .selectedIndex
+                                                                .value ==
+                                                            1
+                                                        ? const Principal()
+                                                        : const ProprioPrincipal());
+                                                    print(Get.find<
+                                                            ProprioPrincipalController>()
+                                                        .hasLocation
+                                                        .value);
                                                   });
                                             }
                                           }
