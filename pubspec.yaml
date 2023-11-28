@@ -50,6 +50,8 @@ dependencies:
   open_file: ^3.3.2
   url_launcher: ^6.1.14
   flutter_launcher_icons: ^0.13.1
+  audioplayers_platform_interface: ^6.1.0
+  just_audio: ^0.9.36
 
 dev_dependencies:
   flutter_test:

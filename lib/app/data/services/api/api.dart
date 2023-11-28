@@ -221,14 +221,16 @@ class AuthService {
       for (final gallery in galleries) {
         formData.files.add(MapEntry(
           'galleries[]',
-          await MultipartFile.fromFile(gallery, filename: 'upload.jpg'),
+          await MultipartFile.fromFile(gallery,
+              filename: 'gallery_${DateTime.now().toIso8601String()}.jpg'),
         ));
       }
     }
 
     formData.files.add(MapEntry(
       'main_image',
-      await MultipartFile.fromFile(galleries[0], filename: 'upload.jpg'),
+      await MultipartFile.fromFile(galleries[0],
+          filename: 'gallery_${DateTime.now().toIso8601String()}.jpg'),
     ));
 
     try {
@@ -338,5 +340,26 @@ class AuthService {
       return [];
       // show alert dialog with the error
     }
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////
+//////////////////////////////PRICE READER API///////////////////////////
+//////////////////////////////////////////////////////////////////////////
+
+Future<Response> fongbeReader(String prefix, int amount) async {
+  Dio dio = Dio();
+  print("'https://agossadourin.pythonanywhere.com/read/$prefix/$amount',");
+  try {
+    final response = await dio.get(
+      'https://agossadourin.pythonanywhere.com/read/$prefix/$amount',
+      options: Options(
+        responseType: ResponseType.bytes,
+      ),
+    );
+    return response;
+  } catch (e) {
+    print('Request error: $e');
+    throw e;
   }
 }

@@ -254,6 +254,7 @@ class SearchResults extends StatelessWidget {
                                 locationsController.locationsData[index];
                             return GestureDetector(
                                 onTap: () {
+                                  print(location.mainImageUrl);
                                   Get.to(() => ItemDetails(location: location));
                                 },
                                 child: ItemWidget(location: location));

@@ -1,7 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:locapay/app/data/services/api/api.dart';
 import 'package:locapay/app/modules/principal/payments/controllers/payment_type_controller.dart';
 import 'package:locapay/app/modules/principal/payments/payment_page.dart';
+import 'package:path_provider/path_provider.dart';
 
 class DashBoardWidget extends StatelessWidget {
   const DashBoardWidget({super.key});
@@ -124,20 +129,48 @@ class DashBoardWidget extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              const Column(
+                              Column(
                                 mainAxisSize: MainAxisSize.min,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    '57.500',
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Color(0xFF00DAB7),
-                                      fontSize: 38.45,
-                                      fontFamily: 'Inter',
-                                      fontWeight: FontWeight.w900,
-                                      height: 0,
+                                  GestureDetector(
+                                    onTap: () async {
+                                      try {
+                                        final response =
+                                            await fongbeReader("dette", 57500);
+                                        final bytes = response.data;
+
+                                        // Get the temporary directory
+                                        final directory =
+                                            await getTemporaryDirectory();
+                                        // Create a temporary file with a .wav extension
+                                        final file =
+                                            File('${directory.path}/audio.wav');
+                                        // Write the bytes to the file
+                                        await file.writeAsBytes(bytes);
+
+                                        AudioPlayer player = AudioPlayer();
+                                        AudioSource audioSource =
+                                            AudioSource.uri(
+                                                Uri.parse(file.path));
+                                        await player
+                                            .setAudioSource(audioSource);
+                                        await player.play();
+                                      } catch (e) {
+                                        print('Audio error: $e');
+                                      }
+                                    },
+                                    child: const Text(
+                                      '57.500',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color(0xFF00DAB7),
+                                        fontSize: 38.45,
+                                        fontFamily: 'Inter',
+                                        fontWeight: FontWeight.w900,
+                                        height: 0,
+                                      ),
                                     ),
                                   ),
                                   Text(

@@ -892,6 +892,7 @@ class _AddLocationState extends State<AddLocation> {
                       .renttempFilePaths
                       .map((rxString) => rxString.value)
                       .toList();
+                  print('galleries: $galleries');
 
                   String input =
                       Get.find<UserController>().userData.value!.token;
