@@ -6,7 +6,8 @@ import '../../principal.dart';
 import '../controllers/payment_type_controller.dart';
 
 class PaymentDone extends StatelessWidget {
-  const PaymentDone({super.key});
+  final String? amount;
+  const PaymentDone({super.key, required this.amount});
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +48,12 @@ class PaymentDone extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 15),
-          const SizedBox(
+          SizedBox(
             width: 237,
             child: Text(
-              'Vous venez de payer 33 200 FCFA de votre loyer.\nLe reste à payer a été actualiser',
+              'Vous venez de faire un paiement de ${amount!} .',
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.black,
                 fontSize: 12,
                 fontStyle: FontStyle.italic,

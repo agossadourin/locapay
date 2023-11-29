@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/my_locations/controllers/locations_controller.dart';
 import 'package:locapay/app/modules/principal/my_locations/my_location_details.dart';
 import 'package:locapay/app/modules/principal/my_locations/widgets/location_item.dart';
+import 'package:locapay/app/modules/principal/search_location/search_location.dart';
 import 'package:locapay/app/widgets/rect_action_button.dart';
 
 class MyLocations extends StatelessWidget {
@@ -92,7 +93,9 @@ class MyLocations extends StatelessWidget {
         ),
         RectActionButton(
             action: 'Rechercher une nouvelle location',
-            onPressed: () {},
+            onPressed: () {
+              Get.to(() => const SearchLocation());
+            },
             icon: 'assets/icons/home_search.png')
       ],
     );

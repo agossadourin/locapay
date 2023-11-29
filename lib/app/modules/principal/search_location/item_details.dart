@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/data/models/location_model.dart';
+import 'package:locapay/app/modules/principal/controllers/wallet_controller.dart';
 import 'package:locapay/app/modules/principal/search_location/widgets/charateristics_widget.dart';
 import 'package:locapay/app/modules/principal/widgets/picture_viewer.dart';
 import 'package:locapay/app/widgets/action_button.dart';
@@ -351,6 +352,8 @@ class ItemDetails extends StatelessWidget {
                       ActionButton(
                           action: 'Contacter le propriétaire',
                           onPressed: () {
+                            Get.find<WalletController>().debt.value =
+                                double.parse(location!.monthlyRent);
                             void _launchURL(String phoneNumber) async {
                               String url = 'tel:$phoneNumber';
                               if (await canLaunch(url)) {

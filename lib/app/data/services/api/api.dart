@@ -363,3 +363,20 @@ Future<Response> fongbeReader(String prefix, int amount) async {
     throw e;
   }
 }
+
+Future<Response> nbDaysReader(int number) async {
+  Dio dio = Dio();
+  print("'https://agossadourin.pythonanywhere.com/readnbdays/$number',");
+  try {
+    final response = await dio.get(
+      'https://agossadourin.pythonanywhere.com/readnbdays/$number',
+      options: Options(
+        responseType: ResponseType.bytes,
+      ),
+    );
+    return response;
+  } catch (e) {
+    print('Request error: $e');
+    throw e;
+  }
+}

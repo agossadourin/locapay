@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/data/models/transaction_model.dart';
 import 'package:locapay/app/data/services/api/api.dart';
+import 'package:locapay/app/modules/artisans_principal/artisans_principal.dart';
 import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
 import 'package:locapay/app/modules/principal/controllers/wallet_controller.dart';
 import 'package:locapay/app/modules/principal/principal.dart';
@@ -282,12 +283,19 @@ class DepositPage extends StatelessWidget {
                                                       const Color(0xFF00DAB7),
                                                   onConfirm: () {
                                                     Get.to(() => Get.find<
-                                                                    AccountTypeController>()
-                                                                .selectedIndex
-                                                                .value ==
+                                                                    UserController>()
+                                                                .userData
+                                                                .value
+                                                                ?.roleId ==
                                                             1
-                                                        ? const Principal()
-                                                        : const ProprioPrincipal());
+                                                        ? const ProprioPrincipal()
+                                                        : Get.find<UserController>()
+                                                                    .userData
+                                                                    .value
+                                                                    ?.roleId ==
+                                                                2
+                                                            ? const Principal()
+                                                            : const ArtisansPrincipal());
                                                     print(Get.find<
                                                             ProprioPrincipalController>()
                                                         .hasLocation
@@ -361,16 +369,25 @@ class DepositPage extends StatelessWidget {
                                                       const Color(0xFF00DAB7),
                                                   onConfirm: () {
                                                     Get.to(() => Get.find<
-                                                                    AccountTypeController>()
-                                                                .selectedIndex
-                                                                .value ==
+                                                                    UserController>()
+                                                                .userData
+                                                                .value
+                                                                ?.roleId ==
                                                             1
-                                                        ? const Principal()
-                                                        : const ProprioPrincipal());
+                                                        ? const ProprioPrincipal()
+                                                        : Get.find<UserController>()
+                                                                    .userData
+                                                                    .value
+                                                                    ?.roleId ==
+                                                                2
+                                                            ? const Principal()
+                                                            : const ArtisansPrincipal());
+                                                    print("**\n\n**\n\n**");
                                                     print(Get.find<
-                                                            ProprioPrincipalController>()
-                                                        .hasLocation
-                                                        .value);
+                                                            UserController>()
+                                                        .userData
+                                                        .value
+                                                        ?.roleId);
                                                   });
                                             }
                                           }

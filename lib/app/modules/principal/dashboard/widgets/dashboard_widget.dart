@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:locapay/app/data/services/api/api.dart';
+import 'package:locapay/app/modules/principal/controllers/wallet_controller.dart';
 import 'package:locapay/app/modules/principal/payments/controllers/payment_type_controller.dart';
 import 'package:locapay/app/modules/principal/payments/payment_page.dart';
 import 'package:path_provider/path_provider.dart';
@@ -137,8 +138,12 @@ class DashBoardWidget extends StatelessWidget {
                                   GestureDetector(
                                     onTap: () async {
                                       try {
-                                        final response =
-                                            await fongbeReader("dette", 57500);
+                                        final response = await fongbeReader(
+                                            "dette",
+                                            Get.find<WalletController>()
+                                                .debt
+                                                .value
+                                                .toInt());
                                         final bytes = response.data;
 
                                         // Get the temporary directory
@@ -161,10 +166,12 @@ class DashBoardWidget extends StatelessWidget {
                                         print('Audio error: $e');
                                       }
                                     },
-                                    child: const Text(
-                                      '57.500',
+                                    child: Text(
+                                      Get.find<WalletController>()
+                                          .debt
+                                          .toStringAsFixed(0),
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         color: Color(0xFF00DAB7),
                                         fontSize: 38.45,
                                         fontFamily: 'Inter',
@@ -173,7 +180,7 @@ class DashBoardWidget extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  Text(
+                                  const Text(
                                     'FCFA',
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
@@ -241,7 +248,7 @@ class DashBoardWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Text(
-                                'Novembre',
+                                'Decembre',
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                   color: Color(0xFF303030),
@@ -275,35 +282,67 @@ class DashBoardWidget extends StatelessWidget {
                           borderRadius: BorderRadius.circular(50),
                         ),
                       ),
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Jours restants :',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Color(0xFF303030),
-                              fontSize: 12,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w400,
-                              height: 0,
+                      child: GestureDetector(
+                        onTap: () async {
+                          try {
+                            final response = await nbDaysReader(
+                              // DateTime(2023, 12, 30)
+                              //     .difference(DateTime.now())
+                              //     .inDays
+                              DateTime.now().minute.toInt(),
+                            );
+                            final bytes = response.data;
+
+                            // Get the temporary directory
+                            final directory = await getTemporaryDirectory();
+                            // Create a temporary file with a .wav extension
+                            final file = File('${directory.path}/audio.wav');
+                            // Write the bytes to the file
+                            await file.writeAsBytes(bytes);
+
+                            AudioPlayer player = AudioPlayer();
+                            AudioSource audioSource =
+                                AudioSource.uri(Uri.parse(file.path));
+                            await player.setAudioSource(audioSource);
+                            await player.play();
+                          } catch (e) {
+                            print('Audio error: $e');
+                          }
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            const Text(
+                              'Jours restants :',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Color(0xFF303030),
+                                fontSize: 12,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w400,
+                                height: 0,
+                              ),
                             ),
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            '27',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: Color(0xFF00DAB7),
-                              fontSize: 15,
-                              fontFamily: 'Inter',
-                              fontWeight: FontWeight.w700,
-                              height: 0,
+                            const SizedBox(width: 10),
+                            Text(
+                              // DateTime(2023, 12, 30)
+                              //     .difference(DateTime.now())
+                              //     .inDays
+                              //     .toString(),
+                              DateTime.now().minute.toString(),
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                color: Color(0xFF00DAB7),
+                                fontSize: 15,
+                                fontFamily: 'Inter',
+                                fontWeight: FontWeight.w700,
+                                height: 0,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 10),

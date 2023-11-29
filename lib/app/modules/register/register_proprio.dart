@@ -5,6 +5,7 @@ import 'package:locapay/app/data/models/user.dart';
 import 'package:locapay/app/data/services/api/api.dart';
 import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
 import 'package:locapay/app/modules/principal/principal.dart';
+import 'package:locapay/app/modules/proprio_principal/proprio_principal.dart';
 import 'package:locapay/app/modules/register/controllers/file_controller.dart';
 import 'package:locapay/app/modules/register/widgets/add_profile_photo.dart';
 import 'package:locapay/app/widgets/action_button.dart';
@@ -330,7 +331,7 @@ class _RegisterProprioWidgetState extends State<RegisterProprioWidget> {
                             User user = User.fromJson(answer);
                             Get.find<UserController>().userData.value = user;
                             print(user.token);
-                            Get.to(() => const Principal());
+                            Get.to(() => const ProprioPrincipal());
                           }
                         }
                         const CircularProgressIndicator();

@@ -193,7 +193,6 @@ class CustomDrawer extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             Get.to(() => const RegisterPage());
-                            Get.reset();
                           },
                           child: SizedBox(
                             width: 20,

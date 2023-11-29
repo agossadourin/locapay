@@ -62,7 +62,7 @@ class PaymentType extends StatelessWidget {
                 color: Colors.white,
                 image: DecorationImage(
                   image: AssetImage(iconUrl!), // replace with your image path
-                  fit: BoxFit.fill,
+                  fit: BoxFit.contain,
                 ),
               ),
             ),

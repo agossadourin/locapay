@@ -1,7 +1,13 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:locapay/app/data/models/transaction_model.dart';
+import 'package:locapay/app/data/services/api/api.dart';
+import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
+import 'package:locapay/app/modules/principal/my_locations/controllers/locations_controller.dart';
 import 'package:locapay/app/modules/principal/payments/widgets/payment_done.dart';
 import 'package:locapay/app/modules/principal/payments/widgets/payment_type.dart';
+import 'package:locapay/app/modules/register/controllers/transactions_controller.dart';
 import 'package:locapay/app/widgets/star_rating.dart';
 
 import '../../../../widgets/action_button.dart';
@@ -18,6 +24,7 @@ class Payment extends StatelessWidget {
       {super.key,
       required this.phonecontroller,
       required this.amountcontroller});
+  AuthService authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +84,7 @@ class Payment extends StatelessWidget {
                             },
                             child: PaymentType(
                               title: 'Locapay',
-                              iconUrl: 'assets/images/logo_black.png',
+                              iconUrl: 'assets/icons/AppIcon.png',
                               isSelected: Get.find<PaymentTypeController>()
                                       .selectedIndex
                                       .value ==
@@ -257,9 +264,9 @@ class Payment extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.01,
                 ),
                 Get.find<PaymentTypeController>().paymentType.value == 0
-                    ? const Text(
-                        '25 000 FCFA',
-                        style: TextStyle(
+                    ? Text(
+                        '${Get.find<WalletController>().debt.value} FCFA',
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 40,
                           fontFamily: 'Inter',
@@ -442,23 +449,64 @@ class Payment extends StatelessWidget {
                           textConfirm: 'Confirmer',
                           textCancel: 'Annuler',
                           confirm: GestureDetector(
-                            onTap: () {
-                              Get.find<PaymentTypeController>()
-                                          .paymentType
-                                          .value ==
-                                      0
-                                  ? Get.find<WalletController>()
-                                      .balance!
-                                      .value = Get.find<WalletController>()
-                                          .balance!
-                                          .value -
-                                      25000
-                                  : Get.find<WalletController>()
-                                      .balance!
-                                      .value = Get.find<WalletController>()
-                                          .balance!
-                                          .value -
-                                      int.parse(amountcontroller!.text);
+                            onTap: () async {
+                              if (Get.find<PaymentTypeController>()
+                                      .paymentType
+                                      .value ==
+                                  0) {
+                                Get.find<WalletController>()
+                                    .balance!
+                                    .value = Get.find<WalletController>()
+                                        .balance!
+                                        .value -
+                                    Get.find<WalletController>().debt!.value;
+                              } else {
+                                var answer = await authService.deposit(
+                                    amountcontroller!.text,
+                                    'Retrait',
+                                    Get.find<UserController>()
+                                        .userData
+                                        .value!
+                                        .token
+                                        .split("|")[1]);
+
+                                if (answer is DioException) {
+                                  // Handle the exception...
+                                  print('Error message: ${answer.message}');
+                                  print('Error data: ${answer.response?.data}');
+                                  //show alert dialog
+                                  Get.defaultDialog(
+                                    title: 'Error',
+                                    middleText:
+                                        answer.response!.data.toString(),
+                                    onConfirm: () => Get
+                                        .back(), // Navigate back when the confirm button is pressed
+                                  );
+                                } else if (answer is Exception) {
+                                  // Handle the exception...
+                                  print('Error: ${answer.toString()}');
+                                  //show alert dialog
+                                  Get.defaultDialog(
+                                    title: 'Error',
+                                    middleText: answer.toString(),
+                                    onConfirm: () => Get
+                                        .back(), // Navigate back when the confirm button is pressed
+                                  );
+                                } else {
+                                  TransactionModel transaction =
+                                      TransactionModel.fromJson(answer);
+                                  Get.find<TransactionsController>()
+                                      .transactions
+                                      .add(transaction);
+
+                                  Get.find<WalletController>().balance.value =
+                                      answer["balance"].toDouble();
+                                  Get.find<WalletController>().debt.value =
+                                      Get.find<WalletController>().debt.value -
+                                          double.parse(amountcontroller!.text);
+                                }
+                              }
+
                               Get.back();
                               Get.defaultDialog(
                                 title: '',
@@ -467,7 +515,9 @@ class Payment extends StatelessWidget {
                                 backgroundColor: const Color(
                                     0x03FFFFFF), // white with transparancy of 0.5
                                 radius: 10,
-                                content: const PaymentDone(),
+                                content: PaymentDone(
+                                  amount: amountcontroller?.text,
+                                ),
                               );
                             },
                             child: Container(
