@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:locapay/app/data/models/location_model.dart';
-import 'package:locapay/app/modules/principal/my_locations/widgets/location_item.dart';
 
 class AuthService {
   //add required filePath
@@ -341,7 +340,52 @@ class AuthService {
       // show alert dialog with the error
     }
   }
+
+  Future<String?> getALocation(String token, int id) async {
+    var dio = Dio();
+
+    try {
+      final response = await dio.get(
+        '$baseUrl/properties/$id',
+        options: Options(
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Authorization": 'Bearer $token',
+          },
+        ),
+      );
+      print(response.data['body']);
+      if (response.data["success"] == false) {
+        print(response.data["message"]);
+      }
+      final locationName = response.data['body']['property_last_name'] +
+          '' +
+          ' ' +
+          response.data['body']['property_first_name'];
+
+      return locationName;
+      // Handle the response...
+    } catch (e) {
+      // print('********DIO**********');
+      // if (e is DioException) {
+      //   print('Error message: ${e.message}');
+      //   print('Error data: ${e.response?.data}');
+      // } else {
+      //   print(e);
+      // }
+      // print('******************');
+      // // Handle dio errors
+      // // Handle dio errors
+
+      print(e);
+      return null;
+      // show alert dialog with the error
+    }
+  }
 }
+
+// Show a location
 
 //////////////////////////////////////////////////////////////////////////
 //////////////////////////////PRICE READER API///////////////////////////

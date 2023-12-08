@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/contracts/contract_page.dart';
 import 'package:locapay/app/modules/proprio_principal/add_location/add_location.dart';
+import 'package:locapay/app/modules/proprio_principal/my_locations_pages/qr_genaration_page.dart';
 import 'package:locapay/app/modules/proprio_principal/my_locations_pages/widgets/owner_location_item.dart';
 import 'package:locapay/app/widgets/action_button_2.dart';
 
@@ -93,64 +94,70 @@ class InactiveLocationsMiniPage extends StatelessWidget {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.02,
         ),
-        Container(
-          width: 183,
-          height: 41,
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          decoration: ShapeDecoration(
-            color: const Color(0xFFFF0202),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10),
+        GestureDetector(
+          onTap: () {
+            Get.to(() => QrGenerationPage());
+          },
+          child: Container(
+            width: 183,
+            height: 41,
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            decoration: ShapeDecoration(
+              color: const Color(0xFFFF0202),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              shadows: const [
+                BoxShadow(
+                  color: Color(0x26000000),
+                  blurRadius: 4,
+                  offset: Offset(0, 2),
+                  spreadRadius: 0,
+                )
+              ],
             ),
-            shadows: const [
-              BoxShadow(
-                color: Color(0x26000000),
-                blurRadius: 4,
-                offset: Offset(0, 2),
-                spreadRadius: 0,
-              )
-            ],
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              SizedBox(
-                width: 25,
-                height: 25,
-                child: Stack(
-                  children: [
-                    Positioned(
-                      left: 0,
-                      top: 0,
-                      child: Container(
-                        width: 25,
-                        height: 25,
-                        decoration: const BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage("assets/icons/delete.png"),
-                            fit: BoxFit.fill,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 25,
+                  height: 25,
+                  child: Stack(
+                    children: [
+                      Positioned(
+                        left: 0,
+                        top: 0,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color:
+                                Colors.blue, // Replace with your desired color
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: const Icon(
+                            Icons.qr_code,
+                            color: Colors.white,
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(width: 10),
-              const Text(
-                'Retirer la Location',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontFamily: 'Inter',
-                  fontWeight: FontWeight.w700,
-                  height: 0,
+                const SizedBox(width: 10),
+                const Text(
+                  'QR Code',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w700,
+                    height: 0,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         )
       ],

@@ -49,9 +49,12 @@ dependencies:
   flutter_pdfview: ^1.3.2
   open_file: ^3.3.2
   url_launcher: ^6.1.14
-  flutter_launcher_icons: ^0.13.1
   audioplayers_platform_interface: ^6.1.0
   just_audio: ^0.9.36
+  qr_code_scanner: ^1.0.1
+  mobile_scanner: ^3.5.5
+  flutter_launcher_icons: ^0.13.1
+  qr_flutter: ^4.1.0
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +66,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.1
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

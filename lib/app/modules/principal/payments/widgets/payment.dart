@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:locapay/app/data/models/transaction_model.dart';
 import 'package:locapay/app/data/services/api/api.dart';
 import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
-import 'package:locapay/app/modules/principal/my_locations/controllers/locations_controller.dart';
 import 'package:locapay/app/modules/principal/payments/widgets/payment_done.dart';
 import 'package:locapay/app/modules/principal/payments/widgets/payment_type.dart';
 import 'package:locapay/app/modules/register/controllers/transactions_controller.dart';
@@ -17,6 +16,7 @@ import '../../controllers/wallet_controller.dart';
 import '../../deposit/deposit_page.dart';
 import '../controllers/payment_type_controller.dart';
 
+// ignore: must_be_immutable
 class Payment extends StatelessWidget {
   final TextEditingController? phonecontroller;
   final TextEditingController? amountcontroller;
@@ -454,12 +454,9 @@ class Payment extends StatelessWidget {
                                       .paymentType
                                       .value ==
                                   0) {
-                                Get.find<WalletController>()
-                                    .balance!
-                                    .value = Get.find<WalletController>()
-                                        .balance!
-                                        .value -
-                                    Get.find<WalletController>().debt!.value;
+                                Get.find<WalletController>().balance.value =
+                                    Get.find<WalletController>().balance.value -
+                                        Get.find<WalletController>().debt.value;
                               } else {
                                 var answer = await authService.deposit(
                                     amountcontroller!.text,

@@ -12,7 +12,8 @@ import '../payments/controllers/payment_type_controller.dart';
 
 class ContractPage extends StatelessWidget {
   final bool? isSigned;
-  ContractPage({super.key, required this.isSigned});
+  final String? locationName;
+  ContractPage({super.key, required this.isSigned, required this.locationName});
 
   final LocalAuthentication auth = LocalAuthentication();
 
@@ -116,10 +117,10 @@ class ContractPage extends StatelessWidget {
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.9,
-                      child: const Text(
-                        'Termes du contrat engager par Mr ADJIBI pour la location de sa maison.    Veuillez en prendre connaissance, le signé et payé l’acompte pour entrer en possession de la location.',
+                      child: Text(
+                        'Termes du contrat engager par $locationName pour la location de sa maison.    Veuillez en prendre connaissance, le signé et payé l’acompte pour entrer en possession de la location.',
                         textAlign: TextAlign.center,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 15,
                           fontFamily: 'Inter',

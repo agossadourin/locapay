@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/my_locations/controllers/locations_controller.dart';
+import 'package:locapay/app/modules/principal/my_locations/get_location_page.dart';
 import 'package:locapay/app/modules/principal/my_locations/my_location_details.dart';
 import 'package:locapay/app/modules/principal/my_locations/widgets/location_item.dart';
 import 'package:locapay/app/modules/principal/search_location/search_location.dart';
+import 'package:locapay/app/widgets/action_button.dart';
+import 'package:locapay/app/widgets/action_button_2.dart';
 import 'package:locapay/app/widgets/rect_action_button.dart';
 
 class MyLocations extends StatelessWidget {
@@ -91,12 +94,29 @@ class MyLocations extends StatelessWidget {
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.1,
         ),
-        RectActionButton(
-            action: 'Rechercher une nouvelle location',
-            onPressed: () {
-              Get.to(() => const SearchLocation());
-            },
-            icon: 'assets/icons/home_search.png')
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.42,
+              child: ActionButton2(
+                  action: 'Chercher',
+                  onPressed: () {
+                    Get.to(() => const SearchLocation());
+                  },
+                  icon: 'assets/icons/home_search.png'),
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.42,
+              child: ActionButton2(
+                  action: 'Ajouter',
+                  onPressed: () {
+                    Get.to(() => GetLocationPage());
+                  },
+                  icon: 'assets/icons/home_search.png'),
+            )
+          ],
+        ),
       ],
     );
   }

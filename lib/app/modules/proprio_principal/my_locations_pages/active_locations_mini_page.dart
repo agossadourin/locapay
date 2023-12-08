@@ -84,7 +84,8 @@ class ActiveLocationsMiniPage extends StatelessWidget {
           child: ActionButton2(
             action: 'Contrat',
             onPressed: () {
-              Get.to(() => ContractPage(isSigned: true));
+              Get.to(
+                  () => ContractPage(locationName: " ADJIBI", isSigned: true));
             },
             icon: 'assets/icons/contract.png',
           ),

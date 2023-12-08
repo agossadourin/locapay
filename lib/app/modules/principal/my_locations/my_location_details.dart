@@ -451,7 +451,9 @@ class MyLocationDetails extends StatelessWidget {
                         RectActionButton(
                             action: "Voir le contrat",
                             onPressed: () {
-                              Get.to(() => ContractPage(isSigned: true));
+                              Get.to(() => ContractPage(
+                                  locationName: "ADJOVI Simplice",
+                                  isSigned: true));
                             },
                             icon: 'assets/icons/contract.png'),
                       ],

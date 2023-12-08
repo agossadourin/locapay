@@ -9,7 +9,6 @@ import 'package:locapay/app/modules/principal/contracts/widgets/pdf_creator.dart
 import 'package:locapay/app/modules/principal/principal.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 

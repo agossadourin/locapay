@@ -220,6 +220,7 @@ class NotificationItem extends StatelessWidget {
                                   GestureDetector(
                                     onTap: () {
                                       Get.to(() => ContractPage(
+                                            locationName: "ADJIBI",
                                             isSigned: false,
                                           ));
                                     },

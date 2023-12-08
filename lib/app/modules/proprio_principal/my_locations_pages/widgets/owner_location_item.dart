@@ -235,7 +235,7 @@ class OwnerLocationItem extends StatelessWidget {
                       ),
                       const SizedBox(height: 5),
                       Text(
-                        occupant!,
+                        isOccuped! ? occupant! : "Aucun",
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           color: Color(0xFF00DAB7),

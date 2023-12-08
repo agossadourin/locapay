@@ -73,6 +73,7 @@ class RulesContractPage extends StatelessWidget {
           GestureDetector(
             onTap: () {
               Get.to(() => ContractPage(
+                    locationName: "ADJIBI",
                     isSigned: true,
                   ));
             },
