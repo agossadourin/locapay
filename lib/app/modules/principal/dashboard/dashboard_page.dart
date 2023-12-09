@@ -23,7 +23,9 @@ class DashBoardPage extends StatelessWidget {
               action: 'Services',
               onPressed: () {
                 Get.find<PaymentTypeController>().paymentType.value = 2;
-                Get.to(() => ServicesPage());
+                Get.to(() => ServicesPage(
+                      hasAppBar: true,
+                    ));
               },
               icon: 'assets/icons/services.png'),
           SizedBox(

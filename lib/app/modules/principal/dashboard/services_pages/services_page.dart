@@ -6,7 +6,8 @@ import 'package:locapay/app/modules/principal/dashboard/services_pages/services_
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ServicesPage extends StatelessWidget {
-  ServicesPage({super.key});
+  final bool? hasAppBar;
+  ServicesPage({super.key, required this.hasAppBar});
   final PageController _controller = PageController();
   final TextStyle activeStyle = const TextStyle(
     fontFamily: 'Inter',
@@ -43,36 +44,37 @@ class ServicesPage extends StatelessWidget {
           SingleChildScrollView(
             child: Column(
               children: [
-                AppBar(
-                  title: const Text(
-                    'Services',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Color(0xFF303030),
-                      fontSize: 15,
-                      fontFamily: 'Inter',
-                      fontWeight: FontWeight.w700,
-                      height: 0,
+                if (hasAppBar!)
+                  AppBar(
+                    title: const Text(
+                      'Services',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Color(0xFF303030),
+                        fontSize: 15,
+                        fontFamily: 'Inter',
+                        fontWeight: FontWeight.w700,
+                        height: 0,
+                      ),
+                    ),
+                    centerTitle: true,
+                    // green with opacity of 0.5
+                    backgroundColor:
+                        const Color(0xFF00DBB7), // green with opacity of 0.5
+                    elevation: 0,
+
+                    //menu hamburger with notification button at the right and title centered
+                    leading: Builder(
+                      builder: (BuildContext context) {
+                        return IconButton(
+                          icon: const Icon(Icons.arrow_back),
+                          onPressed: () {
+                            Get.back();
+                          },
+                        );
+                      },
                     ),
                   ),
-                  centerTitle: true,
-                  // green with opacity of 0.5
-                  backgroundColor:
-                      const Color(0xFF00DBB7), // green with opacity of 0.5
-                  elevation: 0,
-
-                  //menu hamburger with notification button at the right and title centered
-                  leading: Builder(
-                    builder: (BuildContext context) {
-                      return IconButton(
-                        icon: const Icon(Icons.arrow_back),
-                        onPressed: () {
-                          Get.back();
-                        },
-                      );
-                    },
-                  ),
-                ),
                 Container(
                   padding: const EdgeInsets.all(30),
                   child: Column(

@@ -106,7 +106,9 @@ class ProprioPrincipal extends StatelessWidget {
                                             .currentPage
                                             .value ==
                                         3
-                                    ? ServicesPage()
+                                    ? ServicesPage(
+                                        hasAppBar: false,
+                                      )
                                     : Get.find<ProprioPrincipalController>()
                                                 .currentPage
                                                 .value ==

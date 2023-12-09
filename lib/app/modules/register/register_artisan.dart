@@ -415,9 +415,7 @@ class _RegisterArtisanWidgetState extends State<RegisterArtisanWidget> {
                             '3',
                             activity,
                             city,
-                            Get.find<FileController>().isUploaded.value
-                                ? Get.find<FileController>().tempFilePath.value
-                                : "",
+                            "",
                           );
 
                           print(answer);

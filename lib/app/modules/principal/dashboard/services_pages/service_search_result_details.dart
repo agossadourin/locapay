@@ -80,7 +80,7 @@ class ServicesSearchResultDetails extends StatelessWidget {
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.8,
                             child: const Text(
-                              'Les meilleurs menuisiers/charpentiers de votre localité, certifiés par LocaPay',
+                              'Les meilleurs artisans de votre localité, certifiés par LocaPay',
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.black,
@@ -342,7 +342,7 @@ class ServicesSearchResultDetails extends StatelessWidget {
                                                 ),
                                                 const SizedBox(width: 5),
                                                 const Text(
-                                                  'Bilan d’exertion ',
+                                                  'Bilan d’exercice ',
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                     color: Color(0xFF161616),

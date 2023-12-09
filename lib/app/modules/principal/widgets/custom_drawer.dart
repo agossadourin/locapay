@@ -1,15 +1,26 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:locapay/app/modules/principal/controllers/principal_controller.dart';
 import 'package:locapay/app/modules/principal/controllers/user_controller.dart';
 import 'package:locapay/app/modules/principal/widgets/drawer_element.dart';
 import 'package:locapay/app/modules/principal/widgets/wallet_widget.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../register/controllers/file_controller.dart';
 import '../../register/register_page.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({super.key});
+
+  Future<String> getImage() async {
+    final prefs = await SharedPreferences.getInstance();
+    final base64Image = prefs.getString('image');
+    // final bytes = base64Decode(base64Image!);
+    // final image = Image.memory(bytes);
+    return base64Image ?? "";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,32 +68,51 @@ class CustomDrawer extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Get.find<UserController>()
-                                    .userData
-                                    .value!
-                                    .imgUrl
-                                    ?.isNotEmpty ??
-                                false
-                            ? Container(
-                                width: 35,
-                                height: 35,
-                                clipBehavior: Clip.antiAlias,
-                                decoration: ShapeDecoration(
-                                  image: DecorationImage(
-                                    image: FileImage(
-                                        Get.find<FileController>().file.value!),
-                                    fit: BoxFit.fill,
-                                  ),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                ),
-                              )
-                            : const Icon(
-                                Icons.account_circle,
-                                color: Colors.grey,
-                                size: 35,
-                              ),
+                        FutureBuilder<String?>(
+                          future: getImage(),
+                          builder: (BuildContext context,
+                              AsyncSnapshot<String?> snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const CircularProgressIndicator();
+                            } else {
+                              if (snapshot.hasError) {
+                                return Text('Error: ${snapshot.error}');
+                              } else {
+                                if (snapshot.data == null ||
+                                    snapshot.data!.isEmpty) {
+                                  // No image data in SharedPreferences
+                                  return const Icon(
+                                    Icons.account_circle,
+                                    color: Colors.grey,
+                                    size: 35,
+                                  );
+                                } else {
+                                  // Convert the base64 string back to bytes
+                                  final bytes = base64Decode(snapshot.data!);
+
+                                  // Create an image from the bytes
+                                  final image = Image.memory(bytes);
+
+                                  return Container(
+                                    width: 35,
+                                    height: 35,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: ShapeDecoration(
+                                      image: DecorationImage(
+                                        image: image.image,
+                                        fit: BoxFit.fill,
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(50),
+                                      ),
+                                    ),
+                                  );
+                                }
+                              }
+                            }
+                          },
+                        ),
                         const SizedBox(width: 10),
                         Column(
                           mainAxisSize: MainAxisSize.min,

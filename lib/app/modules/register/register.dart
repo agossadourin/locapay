@@ -297,9 +297,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             '2',
                             '',
                             '',
-                            Get.find<FileController>().isUploaded.value
-                                ? Get.find<FileController>().tempFilePath.value
-                                : "",
+                            "",
                           );
                           setState(() {
                             loginInProgress.value = false;

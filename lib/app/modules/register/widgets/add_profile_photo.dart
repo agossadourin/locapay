@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../controllers/file_controller.dart';
 
@@ -31,6 +33,10 @@ class _AddProfilePhotoState extends State<AddProfilePhoto> {
         return tempFile.writeAsBytes(data);
       });
 
+      final bytes = await pickedFile.readAsBytes();
+      final base64Image = base64Encode(bytes);
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('image', base64Image);
       Get.find<FileController>().file.value = tempFile;
       Get.find<FileController>().tempFilePath.value = tempFile.path;
       Get.find<FileController>().isUploaded.value = true;
